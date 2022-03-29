@@ -17,20 +17,17 @@
 
 </head>
 <body style="height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction:column; gap: 1.5em">
+    <h1>Welcome to RWA Application Admin</h1>
     <form id="LoginForm" runat="server">
         <div class="form-group">
             <label for="exampleInputEmail1">Username</label>
-            <asp:TextBox ID="txtUserName" CssClass="forom-control" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtUserName" CssClass="forom-control" runat="server" autocomplete="off"></asp:TextBox>
           </div>
-          <div class="form-group">
+        <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <asp:TextBox ID="txtPassword" CssClass="forom-control" TextMode="Password"  runat="server"></asp:TextBox>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-        <asp:Button ID="LoginButton" OnClick="LoginButton_Click" runat="server" CssClass="btn btn-primary" Text="Login" UseSubmitBehavior="true"  />
+        </div>         
+        <asp:Button ID="LoginButton" OnClick="LoginButton_Click" runat="server" CssClass="btn btn-primary" Text="Login" UseSubmitBehavior="true" Width="100%"  />
     </form>
     <asp:Panel ID="PanelError" runat="server">
         <div class='alert alert-danger' role='alert'>

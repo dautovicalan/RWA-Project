@@ -50,9 +50,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Apartments</a></li>
+                        <li><a runat="server" href="~/Apartmens">Apartmens</a></li>
                         <li><a runat="server" href="~/Tags">Tags</a></li>
-                        <li><a runat="server" href="~/Registered">Registered users</a></li>
+                        <li><a runat="server" href="~/RegisteredUsers">Registered users</a></li>
                         <li><asp:Button ID="LogoutButton" OnClick="LogoutButton_Click" runat="server" CssClass="btn btn-primary" Text="Logout" UseSubmitBehavior="false"  /></li>
                     </ul>
                 </div>
