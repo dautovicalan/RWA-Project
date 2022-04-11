@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseRepo.cs" />
-    <Compile Include="IRepo.cs" />
+    <Compile Include="Dal\DatabaseRepo.cs" />
+    <Compile Include="Dal\IRepo.cs" />
+    <Compile Include="Dal\RepoFactory.cs" />
     <Compile Include="Model\Apartment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepoFactory.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
