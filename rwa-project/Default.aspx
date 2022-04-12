@@ -9,7 +9,8 @@
                 Welcome to RWA Application ADMIN Site.
                 Use navigation bar to navigate around admin content
             </p>           
-        </div>        
+        </div>
+        <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>        
     </div>
 
 </asp:Content>

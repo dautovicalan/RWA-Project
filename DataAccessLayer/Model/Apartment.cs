@@ -8,7 +8,7 @@ namespace DataAccessLayer.Model
 {
     public class Apartment
     {
-        public string Guid { get; set; }
+        public Guid Guid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
         public int OwnerId { get; set; }

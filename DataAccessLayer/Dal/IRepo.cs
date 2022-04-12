@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,12 @@ namespace DataAccessLayer.Dal
 {
     public interface IRepo
     {
-        IList<string> GetApartments();
-        void GetApartmentById(int apartmentId);      
+        IList<Apartment> GetApartments();
+        Apartment GetApartmentById(int apartmentId);      
         void CreateApartment();
-        void UpdateApartmentById(int apartmentId);
+        Apartment UpdateApartmentById(int apartmentId);
         void DeleteApartmentById(int aparmentId);
-        IList<string> GetTags();
+        IList<Tag> GetTags();
         void DeleteTagById(int tagId);
         void CreateTag();
 
