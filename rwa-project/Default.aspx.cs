@@ -20,11 +20,12 @@ namespace rwa_project
 
             IRepo repo = RepoFactory.GetRepo();
             IList<Apartment> apartmens = repo.GetApartments();
+            Apartment apartment = repo.GetApartmentById(1);
 
             string init = "";
-            apartmens.ToList().ForEach(apartm => init += apartm.Guid.ToString());
+            //apartmens.ToList().ForEach(apartm => init += $"{apartm.Name} ");
 
-            lblTest.Text = init;
+            lblTest.Text = apartment.NamgeEng;            
         }
     }
 }

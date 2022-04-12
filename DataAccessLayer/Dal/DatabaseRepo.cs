@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -41,7 +42,22 @@ namespace DataAccessLayer.Dal
 
         public Apartment GetApartmentById(int apartmentId)
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetApartmentById", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@id", apartmentId));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return Apartment.ParseFromReader(reader);
+                    }
+                    return new Apartment();
+                }
+            }
         }
 
         public IList<Apartment> GetApartments()
@@ -49,17 +65,15 @@ namespace DataAccessLayer.Dal
             using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                command = new SqlCommand("SELECT * FROM Apartment", connection);
+                command = new SqlCommand("GetApartments", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     IList<Apartment> list = new List<Apartment>();
                     while (reader.Read())
                     {
-                        list.Add(new Apartment
-                        {
-                            Guid = (System.Guid)reader["Guid"]
-                        });
+                        list.Add(Apartment.ParseFromReader(reader));
                     }
                     return list;
                 }

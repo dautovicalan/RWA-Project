@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace DataAccessLayer.Model
 {
     public class Apartment
     {
+        public int Id { get; set; }
         public Guid Guid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
@@ -23,6 +25,29 @@ namespace DataAccessLayer.Model
         public int MaxChildren { get; set; }
         public int TotalRooms { get; set; }
         public int BeachDistance { get; set; }
+
+        public static Apartment ParseFromReader(SqlDataReader row)
+        {
+            return new Apartment
+            {
+                Id = Convert.ToInt32(row["Id"]),
+                Guid = (System.Guid)row["Guid"],
+                //CreatedAt = (System.DateTime)reader["CreatedAt"],
+                //DeletedAt = (System.DateTime)reader["DeletedAt"],
+                OwnerId = Convert.ToInt32(row["OwnerId"]),
+                TypeId = Convert.ToInt32(row["TypeId"]),
+                StatusId = Convert.ToInt32(row["StatusId"]),
+                CityId = Convert.ToInt32(row["CityId"]),
+                Address = Convert.ToString(row["Address"]),
+                Name = Convert.ToString(row["Name"]),
+                NamgeEng = Convert.ToString(row["NameEng"]),
+                Price = Convert.ToDouble(row["Price"]),
+                MaxAdults = Convert.ToInt32(row["MaxAdults"]),
+                MaxChildren = Convert.ToInt32(row["MaxChildren"]),
+                TotalRooms = Convert.ToInt32(row["TotalRooms"]),
+                BeachDistance = Convert.ToInt32(row["BeachDistance"])
+            };
+        }
 
     }
 }
