@@ -45,6 +45,20 @@
     <Compile Include="Dal\IRepo.cs" />
     <Compile Include="Dal\RepoFactory.cs" />
     <Compile Include="Model\Apartment.cs" />
+    <Compile Include="Model\ApartmentOwner.cs" />
+    <Compile Include="Model\ApartmentPicture.cs" />
+    <Compile Include="Model\ApartmentReservation.cs" />
+    <Compile Include="Model\ApartmentReview.cs" />
+    <Compile Include="Model\ApartmentStatus.cs" />
+    <Compile Include="Model\AspNetRoles.cs" />
+    <Compile Include="Model\AspNetUserClaims.cs" />
+    <Compile Include="Model\AspNetUserLogins.cs" />
+    <Compile Include="Model\AspNetUserRoles.cs" />
+    <Compile Include="Model\AspNetUser.cs" />
+    <Compile Include="Model\City.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\TaggedApartment.cs" />
+    <Compile Include="Model\TagType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
