@@ -24,12 +24,13 @@ namespace rwa_project
             IList<Apartment> apartmens = repo.GetApartments();
             Apartment apartment = repo.GetApartmentById(1);
             Apartments = repo.GetApartments().ToList();
+            Tag helloTag = repo.GetTagById(1);
 
             string init = "";
             apartmens.ToList().ForEach(apartm => init += $"{apartm.Name} ");
            
 
-            lblTest.Text = init;            
+            lblTest.Text = helloTag.NameEng;            
         }
     }
 }

@@ -15,8 +15,9 @@ namespace DataAccessLayer.Dal
         Apartment UpdateApartmentById(int apartmentId);
         void DeleteApartmentById(int aparmentId);
         IList<Tag> GetTags();
+        Tag GetTagById(int tagId);
         void DeleteTagById(int tagId);
-        void CreateTag();
+        void CreateTag(Tag tag);
 
     }
 }

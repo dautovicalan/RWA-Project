@@ -25,9 +25,20 @@ namespace DataAccessLayer.Dal
             }
         }
 
-        public void CreateTag()
+        public void CreateTag(Tag tag)
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("CreateTag", connection);
+                command.Parameters.AddWithValue("guid", tag.Guid);
+                command.Parameters.AddWithValue("createdAt", tag.CreatedAt);
+                command.Parameters.AddWithValue("typeId", tag.TypeId);
+                command.Parameters.AddWithValue("name", tag.Name);
+                command.Parameters.AddWithValue("nameEng", tag.NameEng);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
         }
 
         public void DeleteApartmentById(int aparmentId)
@@ -76,6 +87,26 @@ namespace DataAccessLayer.Dal
                         list.Add(Apartment.ParseFromReader(reader));
                     }
                     return list;
+                }
+            }
+        }
+
+        public Tag GetTagById(int tagId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetTagById", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@id", tagId));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return Tag.ParseFromReader(reader);
+                    }
+                    return new Tag();
                 }
             }
         }

@@ -36,7 +36,7 @@
                         <td><%= apartment.Name %></td>
                         <td><%= apartment.Name %></td>
                         <td><%= apartment.Name %></td>
-                        <td><button>Open</button></td>
+                        <td><a href="https://www.google.com">Open</a></td>
                     </tr>
                 <% } %>
             </tbody>
