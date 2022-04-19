@@ -11,6 +11,8 @@ namespace rwa_project
 {
     public partial class _Default : Page
     {
+
+        public List<Apartment> Apartments { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
@@ -21,11 +23,13 @@ namespace rwa_project
             IRepo repo = RepoFactory.GetRepo();
             IList<Apartment> apartmens = repo.GetApartments();
             Apartment apartment = repo.GetApartmentById(1);
+            Apartments = repo.GetApartments().ToList();
 
             string init = "";
-            //apartmens.ToList().ForEach(apartm => init += $"{apartm.Name} ");
+            apartmens.ToList().ForEach(apartm => init += $"{apartm.Name} ");
+           
 
-            lblTest.Text = apartment.NamgeEng;            
+            lblTest.Text = init;            
         }
     }
 }

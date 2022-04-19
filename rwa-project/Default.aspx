@@ -12,5 +12,35 @@
         </div>
         <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>        
     </div>
+    <div class="d-flex">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Adults</th>
+                    <th>Children</th>
+                    <th>Rooms</th>
+                    <th>Pictures</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% foreach (var apartment in Apartments) { %>
+                    <tr>
+                        <td><%= apartment.Name %></td>
+                        <td><%= apartment.CityId %></td>
+                        <td><%= apartment.Name %></td>
+                        <td><%= apartment.Name %></td>
+                        <td><%= apartment.Name %></td>
+                        <td><%= apartment.Name %></td>
+                        <td><%= apartment.Name %></td>
+                        <td><button>Open</button></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>      
+    </div>
 
 </asp:Content>

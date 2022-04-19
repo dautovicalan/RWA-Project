@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer.Dal
 {
-    internal class DatabaseRepo : IRepo
+    public class DatabaseRepo : IRepo
     {
         private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
 
@@ -82,7 +82,22 @@ namespace DataAccessLayer.Dal
 
         public IList<Tag> GetTags()
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetTags", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<Tag> tags = new List<Tag>();
+                    while (reader.Read())
+                    {
+                        tags.Add(Tag.ParseFromReader(reader));
+                    }
+                    return tags;
+                }
+            }
         }
 
         public Apartment UpdateApartmentById(int apartmentId)
