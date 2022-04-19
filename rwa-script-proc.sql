@@ -41,4 +41,6 @@ END
 	
 SELECT * FROM TagType
 
+SELECT COUNT(*) FROM TaggedApartment WHERE TagId = 2
+
 EXEC GetTagById 1

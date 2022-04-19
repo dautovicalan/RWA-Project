@@ -3,18 +3,15 @@
 <asp:Content ID="AddTagForm" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="TagName">Tag name:</label>
+        <asp:TextBox ID="TagName" runat="server" CssClass="form-control"></asp:TextBox>
+        <asp:RequiredFieldValidator ControlToValidate="TagName" ID="ValidatorTagName" ForeColor="Red" runat="server" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="TagEnglishName">Enter tag english name:</label>
+        <asp:TextBox ID="TagEnglishName" runat="server" CssClass="form-control"></asp:TextBox>
+        <asp:RequiredFieldValidator ControlToValidate="TagEnglishName" ID="ValidatorTagEnglishName" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-
+    <asp:Button ID="SubmitButton" UseSubmitBehavior="true" CssClass="btn btn-primary" runat="server" Text="Add new Tag" OnClick="SubmitButton_Click" />
 </asp:Content>
+

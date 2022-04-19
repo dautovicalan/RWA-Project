@@ -3,13 +3,8 @@
     <p>Ja sam tagovi neki kao</p>
     <div class="d-flex">
         <h2>Tags</h2>
-        <ul>
-            <% foreach (var singleTag in MyTags) { %>
-               <li>
-                   <%= singleTag.Name %>
-               </li>
-              <%  } %>
-        </ul>
+        <asp:BulletedList ID="TagList" runat="server">
+        </asp:BulletedList>
         <asp:Button ID="AddNewTagButton" CssClass="btn btn-primary" runat="server" Text="Add new Tag" OnClick="AddNewTagButton_Click" />
     </div>
 </asp:Content>
