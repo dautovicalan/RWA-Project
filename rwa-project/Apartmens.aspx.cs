@@ -15,10 +15,10 @@ namespace rwa_project
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null)
-            {
-                Response.Redirect("Login.aspx");
-            }
+            //if (Session["user"] == null)
+            //{
+            //    Response.Redirect("Login.aspx");
+            //}
 
             IRepo repo = RepoFactory.GetRepo();
             Apartments = repo.GetApartments().ToList();

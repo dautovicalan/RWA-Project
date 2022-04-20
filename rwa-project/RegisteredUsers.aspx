@@ -23,6 +23,6 @@
                     </tr>
                 <% } %>
             </tbody>
-        </table>  
+        </table>
     </div>
 </asp:Content>
