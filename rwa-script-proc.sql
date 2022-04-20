@@ -51,3 +51,5 @@ AS
 BEGIN
 	SELECT * FROM AspNetUsers
 END
+
+SELECT * FROM ApartmentStatus
