@@ -24,5 +24,10 @@ namespace rwa_project
             Apartments = repo.GetApartments().ToList();
 
         }
+
+        protected void AddNewApartment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddApartment.aspx");
+        }
     }
 }

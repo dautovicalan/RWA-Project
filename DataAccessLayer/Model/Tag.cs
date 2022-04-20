@@ -34,7 +34,7 @@ namespace DataAccessLayer.Model
 
         private static int GetTagCount(int tagId)
         {
-            using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True"))
+            using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True"))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("TagCount", connection);

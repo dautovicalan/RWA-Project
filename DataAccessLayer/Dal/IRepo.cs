@@ -14,12 +14,17 @@ namespace DataAccessLayer.Dal
         void CreateApartment();
         Apartment UpdateApartmentById(int apartmentId);
         void DeleteApartmentById(int aparmentId);
+        IList<ApartmentStatus> GetApartmentStatuses();
+        IList<ApartmentOwner> GetApartmentOwners();
         IList<Tag> GetTags();
         Tag GetTagById(int tagId);
         void DeleteTagById(int tagId);
         void CreateTag(Tag tag);
 
         IList<AspNetUser> GetAspNetUsers();
+
+
+        IList<City> GetCitys();
 
     }
 }

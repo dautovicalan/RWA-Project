@@ -77,6 +77,6 @@
                 <% } %>
             </tbody>
         </table>
-        <asp:Button ID="AddNewApartment" runat="server" Text="Add" />
+        <asp:Button ID="AddNewApartment" runat="server" Text="Add" OnClick="AddNewApartment_Click"/>
     </div>
 </asp:Content>

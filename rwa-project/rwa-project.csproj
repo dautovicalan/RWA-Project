@@ -99,6 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddApartment.aspx" />
     <Content Include="AddTag.aspx" />
     <Content Include="Apartmens.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -107,6 +108,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="ErrorPage.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -156,6 +158,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddApartment.aspx.cs">
+      <DependentUpon>AddApartment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddApartment.aspx.designer.cs">
+      <DependentUpon>AddApartment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddTag.aspx.cs">
       <DependentUpon>AddTag.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -178,6 +187,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

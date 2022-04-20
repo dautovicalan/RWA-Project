@@ -8,7 +8,7 @@ namespace DataAccessLayer.Dal
 {
     public class DatabaseRepo : IRepo
     {
-        private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -71,6 +71,26 @@ namespace DataAccessLayer.Dal
             }
         }
 
+        public IList<ApartmentOwner> GetApartmentOwners()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetApartmentOwners", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<ApartmentOwner> list = new List<ApartmentOwner>();
+                    while (reader.Read())
+                    {
+                        list.Add(ApartmentOwner.ParseFromReader(reader));
+                    }
+                    return list;
+                }
+            }
+        }
+
         public IList<Apartment> GetApartments()
         {
             using (connection = new SqlConnection(connectionString))
@@ -91,6 +111,26 @@ namespace DataAccessLayer.Dal
             }
         }
 
+        public IList<ApartmentStatus> GetApartmentStatuses()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetApartmentStatuses", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<ApartmentStatus> apartStatuses = new List<ApartmentStatus>();
+                    while (reader.Read())
+                    {
+                        apartStatuses.Add(ApartmentStatus.ParseFromReader(reader));
+                    }
+                    return apartStatuses;
+                }
+            }
+        }
+
         public IList<AspNetUser> GetAspNetUsers()
         {
             using (connection = new SqlConnection(connectionString))
@@ -107,6 +147,26 @@ namespace DataAccessLayer.Dal
                         usersList.Add(AspNetUser.ParseFromReader(reader));
                     }
                     return usersList;
+                }
+            }
+        }
+
+        public IList<City> GetCitys()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetCitys", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<City> cityList = new List<City>();
+                    while (reader.Read())
+                    {
+                        cityList.Add(City.ParseFromReader(reader));
+                    }
+                    return cityList;
                 }
             }
         }

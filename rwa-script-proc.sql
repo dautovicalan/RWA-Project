@@ -38,7 +38,7 @@ BEGIN
 	INSERT INTO Tag (Guid, CreatedAt, TypeId, Name, NameEng) VALUES (@guid, @createdAt, @typeId, @name, @nameEng)
 END
 
-ALTER PROC TagCount
+CREATE PROC TagCount
 	@id INT
 AS
 BEGIN
@@ -52,4 +52,21 @@ BEGIN
 	SELECT * FROM AspNetUsers
 END
 
-SELECT * FROM ApartmentStatus
+CREATE PROC GetCitys
+AS
+BEGIN
+	SELECT Id, Name FROM City
+END
+
+
+CREATE PROC GetApartmentStatuses
+AS
+BEGIN
+	SELECT Id, NameEng FROM ApartmentStatus
+END
+
+CREATE PROC GetApartmentOwners
+AS
+BEGIN
+	SELECT Id, Name FROM ApartmentOwner
+END
