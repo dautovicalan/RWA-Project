@@ -19,5 +19,7 @@ namespace DataAccessLayer.Dal
         void DeleteTagById(int tagId);
         void CreateTag(Tag tag);
 
+        IList<AspNetUser> GetAspNetUsers();
+
     }
 }

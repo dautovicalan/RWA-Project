@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddTag.aspx" />
+    <Content Include="Apartmens.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -162,6 +163,13 @@
     <Compile Include="AddTag.aspx.designer.cs">
       <DependentUpon>AddTag.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Apartmens.aspx.cs">
+      <DependentUpon>Apartmens.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Apartmens.aspx.designer.cs">
+      <DependentUpon>Apartmens.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Default.aspx.cs">
@@ -220,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="User_Controls\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

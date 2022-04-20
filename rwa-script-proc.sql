@@ -38,9 +38,16 @@ BEGIN
 	INSERT INTO Tag (Guid, CreatedAt, TypeId, Name, NameEng) VALUES (@guid, @createdAt, @typeId, @name, @nameEng)
 END
 
-	
-SELECT * FROM TagType
+ALTER PROC TagCount
+	@id INT
+AS
+BEGIN
+	SELECT COUNT(*) AS 'COUNT' FROM TaggedApartment WHERE TagId = @id
+END	
 
-SELECT COUNT(*) FROM TaggedApartment WHERE TagId = 2
 
-EXEC GetTagById 1
+CREATE PROC GetAspNetUsers
+AS
+BEGIN
+	SELECT * FROM AspNetUsers
+END

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,5 +24,17 @@ namespace DataAccessLayer.Model
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public string Address { get; set; }
+
+        public static AspNetUser ParseFromReader(SqlDataReader reader)
+        {
+            return new AspNetUser
+            {
+                Id = reader.GetInt32(0),
+                Guid = reader.GetGuid(1),
+                Email = reader.GetString(4),
+                UserName = reader.GetString(13),
+                Address = reader.GetString(14),
+            };
+        }
     }
 }

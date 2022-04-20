@@ -91,6 +91,26 @@ namespace DataAccessLayer.Dal
             }
         }
 
+        public IList<AspNetUser> GetAspNetUsers()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("GetAspNetUsers", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<AspNetUser> usersList = new List<AspNetUser>();
+                    while (reader.Read())
+                    {
+                        usersList.Add(AspNetUser.ParseFromReader(reader));
+                    }
+                    return usersList;
+                }
+            }
+        }
+
         public Tag GetTagById(int tagId)
         {
             using (connection = new SqlConnection(connectionString))

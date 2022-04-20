@@ -16,8 +16,7 @@ namespace rwa_project
         protected void Page_Load(object sender, EventArgs e)
         {
             IRepo testing = RepoFactory.GetRepo();
-            testing.GetTags().ToList().ForEach(x => TagList.Items.Add(new ListItem { Text = $"{x.Name} {x.AppearanceCount}", Value = x.Id.ToString() }));
-
+            testing.GetTags().ToList().ForEach(x => TagList.Items.Add(new ListItem { Text=$"{x.Name} {x.AppearanceCount}"}));
         }
 
         protected void AddNewTagButton_Click(object sender, EventArgs e)
