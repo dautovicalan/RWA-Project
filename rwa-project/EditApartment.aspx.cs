@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAccessLayer.Dal;
+using DataAccessLayer.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,9 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label1.Text = Page.RouteData.Values["id"].ToString();
+            var testing = Request.QueryString["id"];
+            //Apartment apart = RepoFactory.GetRepo().GetApartmentById(int.Parse(Page.RouteData.Values["id"].ToString()));
+            //Label1.Text = RepoFactory.GetRepo().GetApartmentById(int.Parse(Page.RouteData.Values["id"].ToString())).Name;
         }
     }
 }

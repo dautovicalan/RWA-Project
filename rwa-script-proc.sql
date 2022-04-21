@@ -17,7 +17,7 @@ BEGIN
 	SELECT * FROM Apartment WHERE Id = @id
 END
 
-ALTER PROC CreateApartment
+CREATE PROC CreateApartment
 	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@ownerId INT,
@@ -124,4 +124,4 @@ END
 	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
 	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 
-SELECT * FROM ApartmentPicture
+SELECT * FROM Apartment
