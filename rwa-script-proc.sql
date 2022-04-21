@@ -55,10 +55,13 @@ BEGIN
 END
 
 
-CREATE PROC GetTags
+ALTER PROC GetTags
 AS
 BEGIN
-	SELECT * FROM Tag
+	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
+	FROM Tag
+	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
+	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 END
 
 CREATE PROC GetTagById
@@ -80,12 +83,14 @@ BEGIN
 	INSERT INTO Tag (Guid, CreatedAt, TypeId, Name, NameEng) VALUES (@guid, @createdAt, @typeId, @name, @nameEng)
 END
 
-CREATE PROC TagCount
-	@id INT
-AS
-BEGIN
-	SELECT COUNT(*) AS 'COUNT' FROM TaggedApartment WHERE TagId = @id
-END	
+
+-- DEPRICATED !!
+--CREATE PROC TagCount
+--	@id INT
+--AS
+--BEGIN
+--	SELECT COUNT(*) AS 'COUNT' FROM TaggedApartment WHERE TagId = @id
+--END	
 
 
 CREATE PROC GetAspNetUsers
@@ -114,10 +119,9 @@ BEGIN
 END
 
 
-SELECT ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price	 
-FROM Apartment AS ap
-INNER JOIN City AS c ON c.Id = ap.CityId
-INNER JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
-GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price
+	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
+	FROM Tag
+	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
+	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 
 SELECT * FROM ApartmentPicture
