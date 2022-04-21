@@ -108,6 +108,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EditApartment.aspx" />
     <Content Include="ErrorPage.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -187,6 +188,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditApartment.aspx.cs">
+      <DependentUpon>EditApartment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditApartment.aspx.designer.cs">
+      <DependentUpon>EditApartment.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
