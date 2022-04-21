@@ -51,6 +51,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>City</th>
                     <th>Adults</th>
@@ -65,13 +66,14 @@
                 <% foreach (var apartment in Apartments)
                     { %>
                 <tr>
+                    <td><%= apartment.Id %></td>
                     <td><%= apartment.Name %></td>
-                    <td><%= apartment.CityId %></td>
-                    <td><%= apartment.Name %></td>
-                    <td><%= apartment.Name %></td>
-                    <td><%= apartment.Name %></td>
-                    <td><%= apartment.Name %></td>
-                    <td><%= apartment.Name %></td>
+                    <td><%= apartment.CityName %></td>
+                    <td><%= apartment.MaxAdults %></td>
+                    <td><%= apartment.MaxChildren %></td>
+                    <td><%= apartment.TotalRooms %></td>
+                    <td><%= apartment.PictureCount %></td>
+                    <td><%= apartment.Price %> €</td>
                     <td><a href="https://www.google.com">Open</a></td>
                 </tr>
                 <% } %>

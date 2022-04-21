@@ -1,9 +1,13 @@
 use RwaApartmani
 
-CREATE PROC GetApartments
+ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT * FROM Apartment
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price	 
+	FROM Apartment AS ap
+	INNER JOIN City AS c ON c.Id = ap.CityId
+	INNER JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price
 END
 
 CREATE PROC GetApartmentById
@@ -12,6 +16,44 @@ AS
 BEGIN
 	SELECT * FROM Apartment WHERE Id = @id
 END
+
+ALTER PROC CreateApartment
+	@guid UNIQUEIDENTIFIER,
+	@createdAt DATETIME,
+	@ownerId INT,
+	@typeId INT,
+	@statusId INT,
+	@cityId INT,
+	@address NVARCHAR(250),
+	@name NVARCHAR(250),
+	@nameEng NVARCHAR(250),
+	@price MONEY,
+	@maxAdults INT,
+	@maxChildren INT,
+	@totalRooms INT,
+	@beachDistance INT
+AS
+BEGIN
+ INSERT INTO Apartment (Guid, CreatedAt, DeletedAt, OwnerId, TypeId, StatusId, CityId, Address, Name, NameEng, Price, MaxAdults, MaxChildren, TotalRooms, BeachDistance)
+ VALUES (
+ @guid, 
+ @createdAt,
+ null,
+ @ownerId, 
+ @typeId, 
+ @statusId, 
+ @cityId, 
+ @address,
+ @name, 
+ @nameEng, 
+ @price, 
+ @maxAdults, 
+ @maxChildren,
+ @totalRooms,
+ @beachDistance
+ )
+END
+
 
 CREATE PROC GetTags
 AS
@@ -70,3 +112,12 @@ AS
 BEGIN
 	SELECT Id, Name FROM ApartmentOwner
 END
+
+
+SELECT ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price	 
+FROM Apartment AS ap
+INNER JOIN City AS c ON c.Id = ap.CityId
+INNER JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price
+
+SELECT * FROM ApartmentPicture

@@ -11,7 +11,7 @@ namespace DataAccessLayer.Dal
     {
         IList<Apartment> GetApartments();
         Apartment GetApartmentById(int apartmentId);      
-        void CreateApartment();
+        void CreateApartment(Apartment apartment);
         Apartment UpdateApartmentById(int apartmentId);
         void DeleteApartmentById(int aparmentId);
         IList<ApartmentStatus> GetApartmentStatuses();

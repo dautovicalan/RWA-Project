@@ -52,7 +52,7 @@
         <asp:RequiredFieldValidator ControlToValidate="totalRoomsSpinner" ID="RequiredFieldValidator8" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
     <div class="form-group">
-        <label for="beachDistanceSpinner">Total rooms:</label>
+        <label for="beachDistanceSpinner">Beach distance:</label>
         <asp:TextBox ID="beachDistanceSpinner" runat="server" type="number" />               
         <asp:RequiredFieldValidator ControlToValidate="beachDistanceSpinner" ID="RequiredFieldValidator9" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>

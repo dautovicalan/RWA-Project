@@ -37,8 +37,29 @@ namespace rwa_project
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
-        {
+        {           
+            RepoFactory.GetRepo().CreateApartment(new Apartment
+            {
+                Guid = Guid.NewGuid(),
+                CreatedAt = DateTime.Now,
+                OwnerId = int.Parse(OwnersDropDown.SelectedValue),
+                TypeId = 999,
+                StatusId = int.Parse(StatusDropDown.SelectedValue),
+                CityId = int.Parse(CityDropDown.SelectedValue),
+                Address = AddressTextBox.Text,
+                Name = NameTextBox.Text,
+                NameEng = NameEngTextBox.Text,
+                Price = double.Parse(PriceTextBox.Text),
+                MaxAdults = int.Parse(maxAdultsSpinner.Text),
+                MaxChildren = int.Parse(maxChildrenSpinner.Text),
+                TotalRooms = int.Parse(totalRoomsSpinner.Text),
+                BeachDistance = int.Parse(beachDistanceSpinner.Text),
+            });
+        }
 
+        private bool IsFormValid()
+        {
+            return false;
         }
     }
 }

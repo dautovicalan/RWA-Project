@@ -16,41 +16,17 @@ namespace DataAccessLayer.Model
         public string Name { get; set; }
         public string NameEng { get; set; }
 
-        public int AppearanceCount { get; set; }
+        public int TagAppearance { get; set; }
 
         public static Tag ParseFromReader(SqlDataReader reader)
         {
             return new Tag
             {
                 Id = reader.GetInt32(0),
-                Guid = reader.GetGuid(1),
-                TypeId = reader.GetInt32(3),
-                Name = reader.GetString(4),
-                NameEng = reader.GetString(5),
-                AppearanceCount = GetTagCount(reader.GetInt32(0)),
-
+                Name = reader.GetString(1),
+                NameEng = reader.GetString(2),
+                TagAppearance = reader.GetInt32(3),
             };
-        }
-
-        private static int GetTagCount(int tagId)
-        {
-            using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True"))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("TagCount", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("id", tagId);
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        return reader.GetInt32(0);
-                    }
-                    return 0;
-                }
-
-            }
-        }
+        }        
     }
 }

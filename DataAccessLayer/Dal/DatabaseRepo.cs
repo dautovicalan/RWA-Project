@@ -13,15 +13,28 @@ namespace DataAccessLayer.Dal
         private SqlConnection connection;
         private SqlCommand command;
 
-        public void CreateApartment()
+        public void CreateApartment(Apartment apartment)
         {
             using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                command = new SqlCommand("Insert Into City (Guid, Name) Values(@guid, @name)", connection);
-                command.Parameters.AddWithValue("@guid", "d2a78f5e-d74c-4410-8882-9f738deca876");
-                command.Parameters.AddWithValue("@name", "test");
-                command.ExecuteNonQuery();                
+                command = new SqlCommand("CreateApartment", connection);
+                command.Parameters.AddWithValue("guid", apartment.Guid);
+                command.Parameters.AddWithValue("createdAt", apartment.CreatedAt);
+                command.Parameters.AddWithValue("ownerId", apartment.OwnerId);
+                command.Parameters.AddWithValue("typeId", apartment.TypeId);
+                command.Parameters.AddWithValue("statusId", apartment.StatusId);
+                command.Parameters.AddWithValue("cityId", apartment.CityId);
+                command.Parameters.AddWithValue("address", apartment.Address);
+                command.Parameters.AddWithValue("name", apartment.Name);
+                command.Parameters.AddWithValue("nameEng", apartment.NameEng);
+                command.Parameters.AddWithValue("price", apartment.Price);
+                command.Parameters.AddWithValue("maxAdults", apartment.MaxAdults);
+                command.Parameters.AddWithValue("maxChildren", apartment.MaxChildren);
+                command.Parameters.AddWithValue("totalRooms", apartment.TotalRooms);
+                command.Parameters.AddWithValue("beachDistance", apartment.BeachDistance);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
             }
         }
 
