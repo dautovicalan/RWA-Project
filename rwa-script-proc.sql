@@ -5,8 +5,8 @@ AS
 BEGIN
 	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price	 
 	FROM Apartment AS ap
-	INNER JOIN City AS c ON c.Id = ap.CityId
-	INNER JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	LEFT JOIN City AS c ON c.Id = ap.CityId
+	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price
 END
 

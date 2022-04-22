@@ -74,7 +74,7 @@
                     <td><%= apartment.TotalRooms %></td>
                     <td><%= apartment.PictureCount %></td>
                     <td><%= apartment.Price %> €</td>
-                    <td><a href=<%= $"Edit/{apartment.Id}" %>>Open</a></td>                    
+                    <td><a href=<%= $"EditApartment/{apartment.Id}" %>>Open</a></td>                    
                 </tr>
                 <% } %>
             </tbody>

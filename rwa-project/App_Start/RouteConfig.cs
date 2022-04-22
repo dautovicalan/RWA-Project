@@ -16,7 +16,6 @@ namespace rwa_project
 
             routes.MapPageRoute("defaultRoute", "", "~/Default.aspx");
             routes.MapPageRoute("errorRoute", "{*.aspx}", "~/ErrorPage.aspx");
-            routes.MapPageRoute("", "Edit/{id}", "~/EditApartment.aspx");
             routes.MapPageRoute("tagsRoute", "Tags", "~/Tags.aspx");
             routes.MapPageRoute("apartmensRoute", "Apartmens", "~/Apartmens.aspx");
         }

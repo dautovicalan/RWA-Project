@@ -13,7 +13,8 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var testing = Request.QueryString["id"];
+            // fix routing stuff
+            var testing = Page.RouteData.Values;
             //Apartment apart = RepoFactory.GetRepo().GetApartmentById(int.Parse(Page.RouteData.Values["id"].ToString()));
             //Label1.Text = RepoFactory.GetRepo().GetApartmentById(int.Parse(Page.RouteData.Values["id"].ToString())).Name;
         }
