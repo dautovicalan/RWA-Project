@@ -16,7 +16,6 @@ namespace rwa_project
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RouteTable.Routes.MapPageRoute("EditApartment", "EditApartment/{id}", "~/EditApartment.aspx");
         }
     }
 }
