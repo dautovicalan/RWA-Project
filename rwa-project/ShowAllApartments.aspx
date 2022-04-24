@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Apartmens.aspx.cs" Inherits="rwa_project.Apartmens" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShowAllApartments.aspx.cs" Inherits="rwa_project.Apartmens" %>
 
 <asp:Content ID="ApartmensPage" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
@@ -83,14 +83,14 @@
         </div>
         <div class="form-group">
             <label>Status apartmana</label>
-            <asp:DropDownList ID="ddlApartmentStatuses" runat="server" DataSourceID="ApartmentStatuses" DataTextField="NameEng" DataValueField="Id"></asp:DropDownList>
-            <asp:SqlDataSource ID="ApartmentStatuses" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
-        </div>
-        <div class="form-group">
-            <label>Registrirani korisnici</label>
-            <asp:DropDownList ID="ddlRegisteredUsers" runat="server" DataSourceID="RegisteredUsers" DataTextField="UserName" DataValueField="Id"></asp:DropDownList>
-            <asp:SqlDataSource ID="RegisteredUsers" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetAspNetUsers" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
-        </div>
+            <asp:DropDownList ID="ddlApartmentStatuses" runat="server">
+
+                <asp:ListItem Value="1">Occupied</asp:ListItem>
+                <asp:ListItem Value="2">Reserved</asp:ListItem>
+                <asp:ListItem Value="3">Vacant</asp:ListItem>
+
+            </asp:DropDownList>
+        </div>             
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
     </asp:Panel>    

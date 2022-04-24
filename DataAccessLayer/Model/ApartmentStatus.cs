@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Model
-{
+{  
     public class ApartmentStatus
     {
         public int Id { get; set; }

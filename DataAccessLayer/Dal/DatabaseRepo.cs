@@ -231,9 +231,56 @@ namespace DataAccessLayer.Dal
             }
         }
 
-        public Apartment UpdateApartmentById(int apartmentId)
+        public void UpdateApartmentById(Apartment apartment)
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("UpdateApartmentById", connection);
+                command.Parameters.AddWithValue("id", apartment.Id);
+                command.Parameters.AddWithValue("statusId", apartment.StatusId);
+                command.Parameters.AddWithValue("totalRooms", apartment.TotalRooms);
+                command.Parameters.AddWithValue("maxAdults", apartment.MaxAdults);
+                command.Parameters.AddWithValue("maxChildren", apartment.MaxChildren);
+                command.Parameters.AddWithValue("beachDistance", apartment.BeachDistance);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void CreateApartmentReservationRegisteredUser(ApartmentReservation reservation)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("CreateApartmentReservationRegisteredUser", connection);
+                command.Parameters.AddWithValue("guid", reservation.Guid);
+                command.Parameters.AddWithValue("createdAt", reservation.CreatedAt);
+                command.Parameters.AddWithValue("apartmentId", reservation.ApartmentId);
+                command.Parameters.AddWithValue("details", reservation.Details);
+                command.Parameters.AddWithValue("userId", reservation.UserId);
+                command.CommandType=System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void CreateApartmentReservationNonRegisteredUser(ApartmentReservation reservation)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("CreateApartmentReservationNonRegisteredUser", connection);
+                command.Parameters.AddWithValue("guid", reservation.Guid);
+                command.Parameters.AddWithValue("createdAt", reservation.CreatedAt);
+                command.Parameters.AddWithValue("apartmentId", reservation.ApartmentId);
+                command.Parameters.AddWithValue("details", reservation.Details);
+                command.Parameters.AddWithValue("userName", reservation.UserName);
+                command.Parameters.AddWithValue("userEmail", reservation.UserEmail);
+                command.Parameters.AddWithValue("userPhone", reservation.UserPhone);
+                command.Parameters.AddWithValue("userAddress", reservation.UserAddress);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

@@ -101,7 +101,7 @@
   <ItemGroup>
     <Content Include="AddApartment.aspx" />
     <Content Include="AddTag.aspx" />
-    <Content Include="Apartmens.aspx" />
+    <Content Include="ShowAllApartments.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -151,6 +151,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="ShowAllReservations.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Tags.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -172,12 +173,12 @@
     <Compile Include="AddTag.aspx.designer.cs">
       <DependentUpon>AddTag.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Apartmens.aspx.cs">
-      <DependentUpon>Apartmens.aspx</DependentUpon>
+    <Compile Include="ShowAllApartments.aspx.cs">
+      <DependentUpon>ShowAllApartments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Apartmens.aspx.designer.cs">
-      <DependentUpon>Apartmens.aspx</DependentUpon>
+    <Compile Include="ShowAllApartments.aspx.designer.cs">
+      <DependentUpon>ShowAllApartments.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -212,6 +213,13 @@
     </Compile>
     <Compile Include="RegisteredUsers.aspx.designer.cs">
       <DependentUpon>RegisteredUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShowAllReservations.aspx.cs">
+      <DependentUpon>ShowAllReservations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShowAllReservations.aspx.designer.cs">
+      <DependentUpon>ShowAllReservations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

@@ -3,12 +3,13 @@ use RwaApartmani
 ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	WHERE ap.DeletedAt IS NULL
-	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
 END
 
 ALTER PROC GetApartmentById
@@ -29,6 +30,21 @@ AS
 BEGIN
 	UPDATE Apartment
 	SET DeletedAt = GETDATE()
+	WHERE Id = @id
+END
+
+CREATE PROC UpdateApartmentById
+	@id INT,
+	@statusId INT,
+	@totalRooms INT,
+	@maxAdults INT,
+	@maxChildren INT,
+	@beachDistance INT
+AS
+BEGIN
+	UPDATE Apartment
+	SET StatusId = @statusId, TotalRooms = @totalRooms, MaxAdults = @maxAdults, 
+		MaxChildren = @maxChildren, BeachDistance = @beachDistance
 	WHERE Id = @id
 END
 
@@ -134,9 +150,47 @@ BEGIN
 END
 
 
+ALTER PROC GetApartmentReservations
+AS
+BEGIN
+	SELECT ar.Id, ar.CreatedAt, a.Id AS ApartmentId, a.Name, ar.Details, ar.UserId, ar.UserName, ar.UserEmail, ar.UserPhone, ar.UserAddress
+	FROM ApartmentReservation AS ar
+	LEFT JOIN Apartment AS a ON a.Id = ar.ApartmentId
+END
+
+CREATE PROC CreateApartmentReservationRegisteredUser
+	@guid UNIQUEIDENTIFIER,
+	@createdAt DATETIME,
+	@apartmentId INT,
+	@details NVARCHAR(1000),
+	@userId INT
+AS
+BEGIN
+ INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
+ VALUES (@guid, @createdAt, @apartmentId, @details, @userId, null, null, null, null)
+END
+
+CREATE PROC CreateApartmentReservationNonRegisteredUser
+	@guid UNIQUEIDENTIFIER,
+	@createdAt DATETIME,
+	@apartmentId INT,
+	@details NVARCHAR(1000),
+	@userName NVARCHAR(250),
+	@userEmail NVARCHAR(250),
+	@userPhone NVARCHAR(20),
+	@userAddress NVARCHAR(1000)
+AS
+BEGIN
+ INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
+ VALUES (@guid, @createdAt, @apartmentId, @details, null, @userName, @userEmail, @userPhone, @userAddress)
+END
+
 	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
 	FROM Tag
 	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
 	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 
 SELECT * FROM Apartment
+
+SELECT * FROM ApartmentReservation
+SELECT * FROM ApartmentStatus

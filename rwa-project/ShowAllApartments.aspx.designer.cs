@@ -114,33 +114,6 @@ namespace rwa_project
         protected global::System.Web.UI.WebControls.DropDownList ddlApartmentStatuses;
 
         /// <summary>
-        /// ApartmentStatuses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource ApartmentStatuses;
-
-        /// <summary>
-        /// ddlRegisteredUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRegisteredUsers;
-
-        /// <summary>
-        /// RegisteredUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource RegisteredUsers;
-
-        /// <summary>
         /// EditButton control.
         /// </summary>
         /// <remarks>
