@@ -3,18 +3,33 @@ use RwaApartmani
 ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
-	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price
+	WHERE ap.DeletedAt IS NULL
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance
 END
 
-CREATE PROC GetApartmentById
+ALTER PROC GetApartmentById
 	@id INT
 AS
 BEGIN
-	SELECT * FROM Apartment WHERE Id = @id
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance	 
+	FROM Apartment AS ap
+	LEFT JOIN City AS c ON c.Id = ap.CityId
+	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	WHERE ap.Id = @id
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance
+END
+
+CREATE PROC SoftDeleteApartmentById
+	@id INT
+AS
+BEGIN
+	UPDATE Apartment
+	SET DeletedAt = GETDATE()
+	WHERE Id = @id
 END
 
 CREATE PROC CreateApartment
@@ -60,7 +75,7 @@ AS
 BEGIN
 	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
 	FROM Tag
-	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
+	LEFT JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
 	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 END
 

@@ -47,38 +47,52 @@
             </asp:DropDownList>
         </div>
     </div>
-    <div class="d-flex flex-column">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>City</th>
-                    <th>Adults</th>
-                    <th>Children</th>
-                    <th>Rooms</th>
-                    <th>Pictures</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% foreach (var apartment in Apartments)
-                    { %>
-                <tr>
-                    <td><%= apartment.Id %></td>
-                    <td><%= apartment.Name %></td>
-                    <td><%= apartment.CityName %></td>
-                    <td><%= apartment.MaxAdults %></td>
-                    <td><%= apartment.MaxChildren %></td>
-                    <td><%= apartment.TotalRooms %></td>
-                    <td><%= apartment.PictureCount %></td>
-                    <td><%= apartment.Price %> €</td>
-                    <td><a href=<%= $"EditApartment/{apartment.Id}" %>>Open</a></td>                    
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
-        <asp:Button ID="AddNewApartment" runat="server" Text="Add" OnClick="AddNewApartment_Click"/>
-    </div>
+    <asp:GridView ID="GridView1" CssClass="table table-striped" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlApartments" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+        <Columns>
+            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+            <asp:BoundField DataField="CityName" HeaderText="CityName" SortExpression="CityName" />
+            <asp:BoundField DataField="MaxAdults" HeaderText="MaxAdults" SortExpression="MaxAdults" />
+            <asp:BoundField DataField="MaxChildren" HeaderText="MaxChildren" SortExpression="MaxChildren" />
+            <asp:BoundField DataField="TotalRooms" HeaderText="TotalRooms" SortExpression="TotalRooms" />
+            <asp:BoundField DataField="PictureNumber" HeaderText="PictureNumber" ReadOnly="True" SortExpression="PictureNumber" />
+            <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+            <asp:BoundField DataField="BeachDistance" HeaderText="BeachDistance" SortExpression="BeachDistance" />            
+            <asp:BoundField DataField="NameEng" HeaderText="Status" SortExpression="NameEng" />
+            <asp:CommandField ShowSelectButton="true" />
+        </Columns>
+    </asp:GridView>
+    <asp:Panel ID="EditApartmentPanel" runat="server" Visible="false">
+        <h3>Edit Selected Apartment</h3>
+        <asp:Label ID="ApartmentId" runat="server" Text="Label"></asp:Label>
+        <div class="form-group">
+            <label>Broj soba</label>
+            <asp:TextBox ID="txbRoomNumber" runat="server" TextMode="Number"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label>Broj mjesta za odrasle</label>
+            <asp:TextBox ID="txbAdultsNumber" runat="server" TextMode="Number"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label>Broj mjesta za djecu</label>
+            <asp:TextBox ID="txbChildrenNumber" runat="server" TextMode="Number"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label>Udaljenost od mora</label>
+            <asp:TextBox ID="txbBeachDistance" runat="server" TextMode="Number"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label>Status apartmana</label>
+            <asp:DropDownList ID="ddlApartmentStatuses" runat="server" DataSourceID="ApartmentStatuses" DataTextField="NameEng" DataValueField="Id"></asp:DropDownList>
+            <asp:SqlDataSource ID="ApartmentStatuses" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        </div>
+        <div class="form-group">
+            <label>Registrirani korisnici</label>
+            <asp:DropDownList ID="ddlRegisteredUsers" runat="server" DataSourceID="RegisteredUsers" DataTextField="UserName" DataValueField="Id"></asp:DropDownList>
+            <asp:SqlDataSource ID="RegisteredUsers" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetAspNetUsers" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        </div>
+        <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
+        <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
+    </asp:Panel>    
+    <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 </asp:Content>

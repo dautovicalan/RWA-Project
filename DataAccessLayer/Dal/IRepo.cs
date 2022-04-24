@@ -13,7 +13,7 @@ namespace DataAccessLayer.Dal
         Apartment GetApartmentById(int apartmentId);      
         void CreateApartment(Apartment apartment);
         Apartment UpdateApartmentById(int apartmentId);
-        void DeleteApartmentById(int aparmentId);
+        void SoftDeleteApartmentById(int aparmentId);
         IList<ApartmentStatus> GetApartmentStatuses();
         IList<ApartmentOwner> GetApartmentOwners();
         IList<Tag> GetTags();

@@ -54,9 +54,16 @@ namespace DataAccessLayer.Dal
             }
         }
 
-        public void DeleteApartmentById(int aparmentId)
+        public void SoftDeleteApartmentById(int aparmentId)
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand("SoftDeleteApartmentById", connection);
+                command.Parameters.AddWithValue("id", aparmentId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
         }
 
         public void DeleteTagById(int tagId)

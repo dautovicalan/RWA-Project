@@ -40,6 +40,7 @@ namespace DataAccessLayer.Model
                 MaxAdults = Convert.ToInt32(row["MaxAdults"]),
                 MaxChildren = Convert.ToInt32(row["MaxChildren"]),
                 TotalRooms = Convert.ToInt32(row["TotalRooms"]),
+                BeachDistance = Convert.ToInt32(row["BeachDistance"])
             };
         }
 

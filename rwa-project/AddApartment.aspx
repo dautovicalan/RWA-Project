@@ -33,12 +33,12 @@
     </div>
     <div class="form-group">
         <label for="PriceTextBox">Price:</label>
-        <asp:TextBox ID="PriceTextBox" runat="server" />
+        <asp:TextBox ID="PriceTextBox" runat="server" TextMode="Number"/>
         <asp:RequiredFieldValidator ControlToValidate="PriceTextBox" ID="RequiredFieldValidator5" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
     <div class="form-group">
         <label for="maxAdultsSpinner">Max Adults:</label>        
-        <asp:TextBox ID="maxAdultsSpinner" runat="server" type="number" />
+        <asp:TextBox ID="maxAdultsSpinner" runat="server" type="number"/>
         <asp:RequiredFieldValidator ControlToValidate="maxAdultsSpinner" ID="RequiredFieldValidator6" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
     <div class="form-group">
