@@ -12,6 +12,7 @@ BEGIN
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
 END
 
+
 ALTER PROC GetApartmentById
 	@id INT
 AS
