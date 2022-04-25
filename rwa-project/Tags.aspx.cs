@@ -14,14 +14,19 @@ namespace rwa_project
 
         public List<Tag> MyTags { get; set; }
         protected void Page_Load(object sender, EventArgs e)
-        {
-            IRepo testing = RepoFactory.GetRepo();
-            testing.GetTags().ToList().ForEach(x => TagList.Items.Add(new ListItem { Text=$"{x.Name} ({x.TagAppearance})"}));
+        {           
+            Repeater1.DataSource = ((IRepo)Application["database"]).GetTags();
+            Repeater1.DataBind();
         }
 
         protected void AddNewTagButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddTag.aspx");
+        }
+
+        public bool ShowDeleteButton(string msg)
+        {
+            return int.Parse(msg) == 0;
         }
     }
 }

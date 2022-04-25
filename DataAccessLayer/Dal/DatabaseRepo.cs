@@ -68,7 +68,14 @@ namespace DataAccessLayer.Dal
 
         public void DeleteTagById(int tagId)
         {
-            throw new System.NotImplementedException();
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(DeleteTagById), connection);
+                command.Parameters.AddWithValue("id", tagId);
+                command.CommandType=System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
         }
 
         public Apartment GetApartmentById(int apartmentId)

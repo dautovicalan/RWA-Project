@@ -115,6 +115,13 @@ BEGIN
 	INSERT INTO Tag (Guid, CreatedAt, TypeId, Name, NameEng) VALUES (@guid, @createdAt, @typeId, @name, @nameEng)
 END
 
+--DELETING TAGS
+CREATE PROC DeleteTagById
+	@id INT
+AS
+BEGIN
+	DELETE FROM Tag WHERE Id = @id
+END
 
 -- DEPRICATED !!
 --CREATE PROC TagCount
@@ -123,7 +130,6 @@ END
 --BEGIN
 --	SELECT COUNT(*) AS 'COUNT' FROM TaggedApartment WHERE TagId = @id
 --END	
-
 
 CREATE PROC GetAspNetUsers
 AS
