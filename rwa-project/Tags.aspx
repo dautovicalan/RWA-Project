@@ -2,13 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="d-flex">
         <h2 class="text-center">Tags</h2>
-        <asp:Repeater ID="Repeater1" runat="server">
+        <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
             <ItemTemplate>
                 <div style="display: flex">
                     <p>
                         <%# Eval("Name") %> <%# Eval("TagAppearance") %>
                     </p>
-                    <asp:Button Visible='<%# ShowDeleteButton(Eval("tagAppearance").ToString()) %>' runat="server" Text="DELETE" />
+                    <asp:Button Visible='<%# ShowDeleteButton(Eval("TagAppearance").ToString()) %>' CommandName="Delete" CommandArgument='<%# Eval("id") %>' runat="server" Text="DELETE" UseSubmitBehavior="false"/>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
