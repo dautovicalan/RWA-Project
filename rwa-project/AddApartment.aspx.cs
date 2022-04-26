@@ -55,11 +55,7 @@ namespace rwa_project
                 TotalRooms = int.Parse(totalRoomsSpinner.Text),
                 BeachDistance = int.Parse(beachDistanceSpinner.Text),
             });
-        }
-
-        private bool IsFormValid()
-        {
-            return false;
+            Response.Redirect("ShowAllApartments.aspx");
         }
     }
 }

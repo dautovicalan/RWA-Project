@@ -62,6 +62,7 @@
             <asp:CommandField ShowSelectButton="true" />
         </Columns>
     </asp:GridView>
+    <asp:Button ID="btnAddApartment" runat="server" Text="Add new Apartment" OnClick="btnAddApartment_Click"/>
     <asp:Panel ID="EditApartmentPanel" runat="server" Visible="false">
         <h3>Edit Selected Apartment</h3>
         <asp:Label ID="ApartmentId" runat="server" Text="Label"></asp:Label>

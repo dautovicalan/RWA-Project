@@ -157,7 +157,7 @@ BEGIN
 END
 
 
-ALTER PROC GetApartmentReservations
+create PROC GetApartmentReservations
 AS
 BEGIN
 	SELECT ar.Id, ar.CreatedAt, a.Id AS ApartmentId, a.Name, ar.Details, ar.UserId, ar.UserName, ar.UserEmail, ar.UserPhone, ar.UserAddress

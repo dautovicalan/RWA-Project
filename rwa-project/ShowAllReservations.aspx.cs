@@ -55,7 +55,18 @@ namespace rwa_project
                 UserAddress = tbUserAddress.Text,
             });
             GridView1.DataBind();
+            CleanForm();
 
         }
+
+        private void CleanForm()
+        {
+            tbDetails.Text = "";
+            tbUserEmail.Text = "";
+            tbUserName.Text = "";
+            tbUserPhone.Text = "";
+            tbUserAddress.Text = "";
+        }
     }
+
 }

@@ -56,6 +56,11 @@ namespace rwa_project
         {
             RepoFactory.GetRepo().SoftDeleteApartmentById(int.Parse(ApartmentId.Text));
             GridView1.DataBind();
-        }        
+        }
+
+        protected void btnAddApartment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddApartment.aspx");
+        }
     }
 }

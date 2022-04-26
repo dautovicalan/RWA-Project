@@ -24,6 +24,7 @@
     <div class="form-group">
         <label>Enter details</label>
         <asp:TextBox ID="tbDetails" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="tbDetails" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
     </div>
     <div class="form-group">
         <asp:CheckBox ID="cbIsNotRegisteredUser" runat="server" OnCheckedChanged="cbIsNotRegisteredUser_CheckedChanged" AutoPostBack="true"/>
@@ -40,18 +41,22 @@
             <div class="form-group">
                 <label>Ime Korisnika</label>
                 <asp:TextBox ID="tbUserName" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbUserName" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="form-group">
                 <label>Email Korisnika</label>
                 <asp:TextBox ID="tbUserEmail" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbUserEmail" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="form-group">
                 <label>Telefon Korisnika</label>
                 <asp:TextBox ID="tbUserPhone" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="tbUserPhone" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="form-group">
                 <label>Adresa Korisnika</label>
                 <asp:TextBox ID="tbUserAddress" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="tbUserAddress" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
         </asp:Panel>
     <asp:Button ID="AddReservationButton" runat="server" Text="Add Reservation" OnClick="AddReservationButton_Click"/>
