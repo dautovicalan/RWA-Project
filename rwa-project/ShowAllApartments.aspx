@@ -30,6 +30,12 @@
                 </asp:ListItem>
             </asp:DropDownList>
         </div>
+        <div>
+            <label>ASC</label>
+            <asp:RadioButton ID="rbAsc" Checked="true" runat="server" GroupName="SortingWay" />
+            <label>DESC</label>
+            <asp:RadioButton ID="rbDesc" runat="server" GroupName="SortingWay" />
+        </div>        
         <asp:Button ID="btnSort" runat="server" Text="Sort" OnClick="btnSort_Click"/>
 
     </div>

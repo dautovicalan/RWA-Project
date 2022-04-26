@@ -60,6 +60,24 @@ namespace rwa_project
         protected global::System.Web.UI.WebControls.DropDownList ddlSortType;
 
         /// <summary>
+        /// rbAsc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbAsc;
+
+        /// <summary>
+        /// rbDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbDesc;
+
+        /// <summary>
         /// btnSort control.
         /// </summary>
         /// <remarks>

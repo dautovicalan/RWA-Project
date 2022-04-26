@@ -23,27 +23,52 @@ namespace rwa_project
         private void FillData(int sortType = 2)
         {
             List<Apartment> apartments = ((IRepo)Application["database"]).GetApartments().ToList();
-
-            switch (sortType)
-            {
-                case 0:
-                    apartments.Sort((x, y) => x.MaxAdults.CompareTo(y.MaxAdults));
-                    break;
-                case 1:
-                    apartments.Sort((x, y) => x.TotalRooms.CompareTo(y.TotalRooms));
-                    break;
-                case 2:
-                    apartments.Sort((x, y) => x.Price.CompareTo(y.Price));
-                    break;
-                default:
-                    apartments.Sort((x, y) => x.Price.CompareTo(y.Price));
-                    break;
-            }
-
+            SortGivenApartments(sortType, apartments);
             Repeater1.DataSource = apartments;
             Repeater1.DataBind();
         }
-      
+
+        private void SortGivenApartments(int sortType, List<Apartment> apartments)
+        {
+            if (rbAsc.Checked)
+            {
+                switch (sortType)
+                {
+                    case 0:
+                        apartments.Sort((x, y) => x.MaxAdults.CompareTo(y.MaxAdults));
+                        break;
+                    case 1:
+                        apartments.Sort((x, y) => x.TotalRooms.CompareTo(y.TotalRooms));
+                        break;
+                    case 2:
+                        apartments.Sort((x, y) => x.Price.CompareTo(y.Price));
+                        break;
+                    default:
+                        apartments.Sort((x, y) => x.Price.CompareTo(y.Price));
+                        break;
+                }
+            }
+            else
+            {
+                switch (sortType)
+                {
+                    case 0:
+                        apartments.Sort((x, y) => -x.MaxAdults.CompareTo(y.MaxAdults));
+                        break;
+                    case 1:
+                        apartments.Sort((x, y) => -x.TotalRooms.CompareTo(y.TotalRooms));
+                        break;
+                    case 2:
+                        apartments.Sort((x, y) => -x.Price.CompareTo(y.Price));
+                        break;
+                    default:
+                        apartments.Sort((x, y) => -x.Price.CompareTo(y.Price));
+                        break;
+                }
+            }
+            
+        }
+
         protected void AddNewApartment_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddApartment.aspx");
