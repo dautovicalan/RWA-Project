@@ -11,9 +11,7 @@
                     <asp:Button Visible='<%# ShowDeleteButton(Eval("TagAppearance").ToString()) %>' CommandName="Delete" CommandArgument='<%# Eval("id") %>' runat="server" Text="DELETE" UseSubmitBehavior="false"/>
                 </div>
             </ItemTemplate>
-        </asp:Repeater>
-        <asp:BulletedList ID="TagList" runat="server" CssClass="h4">            
-        </asp:BulletedList>           
+        </asp:Repeater>               
         <asp:Button ID="AddNewTagButton" CssClass="btn btn-primary" runat="server" Text="Add new Tag" OnClick="AddNewTagButton_Click" />
     </div>
 </asp:Content>
