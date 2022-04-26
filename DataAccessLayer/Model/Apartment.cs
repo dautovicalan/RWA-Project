@@ -27,6 +27,7 @@ namespace DataAccessLayer.Model
         public int TotalRooms { get; set; }
         public int PictureCount { get; set; }
         public int BeachDistance { get; set; }
+        public string StatusName { get; set; }
 
         public static Apartment ParseFromReader(SqlDataReader row)
         {
@@ -40,7 +41,8 @@ namespace DataAccessLayer.Model
                 MaxAdults = Convert.ToInt32(row["MaxAdults"]),
                 MaxChildren = Convert.ToInt32(row["MaxChildren"]),
                 TotalRooms = Convert.ToInt32(row["TotalRooms"]),
-                BeachDistance = Convert.ToInt32(row["BeachDistance"])
+                BeachDistance = Convert.ToInt32(row["BeachDistance"]),
+                StatusName = Convert.ToString(row["NameEng"]),
             };
         }
 

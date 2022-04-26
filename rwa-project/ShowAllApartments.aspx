@@ -5,21 +5,19 @@
         <div class="d-flex flex-column">
             <div>
                 <label for="StatusDropDownList">Status</label>
-                <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
-                    
+                <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">                                        
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
             <div>
                 <label for="CityDropDownList">City</label>
-                <asp:DropDownList ID="ddlCity" runat="server" DataSourceID="CityBound" DataTextField="Name" DataValueField="Id" AutoPostBack="true">
-                    
+                <asp:DropDownList ID="ddlCity" runat="server" DataSourceID="CityBound" DataTextField="Name" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
         </div>
         <div>
-            <label for="SortByDropDownList">Sort by</label>
+            <label for="SortByDropDownList">Sort by<label for="SortByDropDownList">Sort by</label>
             <asp:DropDownList ID="ddlSortType" runat="server">
                 <asp:ListItem>
                         Osoba
@@ -37,7 +35,7 @@
     </div>
     <asp:Repeater ID="Repeater1" runat="server">
         <HeaderTemplate>
-            <table>
+            <table class="table table-striped">
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
@@ -48,21 +46,21 @@
                     <th>Picture numbers</th>
                     <th>Price</th>
                     <th>Beach distance</th>
-                    <th>Eng name</th>
+                    <th>Status Name</th>
                 </tr>
         </HeaderTemplate>
         <ItemTemplate>
             <tr>
                 <td><%# Eval("Id") %></td>
                 <td><%# Eval("Name") %></td>
-                <td><%# Eval("Id") %></td>
-                <td><%# Eval("Id") %></td>
-                <td><%# Eval("Id") %></td>
-                <td><%# Eval("Id") %></td>
-                <td><%# Eval("Id") %></td>
+                <td><%# Eval("CityName") %></td>
+                <td><%# Eval("MaxAdults") %></td>
+                <td><%# Eval("MaxChildren") %></td>
+                <td><%# Eval("TotalRooms") %></td>
+                <td><%# Eval("PictureCount") %></td>
                 <td><%# Eval("Price") %></td>
                 <td><%# Eval("BeachDistance") %></td>
-                <td><%# Eval("Id") %></td>
+                <td><%# Eval("StatusName") %></td>
             </tr>
         </ItemTemplate>
         <FooterTemplate>
