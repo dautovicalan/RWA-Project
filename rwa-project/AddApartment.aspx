@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddApartment.aspx.cs" Inherits="rwa_project.AddApartment" %>
-
 <asp:Content ID="AddApartmentSite" ContentPlaceHolderID="MainContent" runat="server">
     <div class="form-group">
         <label for="OwnersDropDown">Select owner:</label>
