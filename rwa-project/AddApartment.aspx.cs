@@ -13,27 +13,28 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack && Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             LoadDataToControls();
         }
 
         private void LoadDataToControls()
         {
-            IRepo repo = RepoFactory.GetRepo();
-
-            repo.GetApartmentOwners()
+            ((IRepo)Application["database"]).GetApartmentOwners()
                 .ToList()
                 .ForEach(owner => OwnersDropDown.Items
                         .Add(new ListItem { Text = owner.Name, Value = owner.Id.ToString() }));
 
-            repo.GetApartmentStatuses()
+            ((IRepo)Application["database"]).GetApartmentStatuses()
                 .ToList()
                 .ForEach(c => StatusDropDown.Items
                        .Add(new ListItem { Text = c.NameEng, Value = c.Id.ToString() }));
-            repo.GetCitys()
+            ((IRepo)Application["database"]).GetCitys()
                 .ToList()
                 .ForEach(city => CityDropDown.Items
                         .Add(new ListItem { Text = city.Name, Value = city.Id.ToString() }));
-
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)

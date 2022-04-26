@@ -14,8 +14,12 @@ namespace rwa_project
 
         public List<Tag> MyTags { get; set; }
         protected void Page_Load(object sender, EventArgs e)
-        {           
-           FillDataInRepeater();
+        {
+            if (!IsPostBack && Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            FillDataInRepeater();
         }
 
         private void FillDataInRepeater()

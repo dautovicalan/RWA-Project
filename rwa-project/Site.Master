@@ -54,7 +54,7 @@
                         <li><a runat="server" href="~/Tags">Tags</a></li>
                         <li><a runat="server" href="~/RegisteredUsers">Registered users</a></li>
                         <li><a runat="server" href="~/ShowAllReservations.aspx">Show Reservations</a></li>
-                        <li><asp:Button ID="LogoutButton" OnClick="LogoutButton_Click" runat="server" CssClass="btn btn-primary" Text="Logout" UseSubmitBehavior="false"  /></li>
+                        <li><asp:Button ID="LogoutButton" OnClick="LogoutButton_Click" runat="server" CssClass="btn btn-primary" Text="Logout" UseSubmitBehavior="true"  /></li>
                     </ul>
                 </div>
             </div>
