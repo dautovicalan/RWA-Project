@@ -40,12 +40,13 @@ ALTER PROC GetApartmentById
 	@id INT
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	WHERE ap.Id = @id
-	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
 END
 
 CREATE PROC SoftDeleteApartmentById

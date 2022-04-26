@@ -19,21 +19,21 @@
         <div>
             <label for="SortByDropDownList">Sort by<label for="SortByDropDownList">Sort by</label>
             <asp:DropDownList ID="ddlSortType" runat="server">
-                <asp:ListItem>
-                        Osoba
+                <asp:ListItem Value="0">
+                        Max person number
                 </asp:ListItem>
-                <asp:ListItem>
-                        Mjesto
+                <asp:ListItem Value="1">
+                        Rooms number
                 </asp:ListItem>
-                <asp:ListItem>
-                        Cijena
+                <asp:ListItem Value="2">
+                        Price
                 </asp:ListItem>
             </asp:DropDownList>
         </div>
         <asp:Button ID="btnSort" runat="server" Text="Sort" OnClick="btnSort_Click"/>
 
     </div>
-    <asp:Repeater ID="Repeater1" runat="server">
+    <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
         <HeaderTemplate>
             <table class="table table-striped">
                 <tr>
@@ -47,6 +47,7 @@
                     <th>Price</th>
                     <th>Beach distance</th>
                     <th>Status Name</th>
+                    <th>Action</th>
                 </tr>
         </HeaderTemplate>
         <ItemTemplate>
@@ -61,6 +62,9 @@
                 <td><%# Eval("Price") %></td>
                 <td><%# Eval("BeachDistance") %></td>
                 <td><%# Eval("StatusName") %></td>
+                <td>
+                    <asp:Button ID="Button1" runat="server" Text="Open" CommandName="Open" CommandArgument='<%# Eval("Id") %>' UseSubmitBehavior="false" />
+                </td>
             </tr>
         </ItemTemplate>
         <FooterTemplate>
