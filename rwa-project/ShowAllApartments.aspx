@@ -5,36 +5,22 @@
         <div class="d-flex flex-column">
             <div>
                 <label for="StatusDropDownList">Status</label>
-                <asp:DropDownList ID="StatusDropDownList" runat="server">
-                    <asp:ListItem>
-                        Occupied
-                    </asp:ListItem>
-                    <asp:ListItem>
-                        Reserved
-                    </asp:ListItem>
-                    <asp:ListItem>
-                        Vacant
-                    </asp:ListItem>
+                <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
+                    
                 </asp:DropDownList>
+                <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
             <div>
                 <label for="CityDropDownList">City</label>
-                <asp:DropDownList ID="CityDropDownList" runat="server">
-                    <asp:ListItem>
-                        Test
-                    </asp:ListItem>
-                    <asp:ListItem>
-                        Zagreb
-                    </asp:ListItem>
-                    <asp:ListItem>
-                        Idiot
-                    </asp:ListItem>
+                <asp:DropDownList ID="ddlCity" runat="server" DataSourceID="CityBound" DataTextField="Name" DataValueField="Id" AutoPostBack="true">
+                    
                 </asp:DropDownList>
+                <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
         </div>
         <div>
             <label for="SortByDropDownList">Sort by</label>
-            <asp:DropDownList ID="SortByDropDownList" runat="server">
+            <asp:DropDownList ID="ddlSortType" runat="server">
                 <asp:ListItem>
                         Osoba
                 </asp:ListItem>
@@ -46,22 +32,43 @@
                 </asp:ListItem>
             </asp:DropDownList>
         </div>
+        <asp:Button ID="btnSort" runat="server" Text="Sort" OnClick="btnSort_Click"/>
+
     </div>
-    <asp:GridView ID="GridView1" CssClass="table table-striped" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlApartments" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
-        <Columns>
-            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-            <asp:BoundField DataField="CityName" HeaderText="CityName" SortExpression="CityName" />
-            <asp:BoundField DataField="MaxAdults" HeaderText="MaxAdults" SortExpression="MaxAdults" />
-            <asp:BoundField DataField="MaxChildren" HeaderText="MaxChildren" SortExpression="MaxChildren" />
-            <asp:BoundField DataField="TotalRooms" HeaderText="TotalRooms" SortExpression="TotalRooms" />
-            <asp:BoundField DataField="PictureNumber" HeaderText="PictureNumber" ReadOnly="True" SortExpression="PictureNumber" />
-            <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
-            <asp:BoundField DataField="BeachDistance" HeaderText="BeachDistance" SortExpression="BeachDistance" />            
-            <asp:BoundField DataField="NameEng" HeaderText="Status" SortExpression="NameEng" />
-            <asp:CommandField ShowSelectButton="true" />
-        </Columns>
-    </asp:GridView>
+    <asp:Repeater ID="Repeater1" runat="server">
+        <HeaderTemplate>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>City Name</th>
+                    <th>Max adults</th>
+                    <th>Max Children</th>
+                    <th>Total rooms</th>
+                    <th>Picture numbers</th>
+                    <th>Price</th>
+                    <th>Beach distance</th>
+                    <th>Eng name</th>
+                </tr>
+        </HeaderTemplate>
+        <ItemTemplate>
+            <tr>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Name") %></td>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Id") %></td>
+                <td><%# Eval("Price") %></td>
+                <td><%# Eval("BeachDistance") %></td>
+                <td><%# Eval("Id") %></td>
+            </tr>
+        </ItemTemplate>
+        <FooterTemplate>
+            </table>
+        </FooterTemplate>
+    </asp:Repeater>
     <asp:Button ID="btnAddApartment" runat="server" Text="Add new Apartment" OnClick="btnAddApartment_Click"/>
     <asp:Panel ID="EditApartmentPanel" runat="server" Visible="false">
         <h3>Edit Selected Apartment</h3>

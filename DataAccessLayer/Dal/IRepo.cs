@@ -10,6 +10,7 @@ namespace DataAccessLayer.Dal
     public interface IRepo
     {
         IList<Apartment> GetApartments();
+        IList<Apartment> GetApartmentsFilteredByStatusCity(int statusId, int cityId);
         Apartment GetApartmentById(int apartmentId);      
         void CreateApartment(Apartment apartment);
         void UpdateApartmentById(Apartment apartment);

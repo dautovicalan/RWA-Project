@@ -12,6 +12,29 @@ BEGIN
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
 END
 
+CREATE PROC GetApartmentsFilteredByStatusCity
+	@statusId INT,
+	@cityId INT
+AS
+BEGIN
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng	 
+	FROM Apartment AS ap
+	LEFT JOIN City AS c ON c.Id = ap.CityId
+	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
+	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
+	WHERE ap.DeletedAt IS NULL AND ass.Id = @statusId AND c.Id = @cityId
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
+END
+
+
+SELECT *
+FROM Apartment AS ap
+INNER JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
+INNER JOIN City AS c ON c.Id = ap.CityId
+WHERE ass.Id = 1 AND c.Name LIKE 'Zagreb'
+
+
+SELECT * FROM City
 
 ALTER PROC GetApartmentById
 	@id INT

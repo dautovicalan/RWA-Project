@@ -289,5 +289,27 @@ namespace DataAccessLayer.Dal
                 command.ExecuteNonQuery();
             }
         }
+
+        public IList<Apartment> GetApartmentsFilteredByStatusCity(int statusId, int cityId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(GetApartmentsFilteredByStatusCity), connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("statusId", statusId);
+                command.Parameters.AddWithValue("cityId", cityId);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<Apartment> filteredApartments = new List<Apartment>();
+                    while (reader.Read())
+                    {
+                        filteredApartments.Add(Apartment.ParseFromReader(reader));
+                    }
+                    return filteredApartments;
+                }
+            }
+        }
     }
 }
