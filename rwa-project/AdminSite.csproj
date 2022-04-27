@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="AddApartment.aspx" />
     <Content Include="AddTag.aspx" />
+    <Content Include="Assets\logoRwa.png" />
     <Content Include="ShowAllApartments.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

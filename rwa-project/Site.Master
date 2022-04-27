@@ -46,6 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <img src="/Assets/logoRwa.png" width="50" height="50"/>
                     <a class="navbar-brand" runat="server" href="~/">RWA Application</a>
                 </div>
                 <div class="navbar-collapse collapse">
