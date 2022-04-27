@@ -225,3 +225,9 @@ SELECT * FROM Apartment
 
 SELECT * FROM ApartmentReservation
 SELECT * FROM ApartmentStatus
+
+
+SELECT Apartment.Name, Tag.Name 
+FROM TaggedApartment
+INNER JOIN Apartment ON Apartment.Id = TaggedApartment.ApartmentId
+INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
