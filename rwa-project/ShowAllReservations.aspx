@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label>Email Korisnika</label>
-                <asp:TextBox ID="tbUserEmail" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbUserEmail" runat="server" TextMode="Email"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbUserEmail" runat="server" ErrorMessage="* Please fill this field" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="form-group">
