@@ -311,5 +311,26 @@ namespace DataAccessLayer.Dal
                 }
             }
         }
+
+        public IList<Tag> GetApartmentTags(int apartmentId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(GetApartmentTags), connection);
+                command.Parameters.AddWithValue("apartmentId", apartmentId);
+                command.CommandType=System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<Tag> apartmentTags = new List<Tag>();
+                    while (reader.Read())
+                    {
+                        apartmentTags.Add(Tag.ParseFromReader(reader));
+                    }
+                    return apartmentTags;
+                }
+            }
+        }
     }
 }

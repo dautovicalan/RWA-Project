@@ -227,7 +227,19 @@ SELECT * FROM ApartmentReservation
 SELECT * FROM ApartmentStatus
 
 
-SELECT Apartment.Name, Tag.Name 
-FROM TaggedApartment
-INNER JOIN Apartment ON Apartment.Id = TaggedApartment.ApartmentId
-INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
+ALTER PROC GetApartmentTags
+	@apartmentId INT
+AS
+BEGIN
+	SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagAppearance
+	FROM TaggedApartment
+	INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
+	WHERE ApartmentId = @apartmentId
+	GROUP BY Tag.id, Tag.Name, Tag.NameEng
+END
+
+SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagAppearance
+	FROM TaggedApartment
+	INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
+	WHERE ApartmentId = 3
+	GROUP BY Tag.id, Tag.Name, Tag.NameEng

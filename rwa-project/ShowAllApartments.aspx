@@ -106,7 +106,11 @@
                 <asp:ListItem Value="3">Vacant</asp:ListItem>
 
             </asp:DropDownList>
-        </div>             
+        </div>
+        <div class="form-group">
+            <label>Apartment Tags</label>
+            <asp:DropDownList ID="ddlApartmentTags" runat="server"></asp:DropDownList>
+        </div>
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
     </asp:Panel>    

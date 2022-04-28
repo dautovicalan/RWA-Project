@@ -129,6 +129,7 @@ namespace rwa_project
 
         private void FillEditForm(Apartment selectedApartment)
         {
+            ddlApartmentTags.Items.Clear();
             EditApartmentPanel.Visible = true;
             ApartmentId.Text = selectedApartment.Id.ToString();
             txbRoomNumber.Text = selectedApartment.TotalRooms.ToString();
@@ -137,6 +138,8 @@ namespace rwa_project
             txbBeachDistance.Text = selectedApartment.BeachDistance.ToString();
             ddlApartmentStatuses.SelectedValue = ddlApartmentStatuses.Items.Cast<ListItem>().ToList()
                 .Find(singleItem => singleItem.Text == selectedApartment.StatusName).Value;
+            ((IRepo)Application["database"]).GetApartmentTags(selectedApartment.Id)
+               .ToList().ForEach(element => ddlApartmentTags.Items.Add(new ListItem { Text = element.Name, Value = element.Id.ToString()}));
         }
     }
 }

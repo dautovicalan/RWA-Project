@@ -27,6 +27,6 @@ namespace DataAccessLayer.Model
                 NameEng = reader.GetString(2),
                 TagAppearance = reader.GetInt32(3),
             };
-        }        
+        }
     }
 }
