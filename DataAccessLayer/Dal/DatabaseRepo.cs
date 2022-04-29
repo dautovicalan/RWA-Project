@@ -8,7 +8,7 @@ namespace DataAccessLayer.Dal
 {
     public class DatabaseRepo : IRepo
     {
-        private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -330,6 +330,20 @@ namespace DataAccessLayer.Dal
                     }
                     return apartmentTags;
                 }
+            }
+        }
+
+        public void InsertTagToApartment(int apartmentId, int tagId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(InsertTagToApartment), connection);
+                command.Parameters.AddWithValue("apartmentId", apartmentId);
+                command.Parameters.AddWithValue("tagId", tagId);
+                command.Parameters.AddWithValue("guid", Guid.NewGuid());
+                command.CommandType = System.Data.CommandType.StoredProcedure; 
+                command.ExecuteNonQuery();
             }
         }
     }

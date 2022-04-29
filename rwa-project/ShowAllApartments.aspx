@@ -110,6 +110,9 @@
         <div class="form-group">
             <label>Apartment Tags</label>
             <asp:DropDownList ID="ddlApartmentTags" runat="server"></asp:DropDownList>
+            <label>Other available Tags</label>
+            <asp:DropDownList ID="ddlAllOtherTags" runat="server"></asp:DropDownList>
+            <asp:Button ID="addOtherTagToApartment" runat="server" Text="Add Selected Tag to Apartment tags" OnClick="addOtherTagToApartment_Click"/>
         </div>
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />

@@ -66,14 +66,14 @@ namespace rwa_project
                         break;
                 }
             }
-            
+
         }
 
         protected void AddNewApartment_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddApartment.aspx");
         }
-      
+
         protected void EditButton_Click(object sender, EventArgs e)
         {
             ((IRepo)Application["database"]).UpdateApartmentById(new Apartment
@@ -128,8 +128,7 @@ namespace rwa_project
         }
 
         private void FillEditForm(Apartment selectedApartment)
-        {
-            ddlApartmentTags.Items.Clear();
+        {            
             EditApartmentPanel.Visible = true;
             ApartmentId.Text = selectedApartment.Id.ToString();
             txbRoomNumber.Text = selectedApartment.TotalRooms.ToString();
@@ -138,8 +137,39 @@ namespace rwa_project
             txbBeachDistance.Text = selectedApartment.BeachDistance.ToString();
             ddlApartmentStatuses.SelectedValue = ddlApartmentStatuses.Items.Cast<ListItem>().ToList()
                 .Find(singleItem => singleItem.Text == selectedApartment.StatusName).Value;
-            ((IRepo)Application["database"]).GetApartmentTags(selectedApartment.Id)
-               .ToList().ForEach(element => ddlApartmentTags.Items.Add(new ListItem { Text = element.Name, Value = element.Id.ToString()}));
+            FillDropDownListsWithTags(selectedApartment.Id);
+        }
+
+        private void FillDropDownListsWithTags(int selectedApartmentId)
+        {
+            ddlApartmentTags.Items.Clear();
+            ddlAllOtherTags.Items.Clear();
+            ((IRepo)Application["database"]).GetApartmentTags(selectedApartmentId)
+               .ToList().ForEach(element => ddlApartmentTags.Items.Add(new ListItem { Text = element.Name, Value = element.Id.ToString() }));
+            FilterTagsForApartment(selectedApartmentId).ForEach(x => ddlAllOtherTags.Items.Add(new ListItem { Text = x.Name, Value = x.Id.ToString() }));
+        }
+
+        private List<Tag> FilterTagsForApartment(int id)
+        {
+            List<Tag> allTags = ((IRepo)Application["database"]).GetTags().ToList();
+            List<Tag> existinTags = ((IRepo)Application["database"]).GetApartmentTags(id).ToList();            
+
+            List<Tag> filteredTags = new List<Tag>();
+
+            foreach (Tag item in allTags)
+            {
+                if (!existinTags.Exists(x => x.Id == item.Id))
+                {     
+                    filteredTags.Add(item);
+                }
+            }
+            return filteredTags;
+        }
+
+        protected void addOtherTagToApartment_Click(object sender, EventArgs e)
+        {            
+            ((IRepo)Application["database"]).InsertTagToApartment(int.Parse(ApartmentId.Text), int.Parse(ddlAllOtherTags.SelectedValue));
+            FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
         }
     }
 }

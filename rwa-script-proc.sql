@@ -227,7 +227,7 @@ SELECT * FROM ApartmentReservation
 SELECT * FROM ApartmentStatus
 
 
-ALTER PROC GetApartmentTags
+CREATE PROC GetApartmentTags
 	@apartmentId INT
 AS
 BEGIN
@@ -238,8 +238,21 @@ BEGIN
 	GROUP BY Tag.id, Tag.Name, Tag.NameEng
 END
 
+CREATE PROC GetApartmentTagsOposite
+	@apartmentId INT
+AS
+BEGIN
+	SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagAppearance
+	FROM TaggedApartment
+	INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
+	WHERE ApartmentId != @apartmentId
+	GROUP BY Tag.id, Tag.Name, Tag.NameEng
+END
+
 SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagAppearance
 	FROM TaggedApartment
 	INNER JOIN Tag ON Tag.Id = TaggedApartment.TagId
-	WHERE ApartmentId = 3
+	WHERE TaggedApartment.ApartmentId = 3
 	GROUP BY Tag.id, Tag.Name, Tag.NameEng
+
+SELECT * FROM TaggedApartment WHERE ApartmentId != 1

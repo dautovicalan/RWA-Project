@@ -13,6 +13,8 @@ namespace DataAccessLayer.Dal
         IList<Apartment> GetApartmentsFilteredByStatusCity(int statusId, int cityId);
         Apartment GetApartmentById(int apartmentId);
         IList<Tag> GetApartmentTags(int apartmentId);
+        //remove get apartment tags
+        void InsertTagToApartment(int apartmentId, int tagId);
         void CreateApartment(Apartment apartment);
         void UpdateApartmentById(Apartment apartment);
         void SoftDeleteApartmentById(int aparmentId);
@@ -22,14 +24,9 @@ namespace DataAccessLayer.Dal
         Tag GetTagById(int tagId);
         void DeleteTagById(int tagId);
         void CreateTag(Tag tag);
-
         void CreateApartmentReservationRegisteredUser(ApartmentReservation reservation);
-
         void CreateApartmentReservationNonRegisteredUser(ApartmentReservation reservation);
-
         IList<AspNetUser> GetAspNetUsers();
-
-
         IList<City> GetCitys();
 
     }
