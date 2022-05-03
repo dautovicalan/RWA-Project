@@ -255,4 +255,13 @@ SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagA
 	WHERE TaggedApartment.ApartmentId = 3
 	GROUP BY Tag.id, Tag.Name, Tag.NameEng
 
-SELECT * FROM TaggedApartment WHERE ApartmentId != 1
+
+CREATE PROC InsertTagToApartment
+	@apartmentId INT,
+	@tagId INT,
+	@guid UNIQUEIDENTIFIER
+AS
+BEGIN
+	INSERT INTO TaggedApartment (Guid, ApartmentId, TagId)
+	VALUES(@guid, @apartmentId, @tagId)
+END
