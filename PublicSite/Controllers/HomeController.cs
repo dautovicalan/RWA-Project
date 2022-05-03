@@ -8,18 +8,21 @@ namespace PublicSite.Controllers
 {
     public class HomeController : Controller
     {
+
+        // Home/Index
         public ActionResult Index()
         {
             return View();
         }
 
+        // Home/About
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Your application description page.";            
 
             return View();
         }
-
+        // Home/Contact
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
