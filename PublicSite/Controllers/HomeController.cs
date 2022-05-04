@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PublicSite.Models;
+using DataAccessLayer.Dal;
 
 namespace PublicSite.Controllers
 {
@@ -13,17 +15,23 @@ namespace PublicSite.Controllers
         // Home/Index
         public ActionResult Index()
         {
-            var testData = new ApartmentViewModel
-            {
-                Apartments = new List<Models.Apartment>
+            List<Apartment> listOfApartments = new List<Apartment>();
+            RepoFactory.GetRepo().GetApartments()
+                .ToList().ForEach(element => listOfApartments.Add(new Apartment
                 {
-                    new Models.Apartment { Name = "Hello"},
-                    new Models.Apartment { Name = "Alan"},
-                    new Models.Apartment { Name = "Pero"},
-                    new Models.Apartment { Name = "Mero"},
-                }
+                    Name = element.Name,
+                    CityName = element.CityName,
+                    BeachDistance = element.BeachDistance,
+                    RoomCount = element.TotalRooms,
+                    MaxAdults = element.MaxAdults,
+                    MaxChildren = element.MaxChildren,
+                    Price = element.Price,
+                }));
+            var viewModelStuff = new ApartmentViewModel
+            {
+                Apartments = listOfApartments,
             };
-            return View(testData);
+            return View(viewModelStuff);
         }
 
         // Home/About
