@@ -1,4 +1,23 @@
 ﻿
+.sort-filter-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    align-items: flex-start;
+}
+
+.sort-filter-container > .single-item{
+    display: flex;
+    justify-content: center;
+    gap: 1.2em;
+}
+
+.sort-filter-container > .single-item-special{
+    display: flex;
+    justify-content: space-around
+}
+
 .apartments-list{
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;

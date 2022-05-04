@@ -2,11 +2,31 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>RWA Apartmens</h1>
+<div class="sort-filter-container">
+    <div class="single-item">
+        <label>Rooms</label>
+        <input type="number" />
+    </div>
+    <div class="single-item">
+        <label>Adults</label>
+        <input type="number" />
+    </div>
+    <div class="single-item">
+        <label>Children</label>
+        <input type="number" />
+    </div>
+    <div class="single-item-special">
+        <div class="single-item">
+            <label>Destination</label>
+            <input type="number" />
+            <button>Go</button>
+        </div>
+        <div>
+            <label>Sort by</label>
+            <input type="text" />
+        </div>
+    </div>    
 </div>
-
 <div class="apartments-list">
     @foreach (var singleApartment in Model.Apartments)
     {
