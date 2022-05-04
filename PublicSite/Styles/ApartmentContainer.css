@@ -1,0 +1,33 @@
+﻿
+.apartments-list{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    padding: 1.2em;
+}
+
+.apartment-container{
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+}
+
+.apartment-stars{
+    display: flex;
+    justify-content: end;
+}
+
+.apartment-stars > div > .checked{
+    color: orange;
+}
+
+.apartment-information{
+    display: flex;
+    justify-content: space-between;
+}
+
+.apartment-reservation{
+    display: flex;
+    justify-content: right
+}
+
