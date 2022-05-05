@@ -22,6 +22,7 @@ namespace PublicSite.Controllers
                     Id = element.Id,
                     Name = element.Name,
                     CityName = element.CityName,
+                    OwnerName = element.OwnerName,
                     BeachDistance = element.BeachDistance,
                     RoomCount = element.TotalRooms,
                     MaxAdults = element.MaxAdults,
@@ -43,7 +44,27 @@ namespace PublicSite.Controllers
             
             var selectedApartment = RepoFactory.GetRepo().GetApartmentById(id.Value);
 
-            return View(new Apartment { Id = selectedApartment.Id, Name = selectedApartment.Name, CityName = selectedApartment.CityName});
+            Reservation reska = new Reservation();
+            Apartment apartko = new Apartment
+            {
+                Id = selectedApartment.Id,
+                Name = selectedApartment.Name,
+                CityName = selectedApartment.CityName,
+                OwnerName = selectedApartment.OwnerName,
+                BeachDistance = selectedApartment.BeachDistance,
+                RoomCount = selectedApartment.TotalRooms,
+                MaxChildren = selectedApartment.MaxChildren,
+                MaxAdults = selectedApartment.MaxAdults,
+                Price = selectedApartment.Price,
+            };
+
+            return View(new ApartmentReservationViewModel { Apartment = apartko, Reservation = reska});
+        }
+
+        [HttpPost]
+        public ActionResult ApartmentInformation(Reservation reservation)
+        {
+            return RedirectToAction("Index", "Home");
         }
 
         // Home/About

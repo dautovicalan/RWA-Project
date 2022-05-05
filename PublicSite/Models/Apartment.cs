@@ -7,10 +7,11 @@ namespace PublicSite.Models
 {
     public class Apartment
     {
-        // MVC Model
+        // MVC Model        
         public int? Id { get; set; }
         public string Name { get; set; }
         public string CityName { get; set; }
+        public string OwnerName { get; set; }
         public int BeachDistance { get; set; }
         public int RoomCount { get; set; }
         public int MaxAdults { get; set; }

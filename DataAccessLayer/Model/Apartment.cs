@@ -14,6 +14,7 @@ namespace DataAccessLayer.Model
         public DateTime CreatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
         public int OwnerId { get; set; }
+        public string OwnerName { get; set; }
         public int TypeId { get; set; }
         public int StatusId { get; set; }
         public int CityId { get; set; }
@@ -43,6 +44,7 @@ namespace DataAccessLayer.Model
                 TotalRooms = Convert.ToInt32(row["TotalRooms"]),
                 BeachDistance = Convert.ToInt32(row["BeachDistance"]),
                 StatusName = Convert.ToString(row["NameEng"]),
+                OwnerName = Convert.ToString(row["OwnerName"])
             };
         }
 

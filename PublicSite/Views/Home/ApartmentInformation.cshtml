@@ -1,10 +1,38 @@
-﻿@model PublicSite.Models.Apartment
+﻿@model PublicSite.ViewModels.ApartmentReservationViewModel
 @{
     ViewBag.Title = "ApartmentInformation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ApartmentInformation</h2>
-<h3>@Model.Id</h3>
-<h3>@Model.Name</h3>
+<div class="single-apartment-container">
+    <div class="main-container">
+        <div class="apartment-all-details">
+            <h3>@Model.Apartment.Name</h3>
+            <div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" width="250" height="250" />
+                <ul>
+                    <li>@Model.Apartment.CityName</li>
+                    <li>@Model.Apartment.BeachDistance from beach</li>
+                    <li>@Model.Apartment.RoomCount rooms</li>
+                    <li>@Model.Apartment.MaxAdults adults</li>
+                    <li>@Model.Apartment.MaxChildren children</li>
+                    <li>@Model.Apartment.OwnerName</li>
+                </ul>
+            </div>
+            <p>Neka cena 120 €</p>
+        </div>
 
+        <div class="apartment-tags">
+            <ul>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+            </ul>
+        </div>
+    </div>
+    @Html.Partial("_ReservationForm", Model.Reservation)
+</div>
