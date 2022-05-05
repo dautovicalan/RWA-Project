@@ -8,7 +8,7 @@ namespace PublicSite.Models
     public class Apartment
     {
         // MVC Model
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string CityName { get; set; }
         public int BeachDistance { get; set; }

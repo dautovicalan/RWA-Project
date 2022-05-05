@@ -19,6 +19,7 @@ namespace PublicSite.Controllers
             RepoFactory.GetRepo().GetApartments()
                 .ToList().ForEach(element => listOfApartments.Add(new Apartment
                 {
+                    Id = element.Id,
                     Name = element.Name,
                     CityName = element.CityName,
                     BeachDistance = element.BeachDistance,
@@ -32,6 +33,17 @@ namespace PublicSite.Controllers
                 Apartments = listOfApartments,
             };
             return View(viewModelStuff);
+        }
+
+        // Home/ApartmentInformation/id
+        public ActionResult ApartmentInformation(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index", "Home");
+            
+            var selectedApartment = RepoFactory.GetRepo().GetApartmentById(id.Value);
+
+            return View(new Apartment { Id = selectedApartment.Id, Name = selectedApartment.Name, CityName = selectedApartment.CityName});
         }
 
         // Home/About

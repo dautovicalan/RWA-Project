@@ -23,9 +23,7 @@
             <p>@Model.Price €</p>
         </section>
     </div>
-    <div class="apartment-reservation">
-        <button>
-            Reservation
-        </button>
+    <div class="apartment-reservation">      
+        @Html.ActionLink("Edit", "ApartmentInformation", "Home", new {id = Model.Id}, new {@class = "button"})       
     </div>
 </div>
