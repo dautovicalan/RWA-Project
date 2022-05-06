@@ -8,6 +8,8 @@ namespace PublicSite.Models
 {
     public class Reservation
     {
+        public int ApartmentId { get; set; }
+
         [Required(ErrorMessage = "Missing data")]
         [Display(Name ="Name")]
         public string UserName { get; set; }
@@ -21,6 +23,10 @@ namespace PublicSite.Models
 
         [Required(ErrorMessage = "Missing data")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Missing data")]
+        [Display(Name = "Address")]
+        public string UserAddress { get; set; }     
 
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "Max adults")]

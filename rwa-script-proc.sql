@@ -3,7 +3,7 @@ use RwaApartmani
 ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS Test
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id

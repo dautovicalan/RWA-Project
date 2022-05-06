@@ -64,6 +64,23 @@ namespace PublicSite.Controllers
         [HttpPost]
         public ActionResult ApartmentInformation(Reservation reservation)
         {
+            string userName = reservation.UserName;
+            string userEmail = reservation.Email;
+            string userPhone = reservation.Phone;
+            string userAddress = reservation.UserAddress;
+
+            RepoFactory.GetRepo().CreateApartmentReservationNonRegisteredUser(
+                new DataAccessLayer.Model.ApartmentReservation
+                {
+                    Guid = Guid.NewGuid(),
+                    CreatedAt = DateTime.Now,
+                    ApartmentId = int.Parse(Url.RequestContext.RouteData.Values["id"].ToString()),
+                    Details = reservation.From.ToString(),
+                    UserName = userName,
+                    UserEmail = userEmail,
+                    UserPhone = userPhone,
+                    UserAddress = userAddress,
+                });            
             return RedirectToAction("Index", "Home");
         }
 
