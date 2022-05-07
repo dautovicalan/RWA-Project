@@ -1,0 +1,5 @@
+﻿@model PublicSite.ViewModels.ApartmentViewModel
+@foreach (var singleApartment in Model.Apartments)
+{
+    @Html.Partial("_ApartmentContainer", singleApartment)
+}

@@ -9,5 +9,6 @@ namespace PublicSite.ViewModels
     public class ApartmentViewModel
     {
         public List<Apartment> Apartments { get; set; }
+        public ApartmentFilter ApartmentFilter { get; set; }
     }
 }

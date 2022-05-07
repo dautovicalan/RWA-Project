@@ -2,34 +2,64 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <div class="sort-filter-container">
-    <div class="single-item">
-        <label>Rooms</label>
-        <input type="number" />
-    </div>
-    <div class="single-item">
-        <label>Adults</label>
-        <input type="number" />
-    </div>
-    <div class="single-item">
-        <label>Children</label>
-        <input type="number" />
-    </div>
-    <div class="single-item-special">
+    <form id="myForm">
         <div class="single-item">
-            <label>Destination</label>
-            <input type="number" />
-            <button>Go</button>
+            <label>Rooms</label>
+            <input type="number" id="roomsNumberField"/>
         </div>
-        <div>
-            <label>Sort by</label>
-            <input type="text" />
+        <div class="single-item">
+            <label>Adults</label>
+            <input type="number" id="adultsNumberField"/>
         </div>
-    </div>    
+        <div class="single-item">
+            <label>Children</label>
+            <input type="number" id="childrenNumberField"/>
+        </div>
+        <div class="single-item-special">
+            <div class="single-item">
+                <label>Destination</label>
+                <input type="number" />
+                <button>Go</button>
+            </div>
+            <div>
+                <label>Sort by</label>
+                <input type="text" />
+            </div>
+        </div>
+    </form>    
 </div>
-<div class="apartments-list">
-    @foreach (var singleApartment in Model.Apartments)
-    {
-        @Html.Partial("_ApartmentContainer", singleApartment)
-    }
+
+<div class="apartments-list" id="apartments-list">
+    @Html.Partial("_AllApartments", Model)
 </div>
+
+<script>
+    $("#myForm").submit(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var container = $("#apartments-list");
+
+        var obj = {
+            RoomCount: $("#roomsNumberField").val(),
+            MaxAdults: $("#adultsNumberField").val(),
+            MaxChildren: $("#childrenNumberField").val(),
+            CityName: "Zagreb"
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetFilteredApartments",
+            data: obj,
+            success: function (data) {                
+                container.empty();
+                container.append(data);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        })
+    })
+</script>

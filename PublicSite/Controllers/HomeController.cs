@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PublicSite.Models;
 using DataAccessLayer.Dal;
+using Newtonsoft.Json;
 
 namespace PublicSite.Controllers
 {
@@ -34,6 +35,25 @@ namespace PublicSite.Controllers
                 Apartments = listOfApartments,
             };
             return View(viewModelStuff);
+        }
+
+        [HttpPost]
+        public PartialViewResult GetFilteredApartments(ApartmentFilter filters)
+        {
+            List<Apartment> testing = new List<Apartment>();
+            testing.Add(new Apartment { Name = "Pero" });
+            testing.Add(new Apartment { Name = "Mero" });
+            testing.Add(new Apartment { Name = "Kero" });
+
+
+            ApartmentViewModel hello = new ApartmentViewModel
+            {
+                Apartments = testing,
+                ApartmentFilter = filters
+            };
+
+
+            return PartialView("_AllApartments", hello);
         }
 
         // Home/ApartmentInformation/id
