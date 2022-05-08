@@ -20,7 +20,12 @@
         <div class="single-item-special">
             <div class="single-item">
                 <label>Destination</label>
-                <input type="number" />
+                <select id="cities">
+                    @foreach (var item in Model.Cities)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
                 <button>Go</button>
             </div>
             <div>
@@ -46,7 +51,7 @@
             RoomCount: $("#roomsNumberField").val(),
             MaxAdults: $("#adultsNumberField").val(),
             MaxChildren: $("#childrenNumberField").val(),
-            CityName: "Zagreb"
+            CityName: $("#cities").find(":selected").text()
         }
 
         $.ajax({

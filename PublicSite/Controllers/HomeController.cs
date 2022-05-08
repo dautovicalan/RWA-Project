@@ -17,6 +17,7 @@ namespace PublicSite.Controllers
         public ActionResult Index()
         {
             List<Apartment> listOfApartments = new List<Apartment>();
+            List<DataAccessLayer.Model.City> cityList = RepoFactory.GetRepo().GetCitys().ToList();
             RepoFactory.GetRepo().GetApartments()
                 .ToList().ForEach(element => listOfApartments.Add(new Apartment
                 {
@@ -33,6 +34,7 @@ namespace PublicSite.Controllers
             var viewModelStuff = new ApartmentViewModel
             {
                 Apartments = listOfApartments,
+                Cities = cityList,
             };
             return View(viewModelStuff);
         }
@@ -40,15 +42,29 @@ namespace PublicSite.Controllers
         [HttpPost]
         public PartialViewResult GetFilteredApartments(ApartmentFilter filters)
         {
-            List<Apartment> testing = new List<Apartment>();
-            testing.Add(new Apartment { Name = "Pero" });
-            testing.Add(new Apartment { Name = "Mero" });
-            testing.Add(new Apartment { Name = "Kero" });
 
+            List<DataAccessLayer.Model.Apartment> apartmani = RepoFactory.GetRepo().GetApartments().ToList();
+
+            List<DataAccessLayer.Model.Apartment> all = apartmani.FindAll(x => x.TotalRooms >= filters.RoomCount && x.MaxAdults >= filters.MaxAdults
+                                                        && x.MaxChildren >= filters.MaxChildren && x.CityName == filters.CityName);
+
+
+            List<Apartment> myAparts = new List<Apartment>();
+            all.ForEach(x => myAparts.Add(new Apartment { 
+                Id = x.Id, 
+                MaxChildren = x.MaxChildren, 
+                Name = x.Name, 
+                CityName = x.CityName, 
+                MaxAdults = x.MaxAdults,
+                RoomCount = x.TotalRooms,
+                OwnerName = x.OwnerName,
+                Price = x.Price,
+                BeachDistance = x.BeachDistance,                
+            }));
 
             ApartmentViewModel hello = new ApartmentViewModel
             {
-                Apartments = testing,
+                Apartments = myAparts,
                 ApartmentFilter = filters
             };
 

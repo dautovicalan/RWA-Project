@@ -10,5 +10,6 @@ namespace PublicSite.ViewModels
     {
         public List<Apartment> Apartments { get; set; }
         public ApartmentFilter ApartmentFilter { get; set; }
+        public List<DataAccessLayer.Model.City> Cities { get; set; }
     }
 }
