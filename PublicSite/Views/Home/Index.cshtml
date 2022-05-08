@@ -30,7 +30,10 @@
             </div>
             <div>
                 <label>Sort by</label>
-                <input type="text" />
+                <select id="sortingType">
+                    <option value="Id" selected>Id</option>
+                    <option value="Price">Price</option>
+                </select>             
             </div>
         </div>
     </form>    
@@ -51,7 +54,8 @@
             RoomCount: $("#roomsNumberField").val(),
             MaxAdults: $("#adultsNumberField").val(),
             MaxChildren: $("#childrenNumberField").val(),
-            CityName: $("#cities").find(":selected").text()
+            CityName: $("#cities").find(":selected").text(),
+            SortType: $("#sortingType").find(":selected").text()
         }
 
         $.ajax({

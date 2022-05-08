@@ -6,6 +6,12 @@ using System.Web;
 
 namespace PublicSite.Models
 {
+
+    public enum SortType
+    {
+        Id,
+        Price
+    }
     public class ApartmentFilter
     {
         [Display(Name = "Room count")]
@@ -20,5 +26,6 @@ namespace PublicSite.Models
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "City")]
         public string CityName { get; set; }
+        public SortType SortType { get; set; }
     }
 }

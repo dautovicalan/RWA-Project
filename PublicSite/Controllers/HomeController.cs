@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PublicSite.Models;
 using DataAccessLayer.Dal;
 using Newtonsoft.Json;
+using CaptchaMvc.HtmlHelpers;
 
 namespace PublicSite.Controllers
 {
@@ -62,6 +63,8 @@ namespace PublicSite.Controllers
                 BeachDistance = x.BeachDistance,                
             }));
 
+            myAparts.Sort((x, y) => -x.Price.CompareTo(y.Price));
+
             ApartmentViewModel hello = new ApartmentViewModel
             {
                 Apartments = myAparts,
@@ -100,6 +103,11 @@ namespace PublicSite.Controllers
         [HttpPost]
         public ActionResult ApartmentInformation(Reservation reservation)
         {
+            if (this.IsCaptchaValid("Captcha is not valid"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             string userName = reservation.UserName;
             string userEmail = reservation.Email;
             string userPhone = reservation.Phone;

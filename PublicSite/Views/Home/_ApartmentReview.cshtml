@@ -1,0 +1,81 @@
+﻿<style>
+    .rating-css {
+        height: 250px;
+        width: 450px;
+        padding: 20px;
+    }
+
+    .rating-css div {
+        color: #ffe400;
+        font-size: 30px;
+        font-family: sans-serif;
+        font-weight: 800;
+        text-align: center;
+        padding: 20px 0;
+    }
+    .rating-css input {
+        display: none;
+    }
+
+    .rating-css input + label {
+        font-size: 60px;
+        text-shadow: 1px 1px 0 #ffe400;
+        cursor: pointer;
+    }
+
+    .rating-css input:checked + label ~ label {
+        color: #838383;
+    }
+
+    .rating-css label:active {
+        transform: scale(0.8);
+        transition: 0.3s ease;
+    }
+</style>
+
+
+<div>
+    <form id="reviewForm">
+        <div>
+            <label>Details</label>
+            <input type="text" placeholder="Enter review" />
+        </div>
+        <div class="rating-css">
+            <div class="star-icon">
+                <input type="radio" name="rating1" id="rating1">
+                <label for="rating1" class="fa fa-star"></label>
+                <input type="radio" name="rating1" id="rating2">
+                <label for="rating2" class="fa fa-star"></label>
+                <input type="radio" name="rating1" id="rating3">
+                <label for="rating3" class="fa fa-star"></label>
+                <input type="radio" name="rating1" id="rating4">
+                <label for="rating4" class="fa fa-star"></label>
+                <input type="radio" name="rating1" id="rating5">
+                <label for="rating5" class="fa fa-star"></label>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Submit your review" />
+        </div>
+    </form>
+</div>
+
+<script>
+
+    $("#reviewForm").submit(function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var starCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if ($("#rating"+i).is(":checked")) {
+                starCount = i
+                break;
+            }
+        }
+
+        console.log(starCount);
+    })
+
+</script>
