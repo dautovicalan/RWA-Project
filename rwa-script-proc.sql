@@ -267,3 +267,21 @@ BEGIN
 	INSERT INTO TaggedApartment (Guid, ApartmentId, TagId)
 	VALUES(@guid, @apartmentId, @tagId)
 END
+
+ALTER PROC AuthUser
+	@username NVARCHAR(50),
+	@password NVARCHAR(128)
+AS
+BEGIN
+	SELECT *
+	FROM AspNetUsers
+	WHERE UserName = @username AND PasswordHash = @password
+END
+
+
+CREATE PROC RegisterUser
+	
+AS
+BEGIN
+	INSERT INTO AspNetUsers () VALUES
+END

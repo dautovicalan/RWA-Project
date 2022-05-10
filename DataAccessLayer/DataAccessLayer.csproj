@@ -75,6 +75,7 @@
     <Compile Include="Model\AspNetUserRoles.cs" />
     <Compile Include="Model\AspNetUser.cs" />
     <Compile Include="Model\City.cs" />
+    <Compile Include="Model\Cryptographing.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TaggedApartment.cs" />
     <Compile Include="Model\TagType.cs" />
