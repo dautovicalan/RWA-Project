@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer.Dal;
 using DataAccessLayer.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -74,10 +75,16 @@ namespace PublicSite.Controllers
                 return View(model);
             }
 
-            string username = model.Email;
+            string username = model.Username;
             string password = model.Password;
+            string hashedPassword = Cryptographing.HashPassword(password);
 
-
+            AspNetUser user = RepoFactory.GetRepo().AuthUser(username, hashedPassword);
+            if (user == null)
+            {
+                return View(model);
+            }
+            Session["user"] = user;
             return RedirectToAction("Index", "Home");
         }
 
@@ -141,13 +148,23 @@ namespace PublicSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                string userName = model.Email;
+                string userEmail = model.Email;
+                string userName = model.UserName;
+                string phoneNumber = model.PhoneNumber;
+                string address = model.Address;
                 string inputPassword = model.Password;
-
                 string hashedPassword = Cryptographing.HashPassword(inputPassword);
 
-                //do auth with stored procedure
-                
+                RepoFactory.GetRepo().RegisterUser(new AspNetUser
+                {
+                    UserName = userName,
+                    PhoneNumber = phoneNumber,
+                    Address = address,
+                    PasswordHash = hashedPassword,
+                    Email = userEmail,
+                });
+
+                return RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form

@@ -3,6 +3,11 @@
     ViewBag.Title = "Home Page";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
+
+@if (Session["user"] != null)
+{
+    <p>@(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)</p>
+}
 <div class="sort-filter-container">
     <form id="myForm">
         <div class="single-item">

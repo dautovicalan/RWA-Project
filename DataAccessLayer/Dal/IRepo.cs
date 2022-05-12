@@ -27,6 +27,8 @@ namespace DataAccessLayer.Dal
         void CreateApartmentReservationRegisteredUser(ApartmentReservation reservation);
         void CreateApartmentReservationNonRegisteredUser(ApartmentReservation reservation);
         IList<AspNetUser> GetAspNetUsers();
+        void RegisterUser(AspNetUser user);
+        AspNetUser AuthUser(string userName, string hashedPassword);
         IList<City> GetCitys();
 
     }

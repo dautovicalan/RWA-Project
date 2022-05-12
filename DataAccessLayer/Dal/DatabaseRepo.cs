@@ -8,7 +8,8 @@ namespace DataAccessLayer.Dal
 {
     public class DatabaseRepo : IRepo
     {
-        private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
+        //private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -344,6 +345,42 @@ namespace DataAccessLayer.Dal
                 command.Parameters.AddWithValue("guid", Guid.NewGuid());
                 command.CommandType = System.Data.CommandType.StoredProcedure; 
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public void RegisterUser(AspNetUser user)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(RegisterUser), connection);
+                command.Parameters.AddWithValue("email", user.Email);
+                command.Parameters.AddWithValue("passwordHash", user.PasswordHash);
+                command.Parameters.AddWithValue("phoneNumber", user.PhoneNumber);
+                command.Parameters.AddWithValue("userName", user.UserName);
+                command.Parameters.AddWithValue("address", user.Address);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public AspNetUser AuthUser(string userName, string hashedPassword)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(AuthUser), connection);
+                command.Parameters.AddWithValue("userName", userName);
+                command.Parameters.AddWithValue("hashedPassword", hashedPassword);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return AspNetUser.ParseFromReader(reader);
+                    }
+                    return null;
+                }
             }
         }
     }

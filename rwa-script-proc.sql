@@ -280,8 +280,25 @@ END
 
 
 CREATE PROC RegisterUser
-	
+	@email NVARCHAR(256),
+	@passwordHash NVARCHAR(MAX),
+	@phoneNumber NVARCHAR(MAX),
+	@userName NVARCHAR(256),
+	@address NVARCHAR(1000)
 AS
 BEGIN
-	INSERT INTO AspNetUsers () VALUES
+	INSERT INTO AspNetUsers (Guid, CreatedAt, DeletedAt, Email, EmailConfirmed, PasswordHash, PhoneNumber, PhoneNumberConfirmed, LockoutEnabled, AccessFailedCount, UserName, Address) 
+	VALUES(NEWID(), GETDATE(), NULL, @email, 1, @passwordHash, @phoneNumber, 1, 1, 0, @userName, @address)
 END
+
+CREATE PROC AuthUser
+	@userName NVARCHAR(256),
+	@hashedPassword NVARCHAR(MAX)
+AS
+BEGIN
+	SELECT *
+	FROM AspNetUsers
+	WHERE UserName = @userName AND PasswordHash = @hashedPassword
+END
+
+SELECT * FROM AspNetUsers WHERE UserName LIKE 'Test'
