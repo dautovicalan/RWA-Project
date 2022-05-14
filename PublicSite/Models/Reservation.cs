@@ -15,10 +15,6 @@ namespace PublicSite.Models
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
-        [Display(Name = "Surname")]
-        public string UserSurname { get; set; }
-
-        [Required(ErrorMessage = "Missing data")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Missing data")]

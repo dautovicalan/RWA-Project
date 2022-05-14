@@ -5,7 +5,9 @@
         <li>
             @(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>            
+            @Html.ActionLink("Log off", "LogOff", "Account");
+        </li>
     </ul>
 }
 else
