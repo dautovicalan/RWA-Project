@@ -16,6 +16,7 @@ namespace PublicSite.Models
         public int RoomCount { get; set; }
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }
-        public double Price { get; set; }        
+        public double Price { get; set; }
+        public int ApartmentStars { get; set; }
     }
 }

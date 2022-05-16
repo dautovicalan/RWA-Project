@@ -38,7 +38,7 @@
     <form id="reviewForm">
         <div>
             <label>Details</label>
-            <input type="text" placeholder="Enter review" />
+            <input type="text" placeholder="Enter review" id="userReview"/>
         </div>
         <div class="rating-css">
             <div class="star-icon">
@@ -75,7 +75,23 @@
             }
         }
 
-        console.log(starCount);
+        var obj = {
+            Details: $("#userReview").val(),
+            StarCount: starCount
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SubmitApartmentReview",
+            data: obj,
+            success: function (data) {
+                alert("Thank you for review");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+        
     })
 
 </script>

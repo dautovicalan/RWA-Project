@@ -31,6 +31,7 @@ namespace PublicSite.Controllers
                     MaxAdults = element.MaxAdults,
                     MaxChildren = element.MaxChildren,
                     Price = element.Price,
+                    ApartmentStars = element.ApartmentStars,
                 }));
             var viewModelStuff = new ApartmentViewModel
             {
@@ -125,6 +126,14 @@ namespace PublicSite.Controllers
                     UserPhone = userPhone,
                     UserAddress = userAddress,
                 });            
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult SubmitApartmentReview(UserReview userReview)
+        {
+            int test = userReview.StarCount;
+            //call sp in database
             return RedirectToAction("Index", "Home");
         }
 

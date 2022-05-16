@@ -10,7 +10,6 @@ namespace DataAccessLayer.Model
     {
         public int Id { get; set; }
         public Guid Guid { get; set; }
-        public DateTime CreatedAt { get; set; }
         public int ApartmentId { get; set; }
         public int UserId { get; set; }
         public string Details { get; set; }

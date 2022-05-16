@@ -9,8 +9,6 @@ namespace DataAccessLayer.Model
 {
     public static class Cryptographing
     {
-
-        //Dodaj provjeru za  input koji je hashiradn i usporedi ga sa hashiranim passom u bazi
         public static string HashPassword(string input)
         {
             var bytes = Encoding.UTF8.GetBytes(input);

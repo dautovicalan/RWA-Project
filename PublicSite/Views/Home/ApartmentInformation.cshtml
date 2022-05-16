@@ -35,5 +35,12 @@
         </div>
     </div>
     @Html.Partial("_ReservationForm", Model.Reservation)
-    @Html.Partial("_ApartmentReview")
+    @if (Session["user"] != null)
+    {
+        @Html.Partial("_ApartmentReview", Model.Review)
+    }
+    else
+    {
+        <h3>Login for submiting apartment review</h3>
+    }
 </div>

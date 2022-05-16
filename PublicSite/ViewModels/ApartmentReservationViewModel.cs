@@ -10,5 +10,6 @@ namespace PublicSite.ViewModels
     {
         public Apartment Apartment{ get; set; }
         public Reservation Reservation { get; set; }
+        public UserReview Review { get; set; }
     }
 }

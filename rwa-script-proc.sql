@@ -3,26 +3,28 @@ use RwaApartmani
 ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
+	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
 	WHERE ap.DeletedAt IS NULL
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name 
 END
 
-CREATE PROC GetApartmentsFilteredByStatusCity
+ALTER PROC GetApartmentsFilteredByStatusCity
 	@statusId INT,
 	@cityId INT
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, AVG(ar.Stars) AS ApartmentStars	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
+	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
 	WHERE ap.DeletedAt IS NULL AND ass.Id = @statusId AND c.Id = @cityId
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
 END
@@ -41,12 +43,13 @@ ALTER PROC GetApartmentById
 	@id INT
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
 	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
+	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
 	WHERE ap.Id = @id
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name
 END
