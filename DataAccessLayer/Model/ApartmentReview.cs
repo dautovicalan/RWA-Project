@@ -9,7 +9,6 @@ namespace DataAccessLayer.Model
     public class ApartmentReview
     {
         public int Id { get; set; }
-        public Guid Guid { get; set; }
         public int ApartmentId { get; set; }
         public int UserId { get; set; }
         public string Details { get; set; }

@@ -304,4 +304,14 @@ BEGIN
 	WHERE UserName = @userName AND PasswordHash = @hashedPassword
 END
 
-SELECT * FROM AspNetUsers WHERE UserName LIKE 'Test'
+CREATE PROC InsertUserReview	
+	@userId INT,
+	@apartmentId INT,
+	@details NVARCHAR(MAX),
+	@stars INT
+AS
+BEGIN
+	INSERT INTO ApartmentReview (Guid, CreatedAt, ApartmentId, UserId, Details, Stars)
+	VALUES(NEWID(), GETDATE(), @apartmentId, @userId, @details, @stars)
+END
+
