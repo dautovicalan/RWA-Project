@@ -7,6 +7,7 @@ namespace PublicSite.Models
 {
     public class UserReview
     {
+        public string ApartmentId { get; set; }
         public string Details { get; set; }
         public int StarCount { get; set; }
     }

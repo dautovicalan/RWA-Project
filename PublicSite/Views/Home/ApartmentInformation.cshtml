@@ -37,7 +37,7 @@
     @Html.Partial("_ReservationForm", Model.Reservation)
     @if (Session["user"] != null)
     {
-        @Html.Partial("_ApartmentReview", Model.Review)
+        @Html.Partial("_ApartmentReview", Model)
     }
     else
     {

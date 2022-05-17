@@ -132,8 +132,13 @@ namespace PublicSite.Controllers
         [HttpPost]
         public ActionResult SubmitApartmentReview(UserReview userReview)
         {
-            int test = userReview.StarCount;
-            //call sp in database
+            RepoFactory.GetRepo().InsertUserReview(new DataAccessLayer.Model.ApartmentReview
+            {
+                UserId = ((DataAccessLayer.Model.AspNetUser)Session["user"]).Id,
+                ApartmentId = int.Parse(userReview.ApartmentId),
+                Details = userReview.Details,
+                Stars = userReview.StarCount
+            });
             return RedirectToAction("Index", "Home");
         }
 

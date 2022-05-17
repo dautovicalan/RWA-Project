@@ -31,5 +31,7 @@ namespace DataAccessLayer.Dal
         AspNetUser AuthUser(string userName, string hashedPassword);
         IList<City> GetCitys();
 
+        void InsertUserReview(ApartmentReview review);
+
     }
 }

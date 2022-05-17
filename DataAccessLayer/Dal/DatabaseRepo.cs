@@ -8,8 +8,8 @@ namespace DataAccessLayer.Dal
 {
     public class DatabaseRepo : IRepo
     {
-        private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
-        //private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
+        //private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -381,6 +381,21 @@ namespace DataAccessLayer.Dal
                     }
                     return null;
                 }
+            }
+        }
+
+        public void InsertUserReview(ApartmentReview review)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(InsertUserReview), connection);
+                command.Parameters.AddWithValue("userId", review.UserId);
+                command.Parameters.AddWithValue("apartmentId", review.ApartmentId);
+                command.Parameters.AddWithValue("details", review?.Details);
+                command.Parameters.AddWithValue("stars", review.Stars);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
             }
         }
     }

@@ -46,7 +46,8 @@ namespace DataAccessLayer.Model
                 BeachDistance = Convert.ToInt32(row["BeachDistance"]),
                 StatusName = Convert.ToString(row["NameEng"]),
                 OwnerName = Convert.ToString(row["OwnerName"]),
-                ApartmentStars = Convert.ToInt32(row[nameof(ApartmentStars)])
+                ApartmentStars = Convert.IsDBNull(row[nameof(ApartmentStars)]) ? 0 : Convert.ToInt32(row[nameof(ApartmentStars)])
+
             };
         }
 
