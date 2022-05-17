@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace PublicSite.Models
@@ -14,6 +15,8 @@ namespace PublicSite.Models
     }
     public class ApartmentFilter
     {
+        private const char DEL = '|';
+
         [Display(Name = "Room count")]
         [Required(ErrorMessage = "Missing data")]
         public int RoomCount { get; set; }
@@ -27,5 +30,22 @@ namespace PublicSite.Models
         [Display(Name = "City")]
         public string CityName { get; set; }
         public SortType SortType { get; set; }
+
+        public string PrepareForCookie()
+        {
+            return $"{RoomCount}{DEL}{MaxAdults}{DEL}{MaxChildren}{CityName}{SortType}";
+        }
+
+        public static ApartmentFilter ReadFromCookie(string cookieParams)
+        {
+            string[] testing = cookieParams.Split(DEL);
+            return new ApartmentFilter
+            {
+                RoomCount = int.Parse(testing[0]),
+                MaxAdults = int.Parse(testing[1]),
+                MaxChildren = int.Parse(testing[2]),
+                CityName = testing[3],
+            };
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace PublicSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Application["database"] = RepoFactory.GetRepo();            
+            Application["database"] = RepoFactory.GetRepo();
         }
     }
 }

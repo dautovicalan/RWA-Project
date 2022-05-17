@@ -37,7 +37,7 @@ namespace PublicSite.Controllers
             {
                 Apartments = listOfApartments,
                 Cities = cityList,
-            };
+            };            
             return View(viewModelStuff);
         }
 
@@ -72,7 +72,8 @@ namespace PublicSite.Controllers
                 ApartmentFilter = filters
             };
 
-
+            HttpCookie filterSortCookie = new HttpCookie("sortingFilterOptions", filters.PrepareForCookie());
+            HttpContext.Response.Cookies.Add(filterSortCookie);
             return PartialView("_AllApartments", hello);
         }
 
