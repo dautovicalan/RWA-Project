@@ -16,9 +16,22 @@ namespace PublicSite
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);            
+        }
 
-            Application["database"] = RepoFactory.GetRepo();
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpCookie langCookie = HttpContext.Current.Request.Cookies["language"];
+            if (langCookie != null && langCookie.Value != null)
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(langCookie.Value);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(langCookie.Value);
+            }
+            else
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("hr-HR");
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("hr-HR");
+            }            
         }
     }
 }

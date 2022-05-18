@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("English", "SetNewLanguage", "Language", new { selectedLanguage = "en"}, null)
+@Html.ActionLink("Hrvatski", "SetNewLanguage", "Language", new { selectedLanguage = "hr-HR"}, null)
+
