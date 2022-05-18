@@ -33,11 +33,13 @@ namespace PublicSite.Controllers
                     Price = element.Price,
                     ApartmentStars = element.ApartmentStars,
                 }));
+            ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
             var viewModelStuff = new ApartmentViewModel
             {
                 Apartments = listOfApartments,
                 Cities = cityList,
-            };            
+                ApartmentFilter = myFilters
+            };
             return View(viewModelStuff);
         }
 

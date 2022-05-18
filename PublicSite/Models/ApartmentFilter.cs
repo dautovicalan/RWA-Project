@@ -33,11 +33,15 @@ namespace PublicSite.Models
 
         public string PrepareForCookie()
         {
-            return $"{RoomCount}{DEL}{MaxAdults}{DEL}{MaxChildren}{CityName}{SortType}";
+            return $"{RoomCount}{DEL}{MaxAdults}{DEL}{MaxChildren}{DEL}{CityName}{DEL}{SortType}";
         }
 
         public static ApartmentFilter ReadFromCookie(string cookieParams)
         {
+            if (String.IsNullOrEmpty(cookieParams))
+            {
+                return null;
+            }
             string[] testing = cookieParams.Split(DEL);
             return new ApartmentFilter
             {
