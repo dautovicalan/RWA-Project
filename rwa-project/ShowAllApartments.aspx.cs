@@ -13,10 +13,10 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack && Session["user"] == null)
-            //{
-            //    Response.Redirect("Login.aspx");
-            //}
+            if (!IsPostBack && Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             FillData();
         }
 
@@ -90,7 +90,19 @@ namespace rwa_project
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
+            pnlModal.Visible = true;
+        }
+
+        protected void btnDeleteCancel_Click(object sender, EventArgs e)
+        {
+            pnlModal.Visible = false;
+        }
+
+        protected void btnDeleteConfirm_Click(object sender, EventArgs e)
+        {            
             ((IRepo)Application["database"]).SoftDeleteApartmentById(int.Parse(ApartmentId.Text));
+            pnlModal.Visible = false;
+            EditApartmentPanel.Visible = false;
             FillData();
         }
 

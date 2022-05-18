@@ -1,6 +1,32 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShowAllApartments.aspx.cs" Inherits="rwa_project.Apartmens" %>
 
 <asp:Content ID="ApartmensPage" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: block;
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+    </style>
     <div class="row">
         <div class="d-flex flex-column">
             <div>
@@ -118,4 +144,16 @@
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
     </asp:Panel>    
     <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+
+    <asp:Panel ID="pnlModal" runat="server" Visible="false">
+        <div class="modal">
+            <div class="modal-content">
+                <h1>Are you sure you want to delete this tag?</h1>
+                <div class="form-group">
+                    <asp:Button ID="btnDeleteConfirm" runat="server" Text="Yes" OnClick="btnDeleteConfirm_Click"/>
+                    <asp:Button ID="btnDeleteCancel" runat="server" Text="No" OnClick="btnDeleteCancel_Click"/>
+                </div>
+            </div>
+        </div>        
+    </asp:Panel>
 </asp:Content>

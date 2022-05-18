@@ -11,8 +11,6 @@ namespace rwa_project
 {
     public partial class Tags : System.Web.UI.Page
     {
-
-        public List<Tag> MyTags { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack && Session["user"] == null)
@@ -41,10 +39,27 @@ namespace rwa_project
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Delete")
-            {                
-                ((IRepo)Application["database"]).DeleteTagById(int.Parse(e.CommandArgument.ToString()));
-                FillDataInRepeater();
+            {
+                pnlModal.Visible = true;
+                Session["selectedIdForDeleting"] = int.Parse(e.CommandArgument.ToString());
             }
+        }
+
+        protected void btnDeleteCancel_Click(object sender, EventArgs e)
+        {
+            pnlModal.Visible=false;
+        }
+
+        protected void btnDeleteConfirm_Click(object sender, EventArgs e)
+        {
+            if (Session["selectedIdForDeleting"] == null)
+            {
+                pnlModal.Visible = false;
+                return;
+            }
+            ((IRepo)Application["database"]).DeleteTagById((int)Session["selectedIdForDeleting"]);
+            pnlModal.Visible = false;
+            FillDataInRepeater();
         }
     }
 }
