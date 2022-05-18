@@ -11,31 +11,35 @@ namespace PublicSite.Models
         public int ApartmentId { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
-        [Display(Name ="Name")]
+        [Display(Name = "UserName", ResourceType = typeof(Resource))]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
+        [Display(Name = "Email", ResourceType = typeof(Resource))]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
+        [Display(Name = "Phone", ResourceType = typeof(Resource))]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
-        [Display(Name = "Address")]
+        [Display(Name = "UserAddress", ResourceType = typeof(Resource))]
         public string UserAddress { get; set; }     
 
         [Required(ErrorMessage = "Missing data")]
-        [Display(Name = "Max adults")]
+        [Display(Name = "MaxAdults", ResourceType = typeof(Resource))]
         public int? MaxAdults{ get; set; }
 
         [Required(ErrorMessage = "Missing data")]
-        [Display(Name = "Max children")]
+        [Display(Name = "MaxChildren", ResourceType = typeof(Resource))]
         public int? MaxChildren { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
+        [Display(Name = "From", ResourceType = typeof(Resource))]
         public DateTime From { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
+        [Display(Name = "To", ResourceType = typeof(Resource))]
         public DateTime To { get; set; }
     }
 }

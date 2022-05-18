@@ -8,6 +8,8 @@ using PublicSite.Models;
 using DataAccessLayer.Dal;
 using Newtonsoft.Json;
 using CaptchaMvc.HtmlHelpers;
+using System.Threading;
+using System.Globalization;
 
 namespace PublicSite.Controllers
 {
@@ -17,6 +19,8 @@ namespace PublicSite.Controllers
         // Home/Index
         public ActionResult Index()
         {
+            Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("hr-HR");
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("hr-HR");
             List<Apartment> listOfApartments = new List<Apartment>();
             List<DataAccessLayer.Model.City> cityList = RepoFactory.GetRepo().GetCitys().ToList();
             RepoFactory.GetRepo().GetApartments()
