@@ -120,6 +120,12 @@
   <data name="Adults" xml:space="preserve">
     <value>Broj odraslih</value>
   </data>
+  <data name="ApartContButton" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="ApartReviewTextLogin" xml:space="preserve">
+    <value>Ulogiraj te se za ostavljanje recenzije</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Broj djece</value>
   </data>

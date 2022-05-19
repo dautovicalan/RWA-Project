@@ -104,7 +104,14 @@ namespace PublicSite.Controllers
                 Price = selectedApartment.Price,
             };
 
-            return View(new ApartmentReservationViewModel { Apartment = apartko, Reservation = reska});
+            List<DataAccessLayer.Model.Tag> apartTags = RepoFactory.GetRepo().GetApartmentTags(id.Value).ToList();
+
+            return View(new ApartmentReservationViewModel 
+            { 
+                Apartment = apartko, 
+                Reservation = reska, 
+                ApartmentTags = apartTags
+            });
         }
 
         [HttpPost]

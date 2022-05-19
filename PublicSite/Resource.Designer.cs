@@ -70,6 +70,24 @@ namespace PublicSite {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string ApartContButton {
+            get {
+                return ResourceManager.GetString("ApartContButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login for submiting apartment review.
+        /// </summary>
+        public static string ApartReviewTextLogin {
+            get {
+                return ResourceManager.GetString("ApartReviewTextLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Children.
         /// </summary>
         public static string Children {

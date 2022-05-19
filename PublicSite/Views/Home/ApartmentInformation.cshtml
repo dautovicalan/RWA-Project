@@ -12,10 +12,10 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" width="250" height="250" />
                 <ul>
                     <li>@Model.Apartment.CityName</li>
-                    <li>@Model.Apartment.BeachDistance from beach</li>
-                    <li>@Model.Apartment.RoomCount rooms</li>
-                    <li>@Model.Apartment.MaxAdults adults</li>
-                    <li>@Model.Apartment.MaxChildren children</li>
+                    <li>@Model.Apartment.BeachDistance M</li>
+                    <li>@Model.Apartment.RoomCount @PublicSite.Resource.Rooms</li>
+                    <li>@Model.Apartment.MaxAdults @PublicSite.Resource.MaxAdults</li>
+                    <li>@Model.Apartment.MaxChildren @PublicSite.Resource.MaxChildren</li>
                     <li>@Model.Apartment.OwnerName</li>
                 </ul>
             </div>
@@ -24,13 +24,10 @@
 
         <div class="apartment-tags">
             <ul>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
+                @foreach (var tag in Model.ApartmentTags)
+                {
+                    <li>@tag.Name</li>
+                }
             </ul>
         </div>
     </div>
@@ -41,6 +38,6 @@
     }
     else
     {
-        <h3>Login for submiting apartment review</h3>
+        <h3>@PublicSite.Resource.ApartReviewTextLogin</h3>
     }
 </div>

@@ -11,5 +11,6 @@ namespace PublicSite.ViewModels
         public Apartment Apartment{ get; set; }
         public Reservation Reservation { get; set; }
         public UserReview Review { get; set; }
+        public List<DataAccessLayer.Model.Tag> ApartmentTags { get; set; }
     }
 }

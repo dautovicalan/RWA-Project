@@ -21,15 +21,15 @@
             <h3>@Model.Name</h3>
             <ul>
                 <li>@Model.CityName</li>
-                <li>@Model.BeachDistance</li>
-                <li>@Model.RoomCount rooms</li>
-                <li>@Model.MaxAdults adults</li>
-                <li>@Model.MaxChildren children</li>
+                <li>@Model.BeachDistance M</li>
+                <li>@Model.RoomCount @PublicSite.Resource.Rooms</li>
+                <li>@Model.MaxAdults @PublicSite.Resource.MaxAdults</li>
+                <li>@Model.MaxChildren @PublicSite.Resource.MaxChildren</li>
             </ul>
             <p>@Model.Price €</p>
         </section>
     </div>
     <div class="apartment-reservation">      
-        @Html.ActionLink("Edit", "ApartmentInformation", "Home", new {id = Model.Id}, new {@class = "button"})       
+        @Html.ActionLink(PublicSite.Resource.ApartContButton, "ApartmentInformation", "Home", new {id = Model.Id}, new {@class = "button"})       
     </div>
 </div>
