@@ -36,10 +36,12 @@ namespace PublicSite.Models
 
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "From", ResourceType = typeof(Resource))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime From { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "To", ResourceType = typeof(Resource))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime To { get; set; }
     }
 }
