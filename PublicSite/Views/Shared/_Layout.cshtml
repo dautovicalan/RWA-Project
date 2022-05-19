@@ -23,11 +23,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Testing", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Change language", "Index", "Language")</li>
+                    <li>@Html.ActionLink(PublicSite.Resource.NavbarHome, "Index", "Home")</li>
+                    <li>@Html.ActionLink(PublicSite.Resource.NavbarHome, "About", "Home")</li>
+                    <li>@Html.ActionLink(PublicSite.Resource.NavbarContact, "Contact", "Home")</li>
+                    <li>@Html.ActionLink(PublicSite.Resource.NavbarChangeLanguage, "Index", "Language")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -138,6 +138,24 @@
   <data name="MaxChildren" xml:space="preserve">
     <value>Max djece</value>
   </data>
+  <data name="NavbarChangeLanguage" xml:space="preserve">
+    <value>Promijeni jezik</value>
+  </data>
+  <data name="NavbarContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="NavbarHome" xml:space="preserve">
+    <value>Glavni izbornik</value>
+  </data>
+  <data name="NavbarLogin" xml:space="preserve">
+    <value>Logiranje</value>
+  </data>
+  <data name="NavbarLogOff" xml:space="preserve">
+    <value>Od logiraj se</value>
+  </data>
+  <data name="NavbarRegister" xml:space="preserve">
+    <value>Registracija</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Broj telefona</value>
   </data>

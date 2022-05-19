@@ -138,6 +138,24 @@
   <data name="MaxChildren" xml:space="preserve">
     <value>Max children</value>
   </data>
+  <data name="NavbarChangeLanguage" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+  <data name="NavbarContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="NavbarHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="NavbarLogin" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="NavbarLogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="NavbarRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>

@@ -124,6 +124,60 @@ namespace PublicSite {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change language.
+        /// </summary>
+        public static string NavbarChangeLanguage {
+            get {
+                return ResourceManager.GetString("NavbarChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string NavbarContact {
+            get {
+                return ResourceManager.GetString("NavbarContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string NavbarHome {
+            get {
+                return ResourceManager.GetString("NavbarHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string NavbarLogin {
+            get {
+                return ResourceManager.GetString("NavbarLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log off.
+        /// </summary>
+        public static string NavbarLogOff {
+            get {
+                return ResourceManager.GetString("NavbarLogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string NavbarRegister {
+            get {
+                return ResourceManager.GetString("NavbarRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         public static string Phone {

@@ -6,14 +6,14 @@
             @(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)
         </li>
         <li>            
-            @Html.ActionLink("Log off", "LogOff", "Account");
+            @Html.ActionLink(PublicSite.Resource.NavbarLogOff, "LogOff", "Account");
         </li>
     </ul>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(PublicSite.Resource.NavbarRegister, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(PublicSite.Resource.NavbarLogin, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
