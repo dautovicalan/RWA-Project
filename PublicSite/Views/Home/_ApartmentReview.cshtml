@@ -1,7 +1,7 @@
 ﻿@model PublicSite.ViewModels.ApartmentReservationViewModel
 <style>
     .rating-css {
-        height: 250px;
+        height: 120px;
         width: 450px;
         padding: 20px;
     }
@@ -36,7 +36,7 @@
 </style>
 
 
-<div>
+<div class="review-container">
     <form id="reviewForm">
         <div>
             <label>Details</label>
@@ -58,7 +58,7 @@
         </div>
         <div>
             <input type="hidden" value=@Model.Apartment.Id id="apartId" />
-            <input type="submit" value="Submit your review" />
+            <input type="submit" value=@PublicSite.Resource.ReviewButton />
         </div>
     </form>
 </div>

@@ -12,7 +12,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" width="250" height="250" />
                 <ul>
                     <li>@Model.Apartment.CityName</li>
-                    <li>@Model.Apartment.BeachDistance M</li>
+                    <li>@Model.Apartment.BeachDistance M @PublicSite.Resource.BeachDistance</li>
                     <li>@Model.Apartment.RoomCount @PublicSite.Resource.Rooms</li>
                     <li>@Model.Apartment.MaxAdults @PublicSite.Resource.MaxAdults</li>
                     <li>@Model.Apartment.MaxChildren @PublicSite.Resource.MaxChildren</li>
@@ -31,7 +31,9 @@
             </ul>
         </div>
     </div>
-    @Html.Partial("_ReservationForm", Model.Reservation)
+    <div style="width: 30%">
+        @Html.Partial("_ReservationForm", Model.Reservation)
+    </div>    
     @if (Session["user"] != null)
     {
         @Html.Partial("_ApartmentReview", Model)

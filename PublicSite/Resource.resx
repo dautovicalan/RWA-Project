@@ -126,6 +126,9 @@
   <data name="ApartReviewTextLogin" xml:space="preserve">
     <value>Login for submiting apartment review</value>
   </data>
+  <data name="BeachDistance" xml:space="preserve">
+    <value>from beach</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Children</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
+  </data>
+  <data name="ReviewButton" xml:space="preserve">
+    <value>Submit Review</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Rooms</value>

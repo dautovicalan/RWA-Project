@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.ActionLink("English", "SetNewLanguage", "Language", new { selectedLanguage = "en"}, null)
-@Html.ActionLink("Hrvatski", "SetNewLanguage", "Language", new { selectedLanguage = "hr-HR"}, null)
+<div style="display: flex; justify-content: center; width: 100%; padding: 1.5em; gap: 1.2em" >
+    @Html.ActionLink("English", "SetNewLanguage", "Language", new { selectedLanguage = "en" }, new { @class = "fcc-btn" })
+    @Html.ActionLink("Hrvatski", "SetNewLanguage", "Language", new { selectedLanguage = "hr-HR" }, new { @class = "fcc-btn" })
+</div>
+
 

@@ -88,6 +88,15 @@ namespace PublicSite {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to from beach.
+        /// </summary>
+        public static string BeachDistance {
+            get {
+                return ResourceManager.GetString("BeachDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Children.
         /// </summary>
         public static string Children {
@@ -201,6 +210,15 @@ namespace PublicSite {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Review.
+        /// </summary>
+        public static string ReviewButton {
+            get {
+                return ResourceManager.GetString("ReviewButton", resourceCulture);
             }
         }
         

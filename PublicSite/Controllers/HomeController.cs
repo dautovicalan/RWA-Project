@@ -20,8 +20,6 @@ namespace PublicSite.Controllers
         // Home/Index
         public ActionResult Index()
         {
-            var test = Environment.CurrentDirectory;
-
             List<Apartment> listOfApartments = new List<Apartment>();
             List<DataAccessLayer.Model.City> cityList = RepoFactory.GetRepo().GetCitys().ToList();
             RepoFactory.GetRepo().GetApartments()

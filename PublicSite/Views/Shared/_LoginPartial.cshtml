@@ -3,7 +3,7 @@
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)
+            @Html.ActionLink((((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName).ToString(), null)
         </li>
         <li>            
             @Html.ActionLink(PublicSite.Resource.NavbarLogOff, "LogOff", "Account");

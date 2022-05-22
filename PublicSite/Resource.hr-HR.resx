@@ -126,6 +126,9 @@
   <data name="ApartReviewTextLogin" xml:space="preserve">
     <value>Ulogiraj te se za ostavljanje recenzije</value>
   </data>
+  <data name="BeachDistance" xml:space="preserve">
+    <value>od plaze</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Broj djece</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Broj telefona</value>
+  </data>
+  <data name="ReviewButton" xml:space="preserve">
+    <value>Ostavi recenziju</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Broj soba</value>

@@ -4,7 +4,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="margin-top: 50px">
         <h4>Reservation</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -89,7 +89,7 @@
 <script>
 
     $(".datepicker").datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "dd/mm/yy",
         changemonth: true,
         changeyear: true
     });
