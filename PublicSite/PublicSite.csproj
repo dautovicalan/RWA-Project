@@ -173,6 +173,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApartmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -295,6 +296,8 @@
     <Content Include="Views\Home\_AllApartments.cshtml" />
     <Content Include="Views\Home\_ApartmentReview.cshtml" />
     <Content Include="Views\Language\Index.cshtml" />
+    <Content Include="Views\Home\ApartmentNotFound.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

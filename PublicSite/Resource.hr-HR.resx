@@ -165,8 +165,14 @@
   <data name="NavbarRegister" xml:space="preserve">
     <value>Registracija</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Vlasnik:</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Broj telefona</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Cijena:</value>
   </data>
   <data name="ReviewButton" xml:space="preserve">
     <value>Ostavi recenziju</value>

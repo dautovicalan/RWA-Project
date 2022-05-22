@@ -16,48 +16,64 @@ namespace PublicSite.Controllers
 {
     public class HomeController : Controller
     {
+        private IRepo _repo;
+
+        public HomeController()
+        {
+            _repo = RepoFactory.GetRepo();
+        }
 
         // Home/Index
         public ActionResult Index()
         {
-            List<Apartment> listOfApartments = new List<Apartment>();
-            List<DataAccessLayer.Model.City> cityList = RepoFactory.GetRepo().GetCitys().ToList();
-            RepoFactory.GetRepo().GetApartments()
-                .ToList().ForEach(element => listOfApartments.Add(new Apartment
-                {
-                    Id = element.Id,
-                    Name = element.Name,
-                    CityName = element.CityName,
-                    OwnerName = element.OwnerName,
-                    BeachDistance = element.BeachDistance,
-                    RoomCount = element.TotalRooms,
-                    MaxAdults = element.MaxAdults,
-                    MaxChildren = element.MaxChildren,
-                    Price = element.Price,
-                    ApartmentStars = element.ApartmentStars,
-                }));
-            ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
-            var viewModelStuff = new ApartmentViewModel
+            try
             {
-                Apartments = listOfApartments,
-                Cities = cityList,
-                ApartmentFilter = myFilters
-            };
-            return View(viewModelStuff);
+                List<Apartment> listOfApartments = new List<Apartment>();
+                List<DataAccessLayer.Model.City> cityList = _repo.GetCitys().ToList();
+                _repo.GetApartments()
+                    .ToList().ForEach(element => listOfApartments.Add(new Apartment
+                    {
+                        Id = element.Id,
+                        Name = element.Name,
+                        CityName = element.CityName,
+                        OwnerName = element.OwnerName,
+                        BeachDistance = element.BeachDistance,
+                        RoomCount = element.TotalRooms,
+                        MaxAdults = element.MaxAdults,
+                        MaxChildren = element.MaxChildren,
+                        Price = element.Price,
+                        ApartmentStars = element.ApartmentStars,
+                    }));
+                ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
+                var viewModelStuff = new ApartmentViewModel
+                {
+                    Apartments = listOfApartments,
+                    Cities = cityList,
+                    ApartmentFilter = myFilters
+                };
+                return View(viewModelStuff);
+            }
+            catch (Exception e)
+            {
+                return View("Error", new { message = e.Message });   
+            }
         }
 
         [HttpPost]
-        public PartialViewResult GetFilteredApartments(ApartmentFilter filters)
+        public ActionResult GetFilteredApartments(ApartmentFilter filters)
         {
+            if (filters == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<DataAccessLayer.Model.Apartment> apartmani = _repo.GetApartments().ToList();
 
-            List<DataAccessLayer.Model.Apartment> apartmani = RepoFactory.GetRepo().GetApartments().ToList();
-
-            List<DataAccessLayer.Model.Apartment> all = apartmani.FindAll(x => x.TotalRooms >= filters.RoomCount && x.MaxAdults >= filters.MaxAdults
+            List<DataAccessLayer.Model.Apartment> allDataLayerApartments = apartmani.FindAll(x => x.TotalRooms >= filters.RoomCount && x.MaxAdults >= filters.MaxAdults
                                                         && x.MaxChildren >= filters.MaxChildren && x.CityName == filters.CityName);
 
 
-            List<Apartment> myAparts = new List<Apartment>();
-            all.ForEach(x => myAparts.Add(new Apartment { 
+            List<Apartment> listOfApartments = new List<Apartment>();
+            allDataLayerApartments.ForEach(x => listOfApartments.Add(new Apartment { 
                 Id = x.Id, 
                 MaxChildren = x.MaxChildren, 
                 Name = x.Name, 
@@ -69,75 +85,71 @@ namespace PublicSite.Controllers
                 BeachDistance = x.BeachDistance,                
             }));
 
-            myAparts.Sort((x, y) => -x.Price.CompareTo(y.Price));
+            listOfApartments.Sort((x, y) => -x.Price.CompareTo(y.Price));
 
-            ApartmentViewModel hello = new ApartmentViewModel
+            ApartmentViewModel apartmentViewModel = new ApartmentViewModel
             {
-                Apartments = myAparts,
+                Apartments = listOfApartments,
                 ApartmentFilter = filters
             };
 
-            HttpCookie filterSortCookie = new HttpCookie("sortingFilterOptions", filters.PrepareForCookie());
-            HttpContext.Response.Cookies.Add(filterSortCookie);
-            return PartialView("_AllApartments", hello);
+            HttpContext.Response.Cookies.Add(new HttpCookie("sortingFilterOptions", filters.PrepareForCookie()));
+            return PartialView("_AllApartments", apartmentViewModel);
         }
 
         // Home/ApartmentInformation/id
         public ActionResult ApartmentInformation(int? id)
         {
-            if (id == null)
-                return RedirectToAction("Index", "Home");
-            
-            var selectedApartment = RepoFactory.GetRepo().GetApartmentById(id.Value);
-
-            Reservation reska = new Reservation();
-            Apartment apartko = new Apartment
+            try
             {
-                Id = selectedApartment.Id,
-                Name = selectedApartment.Name,
-                CityName = selectedApartment.CityName,
-                OwnerName = selectedApartment.OwnerName,
-                BeachDistance = selectedApartment.BeachDistance,
-                RoomCount = selectedApartment.TotalRooms,
-                MaxChildren = selectedApartment.MaxChildren,
-                MaxAdults = selectedApartment.MaxAdults,
-                Price = selectedApartment.Price,
-            };
+                if (id == null)
+                    return RedirectToAction("Index", "Home");
 
-            List<DataAccessLayer.Model.Tag> apartTags = RepoFactory.GetRepo().GetApartmentTags(id.Value).ToList();
+                var selectedApartment = _repo.GetApartmentById(id.Value);
 
-            return View(new ApartmentReservationViewModel 
-            { 
-                Apartment = apartko, 
-                Reservation = reska, 
-                ApartmentTags = apartTags
-            });
+                Reservation reska = new Reservation();
+                Apartment apartko = new Apartment
+                {
+                    Id = selectedApartment.Id,
+                    Name = selectedApartment.Name,
+                    CityName = selectedApartment.CityName,
+                    OwnerName = selectedApartment.OwnerName,
+                    BeachDistance = selectedApartment.BeachDistance,
+                    RoomCount = selectedApartment.TotalRooms,
+                    MaxChildren = selectedApartment.MaxChildren,
+                    MaxAdults = selectedApartment.MaxAdults,
+                    Price = selectedApartment.Price,
+                };
+
+                List<DataAccessLayer.Model.Tag> apartTags = _repo.GetApartmentTags(id.Value).ToList();
+
+                return View(new ApartmentReservationViewModel
+                {
+                    Apartment = apartko,
+                    Reservation = reska,
+                    ApartmentTags = apartTags
+                });
+            }
+            catch (Exception e)
+            {                
+                return View("ApartmentNotFound", id.Value);                
+            }
         }
 
         [HttpPost]
         public ActionResult ApartmentInformation(Reservation reservation)
-        {
-            if (this.IsCaptchaValid("Captcha is not valid"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            string userName = reservation.UserName;
-            string userEmail = reservation.Email;
-            string userPhone = reservation.Phone;
-            string userAddress = reservation.UserAddress;
-
-            RepoFactory.GetRepo().CreateApartmentReservationNonRegisteredUser(
+        {          
+            _repo.CreateApartmentReservationNonRegisteredUser(
                 new DataAccessLayer.Model.ApartmentReservation
                 {
                     Guid = Guid.NewGuid(),
                     CreatedAt = DateTime.Now,
                     ApartmentId = int.Parse(Url.RequestContext.RouteData.Values["id"].ToString()),
                     Details = reservation.From.ToString(),
-                    UserName = userName,
-                    UserEmail = userEmail,
-                    UserPhone = userPhone,
-                    UserAddress = userAddress,
+                    UserName = reservation.UserName,
+                    UserEmail = reservation.Email,
+                    UserPhone = reservation.Phone,
+                    UserAddress = reservation.UserAddress,
                 });            
             return RedirectToAction("Index", "Home");
         }
@@ -145,7 +157,7 @@ namespace PublicSite.Controllers
         [HttpPost]
         public ActionResult SubmitApartmentReview(UserReview userReview)
         {
-            RepoFactory.GetRepo().InsertUserReview(new DataAccessLayer.Model.ApartmentReview
+            _repo.InsertUserReview(new DataAccessLayer.Model.ApartmentReview
             {
                 UserId = ((DataAccessLayer.Model.AspNetUser)Session["user"]).Id,
                 ApartmentId = int.Parse(userReview.ApartmentId),
@@ -155,19 +167,7 @@ namespace PublicSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Home/About
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";            
-
-            return View();
-        }
         // Home/Contact
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        public ActionResult Contact() => View();       
     }
 }

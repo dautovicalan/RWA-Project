@@ -33,5 +33,16 @@ namespace PublicSite
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("hr-HR");
             }            
         }
+        protected void Application_Error()
+        {
+            var error = Server.GetLastError();
+            if ((error as HttpException)?.GetHttpCode() == 404)
+            {
+                Server.ClearError();
+                Response.StatusCode = 404;
+            }
+        }
+
+
     }
 }

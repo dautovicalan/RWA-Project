@@ -16,10 +16,10 @@
                     <li>@Model.Apartment.RoomCount @PublicSite.Resource.Rooms</li>
                     <li>@Model.Apartment.MaxAdults @PublicSite.Resource.MaxAdults</li>
                     <li>@Model.Apartment.MaxChildren @PublicSite.Resource.MaxChildren</li>
-                    <li>@Model.Apartment.OwnerName</li>
+                    <li>@PublicSite.Resource.Owner @Model.Apartment.OwnerName</li>
                 </ul>
             </div>
-            <p>@Model.Apartment.Price €</p>
+            <p>@PublicSite.Resource.Price @Model.Apartment.Price €</p>
         </div>
 
         <div class="apartment-tags">

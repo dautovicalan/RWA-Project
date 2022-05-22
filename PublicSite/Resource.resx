@@ -165,8 +165,14 @@
   <data name="NavbarRegister" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner:</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price:</value>
   </data>
   <data name="ReviewButton" xml:space="preserve">
     <value>Submit Review</value>

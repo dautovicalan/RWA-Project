@@ -11,15 +11,15 @@
     <form id="myForm">
         <div class="single-item">
             <label>@PublicSite.Resource.Rooms</label>
-            <input type="number" id="roomsNumberField" value="@Model?.ApartmentFilter.RoomCount" />
+            <input type="number" id="roomsNumberField" value=@(Model?.ApartmentFilter?.RoomCount.ToString()) />
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Adults</label>
-            <input type="number" id="adultsNumberField" value="@Model?.ApartmentFilter.MaxAdults" />
+            <input type="number" id="adultsNumberField" value=@(Model?.ApartmentFilter?.MaxAdults.ToString()) />
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Children</label>
-            <input type="number" id="childrenNumberField" value="@Model?.ApartmentFilter.MaxChildren" />
+            <input type="number" id="childrenNumberField" value=@(Model?.ApartmentFilter?.MaxChildren.ToString()) />
         </div>
         <div class="single-item-special">
             <div class="single-item">
@@ -27,16 +27,14 @@
                 <select id="cities">
                     @foreach (var item in Model.Cities)
                     {
-                        @*if (Model?.ApartmentFilter.CityName == item.Name)
-                            {
-                                <option value="@item.Id" selected="selected">@item.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Id">@item.Name</option>
-
-                            }*@
-                        <option value="@item.Id">@item.Name</option>
+                        if (Model?.ApartmentFilter?.CityName == item.Name)
+                        {
+                            <option value="@item.Id" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
                     }
                 </select>
                 <button>Go</button>
@@ -44,8 +42,17 @@
             <div>
                 <label>@PublicSite.Resource.SortBy</label>
                 <select id="sortingType">
-                    <option value="Id" selected>Id</option>
-                    <option value="Price">Price</option>
+                    @if (Model?.ApartmentFilter?.SortType == PublicSite.Models.SortType.Id)
+                    {
+                        <option value="Id" selected>Id</option>
+                        <option value="Price">Price</option>
+                    }
+                    else
+                    {
+                        <option value="Id">Id</option>
+                        <option value="Price" selected>Price</option>
+                    }
+
                 </select>
             </div>
         </div>

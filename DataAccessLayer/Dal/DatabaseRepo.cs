@@ -94,7 +94,7 @@ namespace DataAccessLayer.Dal
                     {
                         return Apartment.ParseFromReader(reader);
                     }
-                    return new Apartment();
+                    throw new Exception("No such apartment");
                 }
             }
         }
