@@ -20,7 +20,7 @@ namespace rwa_project
         }
         void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
+            // Code that runs on application startup            
             Application["database"] = _repo;
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

@@ -8,6 +8,6 @@ namespace DataAccessLayer.Dal
 {
     public static class RepoFactory
     {
-        public static IRepo GetRepo() => new DatabaseRepo();
+        public static IRepo GetRepo() => new DatabaseRepo();        
     }
 }

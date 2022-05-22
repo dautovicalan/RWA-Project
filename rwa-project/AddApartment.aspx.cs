@@ -2,6 +2,7 @@
 using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -13,10 +14,10 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && Session["user"] == null)
-            {
-                Response.Redirect("Login.aspx");
-            }
+            //if (!IsPostBack && Session["user"] == null)
+            //{
+            //    Response.Redirect("Login.aspx");
+            //}
             LoadDataToControls();
         }
 
@@ -38,7 +39,7 @@ namespace rwa_project
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
-        {           
+        {
             RepoFactory.GetRepo().CreateApartment(new Apartment
             {
                 Guid = Guid.NewGuid(),
@@ -56,7 +57,37 @@ namespace rwa_project
                 TotalRooms = int.Parse(totalRoomsSpinner.Text),
                 BeachDistance = int.Parse(beachDistanceSpinner.Text),
             });
+            SaveImages();
             Response.Redirect("ShowAllApartments.aspx");
+            
         }
+        private void SaveImages()
+        {
+            HttpFileCollection collection = Request.Files;
+            for (int i = 0; i < collection.Count; i++)
+            {
+                HttpPostedFile postedFile = collection[i];
+                string fileName = Path.GetFileNameWithoutExtension(postedFile.FileName);
+                string fileExtension = Path.GetExtension(postedFile.FileName);
+                int fileSize = postedFile.ContentLength;
+                //checker za image extensions
+                if (postedFile.ContentLength > 0)
+                {
+                    var test = Environment.CurrentDirectory;
+                    Stream stream = postedFile.InputStream;
+                    BinaryReader br = new BinaryReader(stream);
+                    byte[] bytes = br.ReadBytes((int)stream.Length);
+                    ((IRepo)Application["database"]).InsertApartmentPicture(new ApartmentPicture
+                    {
+                        IsRepresentative = true,
+                        ApartmentId = 1,
+                        Size = fileSize,
+                        ImageData = bytes,
+                        Name = fileName + fileExtension,
+                    });
+                }
+            }
+        }
+
     }
 }

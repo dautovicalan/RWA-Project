@@ -398,5 +398,41 @@ namespace DataAccessLayer.Dal
                 command.ExecuteNonQuery();
             }
         }
+
+        public void InsertApartmentPicture(ApartmentPicture picture)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(InsertApartmentPicture), connection);
+                command.Parameters.AddWithValue("apartmentId", picture.ApartmentId);
+                command.Parameters.AddWithValue("size", picture.Size);
+                command.Parameters.AddWithValue("imageData", picture.ImageData);
+                command.Parameters.AddWithValue("name", picture.Name);
+                command.Parameters.AddWithValue("isRepresentative", picture.IsRepresentative);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public IList<ApartmentPicture> GetAllApartmentPictures(int apartmentId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(GetAllApartmentPictures), connection);
+                command.Parameters.AddWithValue("apartmentId", apartmentId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    IList<ApartmentPicture> list = new List<ApartmentPicture>();
+                    while (reader.Read())
+                    {
+                        list.Add(ApartmentPicture.ParseFromReader(reader));
+                    }
+                    return list;
+                }
+            }
+        }
     }
 }

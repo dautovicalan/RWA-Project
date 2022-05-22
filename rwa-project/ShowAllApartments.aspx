@@ -43,7 +43,7 @@
             </div>
         </div>
         <div>
-            <label for="SortByDropDownList">Sort by<label for="SortByDropDownList">Sort by</label>
+            <label for="SortByDropDownList">Sort by</label>
             <asp:DropDownList ID="ddlSortType" runat="server">
                 <asp:ListItem Value="0">
                         Max person number
@@ -142,13 +142,16 @@
         </div>
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
+        <div>
+            <asp:Image ID="Image1" runat="server" />
+        </div>        
     </asp:Panel>    
     <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
     <asp:Panel ID="pnlModal" runat="server" Visible="false">
         <div class="modal">
             <div class="modal-content">
-                <h1>Are you sure you want to delete this tag?</h1>
+                <h1>Are you sure you want to delete this apartment?</h1>
                 <div class="form-group">
                     <asp:Button ID="btnDeleteConfirm" runat="server" Text="Yes" OnClick="btnDeleteConfirm_Click"/>
                     <asp:Button ID="btnDeleteCancel" runat="server" Text="No" OnClick="btnDeleteCancel_Click"/>

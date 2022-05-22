@@ -55,5 +55,9 @@
         <asp:TextBox ID="beachDistanceSpinner" runat="server" type="number" />               
         <asp:RequiredFieldValidator ControlToValidate="beachDistanceSpinner" ID="RequiredFieldValidator9" runat="server" ForeColor="Red" ErrorMessage="* Please fill this form"></asp:RequiredFieldValidator>
     </div>
-    <asp:Button ID="SubmitButton" UseSubmitBehavior="true" CssClass="btn btn-primary" runat="server" Text="Add new Apartment" OnClick="SubmitButton_Click" />
+    <div class="form-group">
+        <label for="beachDistanceSpinner">Pictures:</label>
+        <asp:FileUpload ID="fileUploadImage" AllowMultiple="true" runat="server" />            
+    </div>
+    <asp:Button ID="SubmitButton" UseSubmitBehavior="false" CssClass="btn btn-primary" runat="server" Text="Add new Apartment" OnClick="SubmitButton_Click" />
 </asp:Content>

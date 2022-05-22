@@ -315,3 +315,37 @@ BEGIN
 	VALUES(NEWID(), GETDATE(), @apartmentId, @userId, @details, @stars)
 END
 
+CREATE TABLE ApartPicture
+(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Guid UNIQUEIDENTIFIER NOT NULL,
+	CreatedAt DATETIME2(7) NOT NULL,
+	DeletedAt DATETIME2(7) NULL,
+	ApartmentId INT NOT NULL,
+	Size INT NOT NULL,
+	Name NVARCHAR(250) NOT NULL,
+	ImageData VARBINARY(MAX) NOT NULL,
+	IsRepresentative BIT NULL,
+	FOREIGN KEY (ApartmentId) REFERENCES Apartment(Id)
+)	
+
+CREATE PROC InsertApartmentPicture
+	@apartmentId INT,
+	@size INT,
+	@imageData VARBINARY(MAX), 
+	@name NVARCHAR(250),
+	@isRepresentative BIT
+AS
+BEGIN
+	INSERT INTO ApartPicture(Guid, CreatedAt, ApartmentId, Name, Size, ImageData, IsRepresentative)
+	VALUES(NEWID(), GETDATE(), @apartmentId, @name, @size, @imageData, @isRepresentative)
+END
+
+CREATE PROC GetAllApartmentPictures
+	@apartmentId INT
+AS
+BEGIN
+	SELECT Id, Name, ImageData, IsRepresentative
+	FROM ApartPicture
+	WHERE ApartmentId = @apartmentId
+END

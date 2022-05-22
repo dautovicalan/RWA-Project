@@ -30,7 +30,8 @@ namespace DataAccessLayer.Dal
         void RegisterUser(AspNetUser user);
         AspNetUser AuthUser(string userName, string hashedPassword);
         IList<City> GetCitys();
-
+        void InsertApartmentPicture(ApartmentPicture picture);
+        IList<ApartmentPicture> GetAllApartmentPictures(int apartmentId);
         void InsertUserReview(ApartmentReview review);
 
     }

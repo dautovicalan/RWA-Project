@@ -11,6 +11,7 @@ namespace rwa_project
 {
     public partial class Apartmens : System.Web.UI.Page
     {
+        public IList<ApartmentPicture> ApartmentPictures { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack && Session["user"] == null)
@@ -150,6 +151,8 @@ namespace rwa_project
             ddlApartmentStatuses.SelectedValue = ddlApartmentStatuses.Items.Cast<ListItem>().ToList()
                 .Find(singleItem => singleItem.Text == selectedApartment.StatusName).Value;
             FillDropDownListsWithTags(selectedApartment.Id);
+            ApartmentPictures = ((IRepo)Application["database"]).GetAllApartmentPictures(selectedApartment.Id);
+            Image1.ImageUrl = "data:Image/png;base64," + Convert.ToBase64String(ApartmentPictures[0].ImageData);
         }
 
         private void FillDropDownListsWithTags(int selectedApartmentId)
