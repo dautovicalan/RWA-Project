@@ -23,10 +23,19 @@
         </div>
 
         <div class="apartment-tags">
+            <h2>Tags</h2>
             <ul>
                 @foreach (var tag in Model.ApartmentTags)
                 {
-                    <li>@tag.Name</li>
+                    if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "hr-HR")
+                    {
+                        <li>@tag.Name</li>
+                    }
+                    else
+                    {
+                        <li>@tag.NameEng</li>
+                    }
+
                 }
             </ul>
         </div>
