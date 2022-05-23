@@ -27,7 +27,7 @@
             <ul>
                 @foreach (var tag in Model.ApartmentTags)
                 {
-                    if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "hr-HR")
+                    if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "hr-HR")
                     {
                         <li>@tag.Name</li>
                     }

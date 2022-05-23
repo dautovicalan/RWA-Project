@@ -34,14 +34,16 @@ namespace PublicSite.Models
         [Display(Name = "MaxChildren", ResourceType = typeof(Resource))]
         public int? MaxChildren { get; set; }
 
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "From", ResourceType = typeof(Resource))]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime From { get; set; }
 
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "To", ResourceType = typeof(Resource))]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime To { get; set; }
     }
 }
