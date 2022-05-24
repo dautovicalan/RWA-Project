@@ -78,7 +78,7 @@ BEGIN
 	WHERE Id = @id
 END
 
-CREATE PROC CreateApartment
+ALTER PROC CreateApartment
 	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@ownerId INT,
@@ -92,7 +92,8 @@ CREATE PROC CreateApartment
 	@maxAdults INT,
 	@maxChildren INT,
 	@totalRooms INT,
-	@beachDistance INT
+	@beachDistance INT,
+	@createdApartment INT OUTPUT
 AS
 BEGIN
  INSERT INTO Apartment (Guid, CreatedAt, DeletedAt, OwnerId, TypeId, StatusId, CityId, Address, Name, NameEng, Price, MaxAdults, MaxChildren, TotalRooms, BeachDistance)
@@ -113,6 +114,7 @@ BEGIN
  @totalRooms,
  @beachDistance
  )
+ SELECT @createdApartment = SCOPE_IDENTITY()
 END
 
 

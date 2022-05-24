@@ -25,7 +25,7 @@ namespace DataAccessLayer.Model
             {
                 Id = Convert.ToInt32(row["ID"]),
                 Name = Convert.ToString(row["Name"]),
-                ImageData = Encoding.ASCII.GetBytes(Convert.ToString(row["ImageData"])),
+                ImageData = (byte[])row["ImageData"],
                 IsRepresentative = Convert.ToBoolean(row["IsRepresentative"])
             };
         }

@@ -152,7 +152,7 @@ namespace rwa_project
                 .Find(singleItem => singleItem.Text == selectedApartment.StatusName).Value;
             FillDropDownListsWithTags(selectedApartment.Id);
             ApartmentPictures = ((IRepo)Application["database"]).GetAllApartmentPictures(selectedApartment.Id);
-            Image1.ImageUrl = "data:Image/png;base64," + Convert.ToBase64String(ApartmentPictures[0].ImageData);
+            //Image1.ImageUrl = "data:Image/png;base64," + Convert.ToBase64String(ApartmentPictures[0].ImageData);
         }
 
         private void FillDropDownListsWithTags(int selectedApartmentId)

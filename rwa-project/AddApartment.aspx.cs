@@ -40,7 +40,7 @@ namespace rwa_project
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            RepoFactory.GetRepo().CreateApartment(new Apartment
+            int createdApartment = RepoFactory.GetRepo().CreateApartment(new Apartment
             {
                 Guid = Guid.NewGuid(),
                 CreatedAt = DateTime.Now,
@@ -57,11 +57,11 @@ namespace rwa_project
                 TotalRooms = int.Parse(totalRoomsSpinner.Text),
                 BeachDistance = int.Parse(beachDistanceSpinner.Text),
             });
-            SaveImages();
+            SaveImages(createdApartment);
             Response.Redirect("ShowAllApartments.aspx");
             
         }
-        private void SaveImages()
+        private void SaveImages(int createdApartment)
         {
             HttpFileCollection collection = Request.Files;
             for (int i = 0; i < collection.Count; i++)
@@ -80,7 +80,7 @@ namespace rwa_project
                     ((IRepo)Application["database"]).InsertApartmentPicture(new ApartmentPicture
                     {
                         IsRepresentative = true,
-                        ApartmentId = 1,
+                        ApartmentId = createdApartment,
                         Size = fileSize,
                         ImageData = bytes,
                         Name = fileName + fileExtension,

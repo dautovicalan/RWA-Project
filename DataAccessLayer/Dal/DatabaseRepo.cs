@@ -11,10 +11,11 @@ namespace DataAccessLayer.Dal
         //private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
         private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
 
+
         private SqlConnection connection;
         private SqlCommand command;
 
-        public void CreateApartment(Apartment apartment)
+        public int CreateApartment(Apartment apartment)
         {
             using (connection = new SqlConnection(connectionString))
             {
@@ -34,8 +35,12 @@ namespace DataAccessLayer.Dal
                 command.Parameters.AddWithValue("maxChildren", apartment.MaxChildren);
                 command.Parameters.AddWithValue("totalRooms", apartment.TotalRooms);
                 command.Parameters.AddWithValue("beachDistance", apartment.BeachDistance);
+                command.Parameters.Add("createdApartment", System.Data.SqlDbType.Int);
+                command.Parameters["createdApartment"].Direction = System.Data.ParameterDirection.Output;
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.ExecuteNonQuery();
+
+                return Convert.ToInt32(command.Parameters["createdApartment"].Value);
             }
         }
 

@@ -143,7 +143,7 @@
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
         <div>
-            <asp:Image ID="Image1" runat="server" />
+            <asp:Image ID="Image1" runat="server" Height="100" Width="100"/>
         </div>        
     </asp:Panel>    
     <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
