@@ -183,6 +183,7 @@
     <Compile Include="Models\Apartment.cs" />
     <Compile Include="Models\ApartmentFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\UserReview.cs" />

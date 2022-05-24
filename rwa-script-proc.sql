@@ -369,3 +369,12 @@ BEGIN
 	SET IsRepresentative = 1
 	WHERE Id = @pictureId 
 END
+
+CREATE PROC GetApartMainPicture
+	@apartmentId INT
+AS
+BEGIN
+	SELECT TOP 1 Id, Name, ImageData, IsRepresentative
+	FROM ApartPicture
+	WHERE ApartmentId = @apartmentId AND DeletedAt IS NULL AND IsRepresentative = 1
+END
