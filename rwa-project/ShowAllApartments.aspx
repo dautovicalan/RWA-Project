@@ -142,9 +142,15 @@
         </div>
         <asp:Button ID="EditButton" runat="server" Text="Edit Selected Apartment" OnClick="EditButton_Click" />
         <asp:Button ID="DeleteButton" runat="server" Text="Delete Selected Apartment" OnClick="DeleteButton_Click" />
-        <div>
-            <asp:Image ID="Image1" runat="server" Height="100" Width="100"/>
-        </div>        
+        <asp:Repeater ID="imgRepeater" runat="server" OnItemCommand="imgRepeater_ItemCommand">
+            <ItemTemplate>
+                <div>
+                    <asp:Image ID="imgApartment" ImageUrl='<%# "data:Image/png;base64," + Convert.ToBase64String((byte[]) Eval("ImageData")) %>' runat="server" Height="100" Width="100" />
+                    <asp:Button ID="removeImageButton" CommandArgument='<%# Eval("Id") %>' CommandName="Delete" runat="server" Text="Delete" />
+                    <asp:Button ID="setRepImageButton" CommandArgument='<%# Eval("Id") %>' CommandName="SetMain" runat="server" Text="Set as Main" />
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
     </asp:Panel>    
     <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 

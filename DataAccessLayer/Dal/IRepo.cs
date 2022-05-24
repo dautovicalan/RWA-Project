@@ -33,6 +33,7 @@ namespace DataAccessLayer.Dal
         void InsertApartmentPicture(ApartmentPicture picture);
         IList<ApartmentPicture> GetAllApartmentPictures(int apartmentId);
         void InsertUserReview(ApartmentReview review);
-
+        void SoftDeleteApartmentPicture(int pictureId);
+        void UpdateApartmentMainPicture(int v);
     }
 }

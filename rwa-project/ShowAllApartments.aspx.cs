@@ -70,16 +70,13 @@ namespace rwa_project
 
         }
 
-        protected void AddNewApartment_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AddApartment.aspx");
-        }
+        protected void AddNewApartment_Click(object sender, EventArgs e) => Response.Redirect("AddApartment.aspx");
 
         protected void EditButton_Click(object sender, EventArgs e)
         {
             ((IRepo)Application["database"]).UpdateApartmentById(new Apartment
             {
-                Id = int.Parse(ApartmentId.Text),
+                Id = int.Parse(Session["selectedApartmentId"].ToString()),
                 TotalRooms = int.Parse(txbRoomNumber.Text),
                 MaxAdults = int.Parse(txbAdultsNumber.Text),
                 MaxChildren = int.Parse(txbChildrenNumber.Text),
@@ -89,15 +86,9 @@ namespace rwa_project
             FillData();
         }
 
-        protected void DeleteButton_Click(object sender, EventArgs e)
-        {
-            pnlModal.Visible = true;
-        }
+        protected void DeleteButton_Click(object sender, EventArgs e) => pnlModal.Visible = true;
 
-        protected void btnDeleteCancel_Click(object sender, EventArgs e)
-        {
-            pnlModal.Visible = false;
-        }
+        protected void btnDeleteCancel_Click(object sender, EventArgs e) => pnlModal.Visible = false;
 
         protected void btnDeleteConfirm_Click(object sender, EventArgs e)
         {            
@@ -107,17 +98,9 @@ namespace rwa_project
             FillData();
         }
 
-        protected void btnAddApartment_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AddApartment.aspx");
-        }
+        protected void btnAddApartment_Click(object sender, EventArgs e) => Response.Redirect("AddApartment.aspx");
 
-        protected void btnSort_Click(object sender, EventArgs e)
-        {
-            int sortingType = int.Parse(ddlSortType.SelectedValue);
-            FillData(sortingType);
-        }
-
+        protected void btnSort_Click(object sender, EventArgs e) => FillData(int.Parse(ddlSortType.SelectedValue));
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             int statusId = int.Parse(ddlStatus.SelectedValue.ToString());
@@ -131,10 +114,10 @@ namespace rwa_project
         {
             if (e.CommandName == "Open")
             {
-
                 Apartment selectedApartment = ((IRepo)Application["database"]).GetApartmentById(int.Parse(e.CommandArgument.ToString()));
                 if (selectedApartment != null)
                 {
+                    Session["selectedApartmentId"] = selectedApartment.Id;
                     FillEditForm(selectedApartment);
                 }
             }
@@ -151,8 +134,13 @@ namespace rwa_project
             ddlApartmentStatuses.SelectedValue = ddlApartmentStatuses.Items.Cast<ListItem>().ToList()
                 .Find(singleItem => singleItem.Text == selectedApartment.StatusName).Value;
             FillDropDownListsWithTags(selectedApartment.Id);
-            ApartmentPictures = ((IRepo)Application["database"]).GetAllApartmentPictures(selectedApartment.Id);
-            //Image1.ImageUrl = "data:Image/png;base64," + Convert.ToBase64String(ApartmentPictures[0].ImageData);
+            DisplayPictures(selectedApartment.Id);
+        }
+
+        private void DisplayPictures(int apartId)
+        {
+            imgRepeater.DataSource = ((IRepo)Application["database"]).GetAllApartmentPictures(apartId);
+            imgRepeater.DataBind();
         }
 
         private void FillDropDownListsWithTags(int selectedApartmentId)
@@ -185,6 +173,19 @@ namespace rwa_project
         {            
             ((IRepo)Application["database"]).InsertTagToApartment(int.Parse(ApartmentId.Text), int.Parse(ddlAllOtherTags.SelectedValue));
             FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+        }
+
+        protected void imgRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+                ((IRepo)Application["database"]).SoftDeleteApartmentPicture(int.Parse(e.CommandArgument.ToString()));
+                DisplayPictures(int.Parse(Session["selectedApartmentId"].ToString()));
+            }
+            if (e.CommandName == "SetMain")
+            {
+                ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()));
+            }
         }
     }
 }

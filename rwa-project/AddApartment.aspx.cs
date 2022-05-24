@@ -79,7 +79,7 @@ namespace rwa_project
                     byte[] bytes = br.ReadBytes((int)stream.Length);
                     ((IRepo)Application["database"]).InsertApartmentPicture(new ApartmentPicture
                     {
-                        IsRepresentative = true,
+                        IsRepresentative = false,
                         ApartmentId = createdApartment,
                         Size = fileSize,
                         ImageData = bytes,

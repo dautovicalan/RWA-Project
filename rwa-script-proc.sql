@@ -343,11 +343,29 @@ BEGIN
 	VALUES(NEWID(), GETDATE(), @apartmentId, @name, @size, @imageData, @isRepresentative)
 END
 
-CREATE PROC GetAllApartmentPictures
+ALTER PROC GetAllApartmentPictures
 	@apartmentId INT
 AS
 BEGIN
 	SELECT Id, Name, ImageData, IsRepresentative
 	FROM ApartPicture
-	WHERE ApartmentId = @apartmentId
+	WHERE ApartmentId = @apartmentId AND DeletedAt IS NULL
+END
+
+CREATE PROC SoftDeleteApartmentPicture
+	@pictureId INT
+AS
+BEGIN
+	UPDATE ApartPicture
+	SET DeletedAt = GETDATE()
+	WHERE Id = @pictureId
+END
+
+CREATE PROC UpdateApartmentMainPicture
+	@pictureId INT
+AS
+BEGIN
+	UPDATE ApartPicture
+	SET IsRepresentative = 1
+	WHERE Id = @pictureId 
 END

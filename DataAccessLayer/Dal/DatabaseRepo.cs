@@ -439,5 +439,29 @@ namespace DataAccessLayer.Dal
                 }
             }
         }
+
+        public void SoftDeleteApartmentPicture(int pictureId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(SoftDeleteApartmentPicture), connection);
+                command.Parameters.AddWithValue("pictureId", pictureId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateApartmentMainPicture(int pictureId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(UpdateApartmentMainPicture), connection);
+                command.Parameters.AddWithValue("pictureId", pictureId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
