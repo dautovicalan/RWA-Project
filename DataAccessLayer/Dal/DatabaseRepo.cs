@@ -463,5 +463,21 @@ namespace DataAccessLayer.Dal
                 command.ExecuteNonQuery();
             }
         }
+
+        public ApartmentPicture GetApartMainPicture(int apartmentId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(GetApartMainPicture), connection);
+                command.Parameters.AddWithValue("apartmentId", apartmentId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    return ApartmentPicture.ParseFromReader(reader);
+                }
+            }
+        }
     }
 }

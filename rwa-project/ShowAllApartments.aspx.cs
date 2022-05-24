@@ -84,6 +84,7 @@ namespace rwa_project
                 StatusId = int.Parse(ddlApartmentStatuses.SelectedValue)
             });
             FillData();
+            EditApartmentPanel.Visible = false;
         }
 
         protected void DeleteButton_Click(object sender, EventArgs e) => pnlModal.Visible = true;
