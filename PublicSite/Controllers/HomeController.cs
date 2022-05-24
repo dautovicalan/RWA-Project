@@ -172,7 +172,7 @@ namespace PublicSite.Controllers
                     UserEmail = reservation.Email,
                     UserPhone = reservation.Phone,
                     UserAddress = reservation.UserAddress,
-                });            
+                });
             return RedirectToAction("Index", "Home");
         }
 

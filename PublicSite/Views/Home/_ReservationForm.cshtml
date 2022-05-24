@@ -96,8 +96,13 @@
 @Scripts.Render("~/Scripts/jquery-ui-1.13.1.min.js")
 @Scripts.Render("~/bundles/jqueryval")
 
-<script>
-    
+<script>    
+    Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+    })
 </script>
 
 
