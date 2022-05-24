@@ -18,5 +18,6 @@ namespace PublicSite.Models
         public int MaxChildren { get; set; }
         public double Price { get; set; }
         public int ApartmentStars { get; set; }
+        public ImageModel MainApartmentImage { get; set; }
     }
 }

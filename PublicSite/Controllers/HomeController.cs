@@ -31,19 +31,23 @@ namespace PublicSite.Controllers
                 List<Apartment> listOfApartments = new List<Apartment>();
                 List<DataAccessLayer.Model.City> cityList = _repo.GetCitys().ToList();
                 _repo.GetApartments()
-                    .ToList().ForEach(element => listOfApartments.Add(new Apartment
+                    .ToList().ForEach(element =>
                     {
-                        Id = element.Id,
-                        Name = element.Name,
-                        CityName = element.CityName,
-                        OwnerName = element.OwnerName,
-                        BeachDistance = element.BeachDistance,
-                        RoomCount = element.TotalRooms,
-                        MaxAdults = element.MaxAdults,
-                        MaxChildren = element.MaxChildren,
-                        Price = element.Price,
-                        ApartmentStars = element.ApartmentStars,
-                    }));
+                        listOfApartments.Add(new Apartment
+                        {
+                            Id = element.Id,
+                            Name = element.Name,
+                            CityName = element.CityName,
+                            OwnerName = element.OwnerName,
+                            BeachDistance = element.BeachDistance,
+                            RoomCount = element.TotalRooms,
+                            MaxAdults = element.MaxAdults,
+                            MaxChildren = element.MaxChildren,
+                            Price = element.Price,
+                            ApartmentStars = element.ApartmentStars,
+                            MainApartmentImage = new ImageModel { ImageData = element.MainPicture.ImageData}
+                        });
+                    });
                 ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
                 var viewModelStuff = new ApartmentViewModel
                 {
@@ -119,6 +123,7 @@ namespace PublicSite.Controllers
                     MaxChildren = selectedApartment.MaxChildren,
                     MaxAdults = selectedApartment.MaxAdults,
                     Price = selectedApartment.Price,
+                    MainApartmentImage = new ImageModel { ImageData = selectedApartment.MainPicture.ImageData },
                 };
 
                 List<DataAccessLayer.Model.Tag> apartTags = _repo.GetApartmentTags(id.Value).ToList();

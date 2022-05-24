@@ -64,6 +64,7 @@ namespace rwa_project
         private void SaveImages(int createdApartment)
         {
             HttpFileCollection collection = Request.Files;
+            bool setFirstAsRepresentive = true;
             for (int i = 0; i < collection.Count; i++)
             {
                 HttpPostedFile postedFile = collection[i];
@@ -73,19 +74,19 @@ namespace rwa_project
                 //checker za image extensions
                 if (postedFile.ContentLength > 0)
                 {
-                    var test = Environment.CurrentDirectory;
                     Stream stream = postedFile.InputStream;
                     BinaryReader br = new BinaryReader(stream);
                     byte[] bytes = br.ReadBytes((int)stream.Length);
                     ((IRepo)Application["database"]).InsertApartmentPicture(new ApartmentPicture
                     {
-                        IsRepresentative = false,
+                        IsRepresentative = setFirstAsRepresentive ? true : false,
                         ApartmentId = createdApartment,
                         Size = fileSize,
                         ImageData = bytes,
                         Name = fileName + fileExtension,
                     });
                 }
+                setFirstAsRepresentive = false;
             }
         }
 

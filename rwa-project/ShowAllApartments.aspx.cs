@@ -185,7 +185,7 @@ namespace rwa_project
             }
             if (e.CommandName == "SetMain")
             {
-                ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()));
+                ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()), int.Parse(Session["selectedApartmentId"].ToString()));
             }
         }
     }
