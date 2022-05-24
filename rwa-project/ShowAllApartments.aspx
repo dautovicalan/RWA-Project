@@ -67,7 +67,7 @@
     </div>
     <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
         <HeaderTemplate>
-            <table class="table table-striped">
+            <table class="table table-striped" id="myTable">
                 <tr>
                     <th>Id</th>
                     <th>Name</th>

@@ -7,10 +7,10 @@ using System.Web.Mvc;
 using PublicSite.Models;
 using DataAccessLayer.Dal;
 using Newtonsoft.Json;
-using CaptchaMvc.HtmlHelpers;
 using System.Threading;
 using System.Globalization;
 using System.Configuration;
+using CaptchaMvc.HtmlHelpers;
 
 namespace PublicSite.Controllers
 {
@@ -106,34 +106,12 @@ namespace PublicSite.Controllers
         {
             try
             {
-                if (id == null)
-                    return RedirectToAction("Index", "Home");
+                if (id == null) { return RedirectToAction("Index", "Home"); }
 
                 var selectedApartment = _repo.GetApartmentById(id.Value);
+                Session["selectedApartment"] = selectedApartment;
 
-                Reservation reska = new Reservation();
-                Apartment apartko = new Apartment
-                {
-                    Id = selectedApartment.Id,
-                    Name = selectedApartment.Name,
-                    CityName = selectedApartment.CityName,
-                    OwnerName = selectedApartment.OwnerName,
-                    BeachDistance = selectedApartment.BeachDistance,
-                    RoomCount = selectedApartment.TotalRooms,
-                    MaxChildren = selectedApartment.MaxChildren,
-                    MaxAdults = selectedApartment.MaxAdults,
-                    Price = selectedApartment.Price,
-                    MainApartmentImage = new ImageModel { ImageData = selectedApartment.MainPicture.ImageData },
-                };
-
-                List<DataAccessLayer.Model.Tag> apartTags = _repo.GetApartmentTags(id.Value).ToList();
-
-                return View(new ApartmentReservationViewModel
-                {
-                    Apartment = apartko,
-                    Reservation = reska,
-                    ApartmentTags = apartTags
-                });
+                return View(PrepareApartmetnReservatioViewModel(selectedApartment));
             }
             catch (Exception e)
             {                
@@ -141,9 +119,48 @@ namespace PublicSite.Controllers
             }
         }
 
+        private ApartmentReservationViewModel PrepareApartmetnReservatioViewModel(DataAccessLayer.Model.Apartment selectedApartment)
+        {
+            Reservation reska = (Reservation)(Session["reservation"] != null ? Session["reservation"] : new Reservation());
+            Apartment apartko = new Apartment
+            {
+                Id = selectedApartment.Id,
+                Name = selectedApartment.Name,
+                CityName = selectedApartment.CityName,
+                OwnerName = selectedApartment.OwnerName,
+                BeachDistance = selectedApartment.BeachDistance,
+                RoomCount = selectedApartment.TotalRooms,
+                MaxChildren = selectedApartment.MaxChildren,
+                MaxAdults = selectedApartment.MaxAdults,
+                Price = selectedApartment.Price,
+                MainApartmentImage = new ImageModel { ImageData = selectedApartment.MainPicture.ImageData },
+            };
+
+            List<DataAccessLayer.Model.Tag> apartTags = _repo.GetApartmentTags(selectedApartment.Id).ToList();
+            List<DataAccessLayer.Model.ApartmentPicture> apartPicture = _repo.GetAllApartmentPictures(selectedApartment.Id).ToList();            
+
+            return new ApartmentReservationViewModel
+            {
+                Apartment = apartko,
+                Reservation = reska,
+                ApartmentTags = apartTags,
+                ApartmentPictures = apartPicture
+            };
+        }
+
         [HttpPost]
         public ActionResult ApartmentInformation(Reservation reservation)
-        {          
+        {
+            if (!ModelState.IsValid)
+            {
+                Session["reservationModel"] = reservation;
+                return View("ApartmentInformation", PrepareApartmetnReservatioViewModel((DataAccessLayer.Model.Apartment)Session["selectedApartment"]));
+            }
+            if (!this.IsCaptchaValid(""))
+            {
+                ViewBag.ErrorMessage = "Captcha is not valid";
+                return View("ApartmentInformation", PrepareApartmetnReservatioViewModel((DataAccessLayer.Model.Apartment)Session["selectedApartment"]));
+            }
             _repo.CreateApartmentReservationNonRegisteredUser(
                 new DataAccessLayer.Model.ApartmentReservation
                 {

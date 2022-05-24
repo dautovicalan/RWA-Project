@@ -117,3 +117,10 @@ footer{
 .review-container{
     margin-top: 50px;
 }
+
+.apartment-image-container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5em;
+    padding: 1.5em;
+}

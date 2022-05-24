@@ -58,6 +58,7 @@
     <div class="form-group">
         <label for="beachDistanceSpinner">Pictures:</label>
         <asp:FileUpload ID="fileUploadImage" AllowMultiple="true" runat="server" />            
+        <asp:RequiredFieldValidator ControlToValidate="fileUploadImage" ForeColor="Red" ID="fileValidaotr" runat="server" ErrorMessage="* Please upload at least one img"></asp:RequiredFieldValidator>
     </div>
     <asp:Button ID="SubmitButton" UseSubmitBehavior="false" CssClass="btn btn-primary" runat="server" Text="Add new Apartment" OnClick="SubmitButton_Click" />
 </asp:Content>

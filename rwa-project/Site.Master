@@ -13,8 +13,7 @@
     </asp:PlaceHolder>
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
 </head>
 <body>
     <form runat="server">
@@ -74,5 +73,12 @@
             </footer>
         </div>
     </form>
+
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        })
+    </script>
 </body>
 </html>

@@ -42,7 +42,5 @@ namespace PublicSite
                 Response.StatusCode = 404;
             }
         }
-
-
     }
 }
