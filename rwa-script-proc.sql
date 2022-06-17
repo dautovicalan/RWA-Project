@@ -56,7 +56,7 @@ BEGIN
 	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name, ApartPicture.ImageData
 END
 
-CREATE PROC SoftDeleteApartmentById
+ALTER PROC SoftDeleteApartmentById
 	@id INT
 AS
 BEGIN
@@ -65,7 +65,7 @@ BEGIN
 	WHERE Id = @id
 END
 
-CREATE PROC UpdateApartmentById
+ALTER PROC UpdateApartmentById
 	@id INT,
 	@statusId INT,
 	@totalRooms INT,
@@ -129,7 +129,7 @@ BEGIN
 	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
 END
 
-CREATE PROC GetTagById
+ALTER PROC GetTagById
 	@id INT
 AS
 BEGIN
@@ -137,7 +137,7 @@ BEGIN
 END
 
 
-CREATE PROC CreateTag
+ALTER PROC CreateTag
 	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@typeId INT,
@@ -149,7 +149,7 @@ BEGIN
 END
 
 --DELETING TAGS
-CREATE PROC DeleteTagById
+ALTER PROC DeleteTagById
 	@id INT
 AS
 BEGIN
@@ -190,7 +190,7 @@ BEGIN
 END
 
 
-create PROC GetApartmentReservations
+ALTER PROC GetApartmentReservations
 AS
 BEGIN
 	SELECT ar.Id, ar.CreatedAt, a.Id AS ApartmentId, a.Name, ar.Details, ar.UserId, ar.UserName, ar.UserEmail, ar.UserPhone, ar.UserAddress
@@ -198,19 +198,19 @@ BEGIN
 	LEFT JOIN Apartment AS a ON a.Id = ar.ApartmentId
 END
 
-CREATE PROC CreateApartmentReservationRegisteredUser
+ALTER PROC CreateApartmentReservationRegisteredUser
 	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@apartmentId INT,
 	@details NVARCHAR(1000),
-	@userId INT
+	@userId NVARCHAR(128)
 AS
 BEGIN
  INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
  VALUES (@guid, @createdAt, @apartmentId, @details, @userId, null, null, null, null)
 END
 
-CREATE PROC CreateApartmentReservationNonRegisteredUser
+ALTER PROC CreateApartmentReservationNonRegisteredUser
 	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@apartmentId INT,
@@ -236,7 +236,7 @@ SELECT * FROM ApartmentReservation
 SELECT * FROM ApartmentStatus
 
 
-CREATE PROC GetApartmentTags
+ALTER PROC GetApartmentTags
 	@apartmentId INT
 AS
 BEGIN
@@ -247,7 +247,7 @@ BEGIN
 	GROUP BY Tag.id, Tag.Name, Tag.NameEng
 END
 
-CREATE PROC GetApartmentTagsOposite
+ALTER PROC GetApartmentTagsOposite
 	@apartmentId INT
 AS
 BEGIN
@@ -265,7 +265,7 @@ SELECT Tag.id, Tag.Name, Tag.NameEng, COUNT(TaggedApartment.ApartmentId) AS TagA
 	GROUP BY Tag.id, Tag.Name, Tag.NameEng
 
 
-CREATE PROC InsertTagToApartment
+ALTER PROC InsertTagToApartment
 	@apartmentId INT,
 	@tagId INT,
 	@guid UNIQUEIDENTIFIER
@@ -286,7 +286,7 @@ BEGIN
 END
 
 
-CREATE PROC RegisterUser
+ALTER PROC RegisterUser
 	@email NVARCHAR(256),
 	@passwordHash NVARCHAR(MAX),
 	@phoneNumber NVARCHAR(MAX),
@@ -298,7 +298,7 @@ BEGIN
 	VALUES(NEWID(), GETDATE(), NULL, @email, 1, @passwordHash, @phoneNumber, 1, 1, 0, @userName, @address)
 END
 
-CREATE PROC AuthUser
+ALTER PROC AuthUser
 	@userName NVARCHAR(256),
 	@hashedPassword NVARCHAR(MAX)
 AS
@@ -308,8 +308,8 @@ BEGIN
 	WHERE UserName = @userName AND PasswordHash = @hashedPassword
 END
 
-CREATE PROC InsertUserReview	
-	@userId INT,
+ALTER PROC InsertUserReview	
+	@userId NVARCHAR(128),
 	@apartmentId INT,
 	@details NVARCHAR(MAX),
 	@stars INT
