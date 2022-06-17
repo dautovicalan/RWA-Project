@@ -9,7 +9,7 @@ namespace DataAccessLayer.Model
 {
     public class AspNetUser
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public Guid Guid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
@@ -29,7 +29,7 @@ namespace DataAccessLayer.Model
         {
             return new AspNetUser
             {
-                Id = reader.GetInt32(0),
+                Id = reader.GetString(0),
                 Guid = reader.GetGuid(1),
                 Email = reader.GetString(4),
                 UserName = reader.GetString(13),

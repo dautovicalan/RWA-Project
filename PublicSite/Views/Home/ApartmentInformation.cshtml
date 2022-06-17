@@ -42,11 +42,11 @@
     </div>
     <div style="width: 30%">
         @Html.Partial("_ReservationForm", Model)
-    </div>    
-    @if (Session["user"] != null)
+    </div>
+    @if (Request.IsAuthenticated)
     {
         @Html.Partial("_ApartmentReview", Model)
-    }
+    }    
     else
     {
         <h3>@PublicSite.Resource.ApartReviewTextLogin</h3>

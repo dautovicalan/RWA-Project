@@ -34,7 +34,7 @@ namespace PublicSite
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -63,6 +63,11 @@ namespace PublicSite
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            app.UseGoogleAuthentication(
+                clientId: "1077643055357-qqlrtsfba33dvf4024k9291eigmuqnr3.apps.googleusercontent.com",
+                clientSecret: "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");
         }
+
     }
 }
