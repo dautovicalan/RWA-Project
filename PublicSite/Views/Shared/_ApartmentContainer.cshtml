@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="apartment-information">
-        @if (Model.MainApartmentImage.ImageData != null)
+        @if (Model.MainApartmentImage?.ImageData != null)
         {
             <img src=@("data:Image/png;base64," + Convert.ToBase64String(Model.MainApartmentImage.ImageData)) width="250" height="250" />
         }
