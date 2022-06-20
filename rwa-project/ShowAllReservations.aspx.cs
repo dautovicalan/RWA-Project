@@ -10,13 +10,13 @@ using System.Web.UI.WebControls;
 namespace rwa_project
 {
     public partial class ShowAllReservations : System.Web.UI.Page
-    {
+    {        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack && Session["user"] == null)
             {
                 Response.Redirect("Login.aspx");
-            }
+            }            
         }
 
         protected void cbIsNotRegisteredUser_CheckedChanged(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace rwa_project
                     CreatedAt = DateTime.Now,
                     ApartmentId = int.Parse(ddlApartments.SelectedValue),
                     Details = tbDetails.Text,
-                    UserId = int.Parse(ddlRegisteredUsers.SelectedValue),
+                    UserId = ddlRegisteredUsers.SelectedValue,
                 });
                 GridView1.DataBind();
                 return;

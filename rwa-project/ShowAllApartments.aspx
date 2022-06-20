@@ -33,13 +33,13 @@
                 <label for="StatusDropDownList">Status</label>
                 <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">                                        
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
             <div>
                 <label for="CityDropDownList">City</label>
                 <asp:DropDownList ID="ddlCity" runat="server" DataSourceID="CityBound" DataTextField="Name" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
         </div>
         <div>
@@ -152,7 +152,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </asp:Panel>    
-    <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
     <asp:Panel ID="pnlModal" runat="server" Visible="false">
         <div class="modal">

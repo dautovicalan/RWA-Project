@@ -3,23 +3,19 @@
     ViewBag.Title = "Home Page";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-@if (Session["user"] != null)
-{
-    <p>@(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)</p>
-}
 <div class="sort-filter-container" style="padding: 1.2em;">
     <form id="myForm">
         <div class="single-item">
             <label>@PublicSite.Resource.Rooms</label>
-            <input type="number" id="roomsNumberField" value=@(Model?.ApartmentFilter?.RoomCount.ToString()) />
+            <input type="number" id="roomsNumberField" value=@(Model?.ApartmentFilter?.RoomCount.ToString()) min="0" />
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Adults</label>
-            <input type="number" id="adultsNumberField" value=@(Model?.ApartmentFilter?.MaxAdults.ToString()) />
+            <input type="number" id="adultsNumberField" value=@(Model?.ApartmentFilter?.MaxAdults.ToString()) min="0"/>
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Children</label>
-            <input type="number" id="childrenNumberField" value=@(Model?.ApartmentFilter?.MaxChildren.ToString()) />
+            <input type="number" id="childrenNumberField" value=@(Model?.ApartmentFilter?.MaxChildren.ToString()) min="0"/>
         </div>
         <div class="single-item-special">
             <div class="single-item">

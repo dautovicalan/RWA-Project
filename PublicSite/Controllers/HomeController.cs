@@ -11,6 +11,7 @@ using System.Threading;
 using System.Globalization;
 using System.Configuration;
 using CaptchaMvc.HtmlHelpers;
+using Microsoft.AspNet.Identity;
 
 namespace PublicSite.Controllers
 {
@@ -49,6 +50,17 @@ namespace PublicSite.Controllers
                         });
                     });
                 ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
+
+                if (myFilters != null)
+                {
+                    return View(new ApartmentViewModel
+                    {
+                        ApartmentFilter = myFilters,
+                        Cities = cityList,
+                        Apartments = FilterApartments(myFilters)
+                    });
+                }
+
                 var viewModelStuff = new ApartmentViewModel
                 {
                     Apartments = listOfApartments,
@@ -70,35 +82,50 @@ namespace PublicSite.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            HttpContext.Response.Cookies.Add(new HttpCookie("sortingFilterOptions", filters.PrepareForCookie()));
+            
+            List<Apartment> listOfApartments  = FilterApartments(filters);
+
+            if (listOfApartments.Count == 0)
+            {
+                return PartialView("_AllApartments", new ApartmentViewModel
+                {
+                    ApartmentFilter = filters,
+                    Apartments = new List<Apartment>()
+                });
+            }
+            ApartmentViewModel apartmentViewModel = new ApartmentViewModel
+            {
+                Apartments = listOfApartments,
+                ApartmentFilter = filters
+            };            
+            return PartialView("_AllApartments", apartmentViewModel);
+        }
+
+        private List<Apartment> FilterApartments(ApartmentFilter filters)
+        {
             List<DataAccessLayer.Model.Apartment> apartmani = _repo.GetApartments().ToList();
 
             List<DataAccessLayer.Model.Apartment> allDataLayerApartments = apartmani.FindAll(x => x.TotalRooms >= filters.RoomCount && x.MaxAdults >= filters.MaxAdults
                                                         && x.MaxChildren >= filters.MaxChildren && x.CityName == filters.CityName);
 
-
             List<Apartment> listOfApartments = new List<Apartment>();
-            allDataLayerApartments.ForEach(x => listOfApartments.Add(new Apartment { 
-                Id = x.Id, 
-                MaxChildren = x.MaxChildren, 
-                Name = x.Name, 
-                CityName = x.CityName, 
+            allDataLayerApartments.ForEach(x => listOfApartments.Add(new Apartment
+            {
+                Id = x.Id,
+                MaxChildren = x.MaxChildren,
+                Name = x.Name,
+                CityName = x.CityName,
                 MaxAdults = x.MaxAdults,
                 RoomCount = x.TotalRooms,
                 OwnerName = x.OwnerName,
                 Price = x.Price,
-                BeachDistance = x.BeachDistance,                
+                BeachDistance = x.BeachDistance,
             }));
 
             listOfApartments.Sort((x, y) => -x.Price.CompareTo(y.Price));
 
-            ApartmentViewModel apartmentViewModel = new ApartmentViewModel
-            {
-                Apartments = listOfApartments,
-                ApartmentFilter = filters
-            };
-
-            HttpContext.Response.Cookies.Add(new HttpCookie("sortingFilterOptions", filters.PrepareForCookie()));
-            return PartialView("_AllApartments", apartmentViewModel);
+            return listOfApartments;
         }
 
         // Home/ApartmentInformation/id
@@ -161,10 +188,21 @@ namespace PublicSite.Controllers
                 ViewBag.ErrorMessage = "Captcha is not valid";
                 return View("ApartmentInformation", PrepareApartmetnReservatioViewModel((DataAccessLayer.Model.Apartment)Session["selectedApartment"]));
             }
-            _repo.CreateApartmentReservationNonRegisteredUser(
+            if (User.Identity.IsAuthenticated)
+            {
+                _repo.CreateApartmentReservationRegisteredUser(new DataAccessLayer.Model.ApartmentReservation
+                {
+                    CreatedAt = DateTime.Now,
+                    ApartmentId = int.Parse(Url.RequestContext.RouteData.Values["id"].ToString()),
+                    Details = reservation.From.ToString(),
+                    UserId = User.Identity.GetUserId(),
+                });
+            }
+            else
+            {
+                _repo.CreateApartmentReservationNonRegisteredUser(
                 new DataAccessLayer.Model.ApartmentReservation
                 {
-                    Guid = Guid.NewGuid(),
                     CreatedAt = DateTime.Now,
                     ApartmentId = int.Parse(Url.RequestContext.RouteData.Values["id"].ToString()),
                     Details = reservation.From.ToString(),
@@ -173,6 +211,8 @@ namespace PublicSite.Controllers
                     UserPhone = reservation.Phone,
                     UserAddress = reservation.UserAddress,
                 });
+            }
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -181,7 +221,7 @@ namespace PublicSite.Controllers
         {
             _repo.InsertUserReview(new DataAccessLayer.Model.ApartmentReview
             {
-                UserId = ((DataAccessLayer.Model.AspNetUser)Session["user"]).Id,
+                UserId = User.Identity.GetUserId(),
                 ApartmentId = int.Parse(userReview.ApartmentId),
                 Details = userReview.Details,
                 Stars = userReview.StarCount

@@ -49,8 +49,6 @@ namespace DataAccessLayer.Model
                 OwnerName = Convert.ToString(row["OwnerName"]),
                 ApartmentStars = Convert.IsDBNull(row[nameof(ApartmentStars)]) ? 0 : Convert.ToInt32(row[nameof(ApartmentStars)]),
                 MainPicture = new ApartmentPicture { ImageData = (byte[])row["ImageData"]}
-
-
             };
         }
 

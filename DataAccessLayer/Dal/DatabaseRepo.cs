@@ -8,7 +8,7 @@ namespace DataAccessLayer.Dal
 {
     public class DatabaseRepo : IRepo
     {
-        private string connectionString = "Data Source=DESKTOP-F08V67G;Initial Catalog=RwaApartmani;Integrated Security=True";
+        private string connectionString = ConfigurationManager.ConnectionStrings["ApartmentDatabase"].ConnectionString;
         //private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
 
 
@@ -267,7 +267,6 @@ namespace DataAccessLayer.Dal
             {
                 connection.Open();
                 command = new SqlCommand("CreateApartmentReservationRegisteredUser", connection);
-                command.Parameters.AddWithValue("guid", reservation.Guid);
                 command.Parameters.AddWithValue("createdAt", reservation.CreatedAt);
                 command.Parameters.AddWithValue("apartmentId", reservation.ApartmentId);
                 command.Parameters.AddWithValue("details", reservation.Details);
@@ -283,7 +282,6 @@ namespace DataAccessLayer.Dal
             {
                 connection.Open();
                 command = new SqlCommand("CreateApartmentReservationNonRegisteredUser", connection);
-                command.Parameters.AddWithValue("guid", reservation.Guid);
                 command.Parameters.AddWithValue("createdAt", reservation.CreatedAt);
                 command.Parameters.AddWithValue("apartmentId", reservation.ApartmentId);
                 command.Parameters.AddWithValue("details", reservation.Details);
