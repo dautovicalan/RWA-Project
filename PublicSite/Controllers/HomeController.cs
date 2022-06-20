@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Configuration;
 using CaptchaMvc.HtmlHelpers;
 using Microsoft.AspNet.Identity;
+using PublicSite.Extensions;
 
 namespace PublicSite.Controllers
 {
@@ -31,23 +32,27 @@ namespace PublicSite.Controllers
             {
                 List<Apartment> listOfApartments = new List<Apartment>();
                 List<DataAccessLayer.Model.City> cityList = _repo.GetCitys().ToList();
+
                 _repo.GetApartments()
                     .ToList().ForEach(element =>
                     {
-                        listOfApartments.Add(new Apartment
+                        if (element.StatusName == "Vacant")
                         {
-                            Id = element.Id,
-                            Name = element.Name,
-                            CityName = element.CityName,
-                            OwnerName = element.OwnerName,
-                            BeachDistance = element.BeachDistance,
-                            RoomCount = element.TotalRooms,
-                            MaxAdults = element.MaxAdults,
-                            MaxChildren = element.MaxChildren,
-                            Price = element.Price,
-                            ApartmentStars = element.ApartmentStars,
-                            MainApartmentImage = new ImageModel { ImageData = element.MainPicture.ImageData}
-                        });
+                            listOfApartments.Add(new Apartment
+                            {
+                                Id = element.Id,
+                                Name = element.Name,
+                                CityName = element.CityName,
+                                OwnerName = element.OwnerName,
+                                BeachDistance = element.BeachDistance,
+                                RoomCount = element.TotalRooms,
+                                MaxAdults = element.MaxAdults,
+                                MaxChildren = element.MaxChildren,
+                                Price = element.Price,
+                                ApartmentStars = element.ApartmentStars,
+                                MainApartmentImage = new ImageModel { ImageData = element.MainPicture.ImageData }
+                            });
+                        }                        
                     });
                 ApartmentFilter myFilters = ApartmentFilter.ReadFromCookie(HttpContext.Request.Cookies["sortingFilterOptions"]?.Value);
 
@@ -104,7 +109,7 @@ namespace PublicSite.Controllers
 
         private List<Apartment> FilterApartments(ApartmentFilter filters)
         {
-            List<DataAccessLayer.Model.Apartment> apartmani = _repo.GetApartments().ToList();
+            List<DataAccessLayer.Model.Apartment> apartmani = _repo.GetApartments().ToList().FindAll(x => x.StatusName == "Vacant");
 
             List<DataAccessLayer.Model.Apartment> allDataLayerApartments = apartmani.FindAll(x => x.TotalRooms >= filters.RoomCount && x.MaxAdults >= filters.MaxAdults
                                                         && x.MaxChildren >= filters.MaxChildren && x.CityName == filters.CityName);
@@ -136,6 +141,12 @@ namespace PublicSite.Controllers
                 if (id == null) { return RedirectToAction("Index", "Home"); }
 
                 var selectedApartment = _repo.GetApartmentById(id.Value);
+
+                if (selectedApartment.StatusName != "Vacant")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 Session["selectedApartment"] = selectedApartment;
 
                 return View(PrepareApartmetnReservatioViewModel(selectedApartment));

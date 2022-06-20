@@ -12,6 +12,11 @@ namespace PublicSite.Models
         [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
+        [Required]
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -87,6 +92,11 @@ namespace PublicSite.Models
         [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
+        [Required]
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

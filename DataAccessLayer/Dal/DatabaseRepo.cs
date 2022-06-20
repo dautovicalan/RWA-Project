@@ -478,5 +478,18 @@ namespace DataAccessLayer.Dal
                 }
             }
         }
+
+        public void DeleteTagFromApartment(int apartmentId, int tagId)
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(nameof(DeleteTagFromApartment), connection);
+                command.Parameters.AddWithValue("apartmentId", apartmentId);
+                command.Parameters.AddWithValue("tagId", tagId);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

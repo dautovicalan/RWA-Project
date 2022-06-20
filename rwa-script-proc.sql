@@ -197,7 +197,7 @@ BEGIN
 	FROM ApartmentReservation AS ar
 	LEFT JOIN Apartment AS a ON a.Id = ar.ApartmentId
 END
-
+--2
 ALTER PROC CreateApartmentReservationRegisteredUser
 	@createdAt DATETIME,
 	@apartmentId INT,
@@ -207,6 +207,10 @@ AS
 BEGIN
  INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
  VALUES (NEWID(), @createdAt, @apartmentId, @details, @userId, null, null, null, null)
+
+ UPDATE Apartment
+ SET StatusId = 2
+ WHERE Id = @apartmentId
 END
 
 ALTER PROC CreateApartmentReservationNonRegisteredUser
@@ -221,12 +225,11 @@ AS
 BEGIN
  INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
  VALUES (NEWID(), @createdAt, @apartmentId, @details, null, @userName, @userEmail, @userPhone, @userAddress)
-END
 
-	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
-	FROM Tag
-	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
-	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
+  UPDATE Apartment
+ SET StatusId = 2
+ WHERE Id = @apartmentId
+END
 
 SELECT * FROM Apartment
 
@@ -271,6 +274,15 @@ AS
 BEGIN
 	INSERT INTO TaggedApartment (Guid, ApartmentId, TagId)
 	VALUES(@guid, @apartmentId, @tagId)
+END
+
+
+CREATE PROC DeleteTagFromApartment
+	@apartmentId INT,
+	@tagId INT
+AS
+BEGIN
+	DELETE FROM TaggedApartment WHERE ApartmentId = @apartmentId AND TagId = @tagId	
 END
 
 ALTER PROC AuthUser
