@@ -223,7 +223,8 @@ namespace PublicSite.Controllers
                     UserAddress = reservation.UserAddress,
                 });
             }
-            
+
+            TempData["SuccessAlert"] = true;
             return RedirectToAction("Index", "Home");
         }
 

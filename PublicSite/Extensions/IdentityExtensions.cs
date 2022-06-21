@@ -13,11 +13,6 @@ namespace PublicSite.Extensions
         {
             var claim = ((ClaimsIdentity)identity).FindFirst("Address");
             return (claim != null) ? claim.Value : string.Empty;
-        }
-        public static string GetUserPhone(this IIdentity identity)
-        {
-            var claim = ((ClaimsIdentity)identity).FindFirst("PhoneNumber");
-            return (claim != null) ? claim.Value : string.Empty;
-        }
+        }       
     }
 }

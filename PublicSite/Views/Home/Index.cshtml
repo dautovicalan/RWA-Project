@@ -59,14 +59,26 @@
     @Html.Partial("_AllApartments", Model)
 </div>
 
+    @if (TempData["SuccessAlert"] != null && (bool)TempData["SuccessAlert"] == true)
+    {
+     <script>
+         Swal.fire({
+             title: 'Success!',
+             text: 'Reservation created',
+             icon: 'sucess',
+             confirmButtonText: 'Cool'
+         })
+     </script>   
+    }
 <script>
+
     $("#myForm").submit(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
 
-        var container = $("#apartments-list");
+            var container = $("#apartments-list");
 
-        var obj = {
+            var obj = {
             RoomCount: $("#roomsNumberField").val(),
             MaxAdults: $("#adultsNumberField").val(),
             MaxChildren: $("#childrenNumberField").val(),
@@ -75,7 +87,7 @@
         }
 
         $.ajax({
-            type: "POST",
+        type: "POST",
             url: "/Home/GetFilteredApartments",
             data: obj,
             success: function (data) {

@@ -46,7 +46,7 @@
     @if (Request.IsAuthenticated)
     {
         @Html.Partial("_ApartmentReview", Model)
-    }    
+    }
     else
     {
         <h3>@PublicSite.Resource.ApartReviewTextLogin</h3>
@@ -55,6 +55,11 @@
 <div class="apartment-image-container">
     @foreach (var item in Model.ApartmentPictures)
     {
-        <img src=@("data:Image/png;base64," + Convert.ToBase64String(item.ImageData)) width="250" height="250" />
+        <a data-fancybox="gallery" href=@("data:Image/png;base64," + Convert.ToBase64String(item.ImageData)) width="250" height="250">
+            <img src=@("data:Image/png;base64," + Convert.ToBase64String(item.ImageData)) height="250" width="250" />
+        </a>    
     }
 </div>
+
+
+<script src=@("https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js")></script>

@@ -38,7 +38,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Reservation.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Reservation.Phone, new { htmlAttributes = new { @class = "form-control", @Value = User.Identity.GetUserPhone() } })
+            @Html.EditorFor(model => model.Reservation.Phone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Reservation.Phone, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -98,12 +98,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>    
-    //Swal.fire({
-    //    title: 'Error!',
-    //    text: 'Do you want to continue',
-    //    icon: 'error',
-    //    confirmButtonText: 'Cool'
-    //})
+    
 </script>
 
 
