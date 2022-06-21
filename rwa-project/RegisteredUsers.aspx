@@ -6,7 +6,6 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Guid</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Address</th>
@@ -16,7 +15,6 @@
                 <% foreach (var user in ListOfUsers) { %>
                     <tr>
                         <td><%= user.Id %></td>
-                        <td><%= user.Guid %></td>
                         <td><%= user.UserName %></td>
                         <td><%= user.Email %></td>
                         <td><%= user.Address %></td>

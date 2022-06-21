@@ -19,7 +19,15 @@
     <div class="form-group">
         <label>Select apartment</label>
         <asp:DropDownList ID="ddlApartments" runat="server" DataSourceID="Apartments" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
-        <asp:SqlDataSource ID="Apartments" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="Apartments" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(ApartPicture.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars, ApartPicture.ImageData AS ImageData
+	FROM Apartment AS ap
+	LEFT JOIN City AS c ON c.Id = ap.CityId
+	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
+	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
+	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
+	LEFT JOIN ApartPicture ON ap.Id = ApartPicture.ApartmentId
+	WHERE ap.DeletedAt IS NULL AND ApartPicture.IsRepresentative = 1 AND ass.Id != 3
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name , ApartPicture.ImageData"></asp:SqlDataSource>
     </div>
     <div class="form-group">
         <label>Enter details</label>
