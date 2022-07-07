@@ -3,23 +3,19 @@
     ViewBag.Title = "Home Page";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-@if (Session["user"] != null)
-{
-    <p>@(((DataAccessLayer.Model.AspNetUser)Session["user"]).UserName)</p>
-}
 <div class="sort-filter-container" style="padding: 1.2em;">
     <form id="myForm">
         <div class="single-item">
             <label>@PublicSite.Resource.Rooms</label>
-            <input type="number" id="roomsNumberField" value=@(Model?.ApartmentFilter?.RoomCount.ToString()) />
+            <input type="number" id="roomsNumberField" value=@(Model?.ApartmentFilter?.RoomCount.ToString()) min="0" />
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Adults</label>
-            <input type="number" id="adultsNumberField" value=@(Model?.ApartmentFilter?.MaxAdults.ToString()) />
+            <input type="number" id="adultsNumberField" value=@(Model?.ApartmentFilter?.MaxAdults.ToString()) min="0"/>
         </div>
         <div class="single-item">
             <label>@PublicSite.Resource.Children</label>
-            <input type="number" id="childrenNumberField" value=@(Model?.ApartmentFilter?.MaxChildren.ToString()) />
+            <input type="number" id="childrenNumberField" value=@(Model?.ApartmentFilter?.MaxChildren.ToString()) min="0"/>
         </div>
         <div class="single-item-special">
             <div class="single-item">
@@ -63,14 +59,26 @@
     @Html.Partial("_AllApartments", Model)
 </div>
 
+    @if (TempData["SuccessAlert"] != null && (bool)TempData["SuccessAlert"] == true)
+    {
+     <script>
+         Swal.fire({
+             title: 'Success!',
+             text: 'Reservation created',
+             icon: 'sucess',
+             confirmButtonText: 'Cool'
+         })
+     </script>   
+    }
 <script>
+
     $("#myForm").submit(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
 
-        var container = $("#apartments-list");
+            var container = $("#apartments-list");
 
-        var obj = {
+            var obj = {
             RoomCount: $("#roomsNumberField").val(),
             MaxAdults: $("#adultsNumberField").val(),
             MaxChildren: $("#childrenNumberField").val(),
@@ -79,7 +87,7 @@
         }
 
         $.ajax({
-            type: "POST",
+        type: "POST",
             url: "/Home/GetFilteredApartments",
             data: obj,
             success: function (data) {

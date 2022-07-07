@@ -33,13 +33,13 @@
                 <label for="StatusDropDownList">Status</label>
                 <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">                                        
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
             <div>
                 <label for="CityDropDownList">City</label>
                 <asp:DropDownList ID="ddlCity" runat="server" DataSourceID="CityBound" DataTextField="Name" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="CityBound" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetCitys" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>
         </div>
         <div>
@@ -109,19 +109,23 @@
         <asp:Label ID="ApartmentId" runat="server" Text="Label"></asp:Label>
         <div class="form-group">
             <label>Broj soba</label>
-            <asp:TextBox ID="txbRoomNumber" runat="server" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="txbRoomNumber" runat="server" TextMode="Number" min="0"></asp:TextBox>
+            <asp:RangeValidator ControlToValidate="txbRoomNumber" MinimumValue="0" MaximumValue="99" ID="RangeValidator1" runat="server" ErrorMessage="Min number is 0"></asp:RangeValidator>
         </div>
         <div class="form-group">
             <label>Broj mjesta za odrasle</label>
-            <asp:TextBox ID="txbAdultsNumber" runat="server" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="txbAdultsNumber" runat="server" TextMode="Number" min="0"></asp:TextBox>
+            <asp:RangeValidator ControlToValidate="txbAdultsNumber" MinimumValue="0" MaximumValue="99" ID="RangeValidator2" runat="server" ErrorMessage="Min number is 0"></asp:RangeValidator>
         </div>
         <div class="form-group">
             <label>Broj mjesta za djecu</label>
-            <asp:TextBox ID="txbChildrenNumber" runat="server" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="txbChildrenNumber" runat="server" TextMode="Number" min="0"></asp:TextBox>
+            <asp:RangeValidator ControlToValidate="txbChildrenNumber" MinimumValue="0" MaximumValue="99" ID="RangeValidator3" runat="server" ErrorMessage="Min number is 0"></asp:RangeValidator>
         </div>
         <div class="form-group">
             <label>Udaljenost od mora</label>
-            <asp:TextBox ID="txbBeachDistance" runat="server" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="txbBeachDistance" runat="server" TextMode="Number" min="0"></asp:TextBox>
+            <asp:RangeValidator ControlToValidate="txbBeachDistance" MinimumValue="0" MaximumValue="9999" ID="RangeValidator4" runat="server" ErrorMessage="Min number is 0"></asp:RangeValidator>
         </div>
         <div class="form-group">
             <label>Status apartmana</label>
@@ -134,8 +138,9 @@
             </asp:DropDownList>
         </div>
         <div class="form-group">
-            <label>Apartment Tags</label>
+            <label>Current Apartment Tags</label>
             <asp:DropDownList ID="ddlApartmentTags" runat="server"></asp:DropDownList>
+            <asp:Button ID="removeTagFromApartmentButton" runat="server" Text="Remove Selected Tag from Apartment tags" OnClick="removeTagFromApartmentButton_Click"/>
             <label>Other available Tags</label>
             <asp:DropDownList ID="ddlAllOtherTags" runat="server"></asp:DropDownList>
             <asp:Button ID="addOtherTagToApartment" runat="server" Text="Add Selected Tag to Apartment tags" OnClick="addOtherTagToApartment_Click"/>
@@ -152,7 +157,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </asp:Panel>    
-    <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlApartments" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
     <asp:Panel ID="pnlModal" runat="server" Visible="false">
         <div class="modal">

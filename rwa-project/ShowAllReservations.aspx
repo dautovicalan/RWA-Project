@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShowAllReservations.aspx.cs" Inherits="rwa_project.ShowAllReservations" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:GridView ID="GridView1" CssClass="table table-striped" runat="server" AutoGenerateColumns="False" DataSourceID="Reservations">
+    <asp:GridView ID="GridView1" CssClass="table table-striped myTable" runat="server" AutoGenerateColumns="False" DataSourceID="Reservations">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
             <asp:BoundField DataField="CreatedAt" HeaderText="CreatedAt" SortExpression="CreatedAt" />
@@ -15,11 +15,19 @@
             <asp:BoundField DataField="UserAddress" HeaderText="UserAddress" SortExpression="UserAddress" />
         </Columns>
     </asp:GridView>
-    <asp:SqlDataSource ID="Reservations" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartmentReservations" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="Reservations" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartmentReservations" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
     <div class="form-group">
         <label>Select apartment</label>
         <asp:DropDownList ID="ddlApartments" runat="server" DataSourceID="Apartments" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
-        <asp:SqlDataSource ID="Apartments" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetApartments" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="Apartments" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(ApartPicture.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars, ApartPicture.ImageData AS ImageData
+	FROM Apartment AS ap
+	LEFT JOIN City AS c ON c.Id = ap.CityId
+	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
+	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
+	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
+	LEFT JOIN ApartPicture ON ap.Id = ApartPicture.ApartmentId
+	WHERE ap.DeletedAt IS NULL AND ApartPicture.IsRepresentative = 1 AND ass.Id != 3
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name , ApartPicture.ImageData"></asp:SqlDataSource>
     </div>
     <div class="form-group">
         <label>Enter details</label>
@@ -34,7 +42,7 @@
             <div class="form-group">
             <label>Registrirani korisnici</label>
             <asp:DropDownList ID="ddlRegisteredUsers" runat="server" DataSourceID="RegisteredUsers" DataTextField="UserName" DataValueField="Id"></asp:DropDownList>
-            <asp:SqlDataSource ID="RegisteredUsers" runat="server" ConnectionString="<%$ ConnectionStrings:RwaApartmaniConnectionString %>" SelectCommand="GetAspNetUsers" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="RegisteredUsers" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetAspNetUsers" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
         </div>
         </asp:Panel>                
         <asp:Panel ID="pnlNotRegisteredUser" runat="server" Visible="false">

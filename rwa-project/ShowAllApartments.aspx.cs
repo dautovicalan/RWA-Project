@@ -188,5 +188,11 @@ namespace rwa_project
                 ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()), int.Parse(Session["selectedApartmentId"].ToString()));
             }
         }
+
+        protected void removeTagFromApartmentButton_Click(object sender, EventArgs e)
+        {
+            ((IRepo)Application["database"]).DeleteTagFromApartment(int.Parse(ApartmentId.Text), int.Parse(ddlApartmentTags.SelectedValue));
+            FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+        }
     }
 }

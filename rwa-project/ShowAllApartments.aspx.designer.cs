@@ -132,6 +132,15 @@ namespace rwa_project
         protected global::System.Web.UI.WebControls.TextBox txbRoomNumber;
 
         /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+
+        /// <summary>
         /// txbAdultsNumber control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace rwa_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txbAdultsNumber;
+
+        /// <summary>
+        /// RangeValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
 
         /// <summary>
         /// txbChildrenNumber control.
@@ -150,6 +168,15 @@ namespace rwa_project
         protected global::System.Web.UI.WebControls.TextBox txbChildrenNumber;
 
         /// <summary>
+        /// RangeValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
+
+        /// <summary>
         /// txbBeachDistance control.
         /// </summary>
         /// <remarks>
@@ -157,6 +184,15 @@ namespace rwa_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txbBeachDistance;
+
+        /// <summary>
+        /// RangeValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
 
         /// <summary>
         /// ddlApartmentStatuses control.
@@ -175,6 +211,15 @@ namespace rwa_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlApartmentTags;
+
+        /// <summary>
+        /// removeTagFromApartmentButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button removeTagFromApartmentButton;
 
         /// <summary>
         /// ddlAllOtherTags control.

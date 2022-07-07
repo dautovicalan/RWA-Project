@@ -30,10 +30,9 @@ namespace DataAccessLayer.Model
             return new AspNetUser
             {
                 Id = reader.GetString(0),
-                Guid = reader.GetGuid(1),
-                Email = reader.GetString(4),
-                UserName = reader.GetString(13),
-                Address = reader.GetString(14),
+                Email = reader.GetString(1),
+                UserName= reader.GetString(1),
+                Address = reader.GetString(12),
             };
         }
     }

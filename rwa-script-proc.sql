@@ -3,10 +3,9 @@ use RwaApartmani
 ALTER PROC GetApartments
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars, ApartPicture.ImageData AS ImageData
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(ApartPicture.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name AS OwnerName, AVG(ar.Stars) AS ApartmentStars, ApartPicture.ImageData AS ImageData
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
-	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
 	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
@@ -20,14 +19,15 @@ ALTER PROC GetApartmentsFilteredByStatusCity
 	@cityId INT
 AS
 BEGIN
-	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(app.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, AVG(ar.Stars) AS ApartmentStars	 
+	SELECT ap.Id, ap.Name, c.Name AS CityName, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, COUNT(ApartPicture.ApartmentId) AS PictureNumber, ap.Price, ap.BeachDistance, ass.NameEng, AVG(ar.Stars) AS ApartmentStars, ao.Name AS OwnerName, ApartPicture.ImageData AS ImageData	 
 	FROM Apartment AS ap
 	LEFT JOIN City AS c ON c.Id = ap.CityId
-	LEFT JOIN ApartmentPicture AS app ON app.ApartmentId = ap.Id
 	LEFT JOIN ApartmentStatus AS ass ON ass.Id = ap.StatusId
 	LEFT JOIN ApartmentReview AS ar ON ar.ApartmentId = ap.Id
-	WHERE ap.DeletedAt IS NULL AND ass.Id = @statusId AND c.Id = @cityId
-	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng
+	LEFT JOIN ApartmentOwner AS ao ON ao.Id = ap.OwnerId
+	LEFT JOIN ApartPicture ON ap.Id = ApartPicture.ApartmentId
+	WHERE ap.DeletedAt IS NULL AND ass.Id = @statusId AND c.Id = @cityId AND ApartPicture.IsRepresentative = 1
+	GROUP BY ap.Id, ap.Name, c.Name, ap.MaxAdults, ap.MaxChildren, ap.TotalRooms, ap.Price, ap.BeachDistance, ass.NameEng, ao.Name, ApartPicture.ImageData
 END
 
 
@@ -197,9 +197,8 @@ BEGIN
 	FROM ApartmentReservation AS ar
 	LEFT JOIN Apartment AS a ON a.Id = ar.ApartmentId
 END
-
+--2
 ALTER PROC CreateApartmentReservationRegisteredUser
-	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@apartmentId INT,
 	@details NVARCHAR(1000),
@@ -207,11 +206,14 @@ ALTER PROC CreateApartmentReservationRegisteredUser
 AS
 BEGIN
  INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
- VALUES (@guid, @createdAt, @apartmentId, @details, @userId, null, null, null, null)
+ VALUES (NEWID(), @createdAt, @apartmentId, @details, @userId, null, null, null, null)
+
+ UPDATE Apartment
+ SET StatusId = 2
+ WHERE Id = @apartmentId
 END
 
 ALTER PROC CreateApartmentReservationNonRegisteredUser
-	@guid UNIQUEIDENTIFIER,
 	@createdAt DATETIME,
 	@apartmentId INT,
 	@details NVARCHAR(1000),
@@ -222,13 +224,12 @@ ALTER PROC CreateApartmentReservationNonRegisteredUser
 AS
 BEGIN
  INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId, UserName, UserEmail, UserPhone, UserAddress)
- VALUES (@guid, @createdAt, @apartmentId, @details, null, @userName, @userEmail, @userPhone, @userAddress)
-END
+ VALUES (NEWID(), @createdAt, @apartmentId, @details, null, @userName, @userEmail, @userPhone, @userAddress)
 
-	SELECT Tag.Id, Tag.Name, Tag.NameEng AS NameEng, COUNT(TaggedApartment.TagId) AS TagApperance
-	FROM Tag
-	INNER JOIN TaggedApartment ON Tag.Id = TaggedApartment.TagId
-	GROUP BY Tag.Id, Tag.Name, Tag.NameEng
+  UPDATE Apartment
+ SET StatusId = 2
+ WHERE Id = @apartmentId
+END
 
 SELECT * FROM Apartment
 
@@ -273,6 +274,15 @@ AS
 BEGIN
 	INSERT INTO TaggedApartment (Guid, ApartmentId, TagId)
 	VALUES(@guid, @apartmentId, @tagId)
+END
+
+
+CREATE PROC DeleteTagFromApartment
+	@apartmentId INT,
+	@tagId INT
+AS
+BEGIN
+	DELETE FROM TaggedApartment WHERE ApartmentId = @apartmentId AND TagId = @tagId	
 END
 
 ALTER PROC AuthUser

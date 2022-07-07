@@ -1,8 +1,10 @@
 ﻿@model PublicSite.ViewModels.ApartmentReservationViewModel
 
 @using CaptchaMvc.HtmlHelpers;
+@using PublicSite.Extensions;
+@using Microsoft.AspNet.Identity;
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("ApartmentInformation", "Home", new AjaxOptions { HttpMethod = "POST"}))
 {
     @Html.AntiForgeryToken()
 
@@ -13,14 +15,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Reservation.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Reservation.UserName, new { htmlAttributes = new { @class = "form-control", @Value = ((DataAccessLayer.Model.AspNetUser)Session["user"])?.UserName } })
+            @Html.EditorFor(model => model.Reservation.UserName, new { htmlAttributes = new { @class = "form-control", @Value = User.Identity.Name } })
             @Html.ValidationMessageFor(model => model.Reservation.UserName, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Reservation.Email, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Reservation.Email, new { htmlAttributes = new { @class = "form-control", @Value = ((DataAccessLayer.Model.AspNetUser)Session["user"])?.Email, @type = "email" } })
+            @Html.EditorFor(model => model.Reservation.Email, new { htmlAttributes = new { @class = "form-control", @Value = User.Identity.Name, @type = "email" } })
             @Html.ValidationMessageFor(model => model.Reservation.Email, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -28,7 +30,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Reservation.UserAddress, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Reservation.UserAddress, new { htmlAttributes = new { @class = "form-control", @Value = ((DataAccessLayer.Model.AspNetUser)Session["user"])?.Address } })
+            @Html.EditorFor(model => model.Reservation.UserAddress, new { htmlAttributes = new { @class = "form-control", @Value = User.Identity.GetUserAddress()} })
             @Html.ValidationMessageFor(model => model.Reservation.UserAddress, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -36,7 +38,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Reservation.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Reservation.Phone, new { htmlAttributes = new { @class = "form-control", @Value = ((DataAccessLayer.Model.AspNetUser)Session["user"])?.PhoneNumber } })
+            @Html.EditorFor(model => model.Reservation.Phone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Reservation.Phone, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -83,7 +85,6 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" id="reservationButton" value="Rezervacija" class="btn btn-default" />
-            <input type="button" value="Posalji upit" class="btn btn-default" />
         </div>
     </div>
 </div>
@@ -97,12 +98,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>    
-    //Swal.fire({
-    //    title: 'Error!',
-    //    text: 'Do you want to continue',
-    //    icon: 'error',
-    //    confirmButtonText: 'Cool'
-    //})
+    
 </script>
 
 

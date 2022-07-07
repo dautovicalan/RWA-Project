@@ -16,8 +16,6 @@ namespace PublicSite.Controllers
         public ActionResult SetNewLanguage(string selectedLanguage)
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
-            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(selectedLanguage);
-
             Response.Cookies.Add(new HttpCookie("language", selectedLanguage));
 
             return RedirectToAction("Index", "Home");

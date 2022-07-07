@@ -20,6 +20,8 @@ namespace PublicSite.Models
 
         [Required(ErrorMessage = "Missing data")]
         [Display(Name = "Phone", ResourceType = typeof(Resource))]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Missing data")]
