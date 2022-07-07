@@ -41,7 +41,7 @@ namespace rwa_project
                     CreatedAt = DateTime.Now,
                     ApartmentId = int.Parse(ddlApartments.SelectedValue),
                     Details = tbDetails.Text,
-                    UserId = int.Parse(ddlRegisteredUsers.SelectedValue),
+                    UserId = ddlRegisteredUsers.SelectedValue,
                 });
                 GridView1.DataBind();
                 return;
