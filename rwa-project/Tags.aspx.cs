@@ -22,8 +22,16 @@ namespace rwa_project
 
         private void FillDataInRepeater()
         {
-            Repeater1.DataSource = ((IRepo)Application["database"]).GetTags();
-            Repeater1.DataBind();
+            try
+            {
+                Repeater1.DataSource = ((IRepo)Application["database"]).GetTags();
+                Repeater1.DataBind();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void AddNewTagButton_Click(object sender, EventArgs e)
@@ -57,9 +65,17 @@ namespace rwa_project
                 pnlModal.Visible = false;
                 return;
             }
-            ((IRepo)Application["database"]).DeleteTagById((int)Session["selectedIdForDeleting"]);
-            pnlModal.Visible = false;
-            FillDataInRepeater();
+            try
+            {
+                ((IRepo)Application["database"]).DeleteTagById((int)Session["selectedIdForDeleting"]);
+                pnlModal.Visible = false;
+                FillDataInRepeater();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
     }
 }

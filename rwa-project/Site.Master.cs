@@ -11,7 +11,10 @@ namespace rwa_project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (IsPostBack && Session["user"] != null)
+            {
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)

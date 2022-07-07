@@ -18,8 +18,16 @@ namespace rwa_project
             {
                 Response.Redirect("Login.aspx");
             }
-            ListOfUsers = new List<AspNetUser>();
-            RepoFactory.GetRepo().GetAspNetUsers().ToList().ForEach(a => ListOfUsers.Add(a));
+            try
+            {
+                ListOfUsers = new List<AspNetUser>();
+                ((IRepo)Application["database"]).GetAspNetUsers().ToList().ForEach(a => ListOfUsers.Add(a));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
     }
 }

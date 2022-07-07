@@ -31,7 +31,11 @@
         <div class="d-flex flex-column">
             <div>
                 <label for="StatusDropDownList">Status</label>
-                <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="StatusBound" DataTextField="NameEng" DataValueField="Id" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">                                        
+                <asp:DropDownList ID="ddlStatus" runat="server" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="true">
+                     <asp:ListItem Value="99">Nebitno</asp:ListItem>
+                    <asp:ListItem Value="1">Zauzeto</asp:ListItem>
+                    <asp:ListItem Value="2">Rezervirano</asp:ListItem>
+                    <asp:ListItem Value="3">Slobodno</asp:ListItem>
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="StatusBound" runat="server" ConnectionString="<%$ ConnectionStrings:ApartmentDatabase %>" SelectCommand="GetApartmentStatuses" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
             </div>

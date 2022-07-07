@@ -21,22 +21,28 @@ namespace rwa_project
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            if (!FormIsValid())
+            try
             {
-                return;
+                if (!FormIsValid())
+                {
+                    return;
+                }
+                ((IRepo)Application["database"]).CreateTag(new Tag
+                {
+                    Guid = Guid.NewGuid(),
+                    Name = TagName.Text,
+                    CreatedAt = DateTime.Now,
+                    TypeId = 1,
+                    NameEng = TagEnglishName.Text,
+                });
+
+                    Response.Redirect("Tags.aspx");
+                }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
             }
-            IRepo repimir = RepoFactory.GetRepo();
-
-            repimir.CreateTag(new Tag
-            {
-                Guid = Guid.NewGuid(),
-                Name = TagName.Text,
-                CreatedAt = DateTime.Now,
-                TypeId = 1,
-                NameEng = TagEnglishName.Text,
-            });
-
-            Response.Redirect("Tags.aspx");
         }
 
         private bool FormIsValid()

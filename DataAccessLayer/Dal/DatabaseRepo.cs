@@ -9,8 +9,6 @@ namespace DataAccessLayer.Dal
     public class DatabaseRepo : IRepo
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ApartmentDatabase"].ConnectionString;
-        //private string connectionString = "Data Source=DESKTOP-SUOTGOE\\SQLEXPRESS;Initial Catalog=RwaApartmani;Integrated Security=True";
-
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -395,7 +393,7 @@ namespace DataAccessLayer.Dal
                 command = new SqlCommand(nameof(InsertUserReview), connection);
                 command.Parameters.AddWithValue("userId", review.UserId);
                 command.Parameters.AddWithValue("apartmentId", review.ApartmentId);
-                command.Parameters.AddWithValue("details", review?.Details);
+                command.Parameters.AddWithValue("details", review.Details == null ? "" : review.Details);
                 command.Parameters.AddWithValue("stars", review.Stars);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.ExecuteNonQuery();

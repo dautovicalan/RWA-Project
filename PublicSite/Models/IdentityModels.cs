@@ -16,7 +16,6 @@ namespace PublicSite.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here => this.OrganizationId is a value stored in database against the user
             userIdentity.AddClaim(new Claim("Address", this.Address.ToString()));
-            userIdentity.AddClaim(new Claim("PhoneNumber", this.PhoneNumber));            
 
             return userIdentity;
         }

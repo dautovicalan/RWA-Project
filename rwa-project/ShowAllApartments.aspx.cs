@@ -23,10 +23,18 @@ namespace rwa_project
 
         private void FillData(int sortType = 2)
         {
-            List<Apartment> apartments = ((IRepo)Application["database"]).GetApartments().ToList();
-            SortGivenApartments(sortType, apartments);
-            Repeater1.DataSource = apartments;
-            Repeater1.DataBind();
+            try
+            {
+                List<Apartment> apartments = ((IRepo)Application["database"]).GetApartments().ToList();
+                SortGivenApartments(sortType, apartments);
+                Repeater1.DataSource = apartments;
+                Repeater1.DataBind();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         private void SortGivenApartments(int sortType, List<Apartment> apartments)
@@ -74,17 +82,25 @@ namespace rwa_project
 
         protected void EditButton_Click(object sender, EventArgs e)
         {
-            ((IRepo)Application["database"]).UpdateApartmentById(new Apartment
+            try
             {
-                Id = int.Parse(Session["selectedApartmentId"].ToString()),
-                TotalRooms = int.Parse(txbRoomNumber.Text),
-                MaxAdults = int.Parse(txbAdultsNumber.Text),
-                MaxChildren = int.Parse(txbChildrenNumber.Text),
-                BeachDistance = int.Parse(txbBeachDistance.Text),
-                StatusId = int.Parse(ddlApartmentStatuses.SelectedValue)
-            });
-            FillData();
-            EditApartmentPanel.Visible = false;
+                ((IRepo)Application["database"]).UpdateApartmentById(new Apartment
+                {
+                    Id = int.Parse(Session["selectedApartmentId"].ToString()),
+                    TotalRooms = int.Parse(txbRoomNumber.Text),
+                    MaxAdults = int.Parse(txbAdultsNumber.Text),
+                    MaxChildren = int.Parse(txbChildrenNumber.Text),
+                    BeachDistance = int.Parse(txbBeachDistance.Text),
+                    StatusId = int.Parse(ddlApartmentStatuses.SelectedValue)
+                });
+                FillData();
+                EditApartmentPanel.Visible = false;
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void DeleteButton_Click(object sender, EventArgs e) => pnlModal.Visible = true;
@@ -92,11 +108,19 @@ namespace rwa_project
         protected void btnDeleteCancel_Click(object sender, EventArgs e) => pnlModal.Visible = false;
 
         protected void btnDeleteConfirm_Click(object sender, EventArgs e)
-        {            
-            ((IRepo)Application["database"]).SoftDeleteApartmentById(int.Parse(ApartmentId.Text));
-            pnlModal.Visible = false;
-            EditApartmentPanel.Visible = false;
-            FillData();
+        {
+            try
+            {
+                ((IRepo)Application["database"]).SoftDeleteApartmentById(int.Parse(ApartmentId.Text));
+                pnlModal.Visible = false;
+                EditApartmentPanel.Visible = false;
+                FillData();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void btnAddApartment_Click(object sender, EventArgs e) => Response.Redirect("AddApartment.aspx");
@@ -106,20 +130,42 @@ namespace rwa_project
         {
             int statusId = int.Parse(ddlStatus.SelectedValue.ToString());
             int cityId = int.Parse(ddlCity.SelectedValue.ToString());
+            try
+            {
+                if (statusId == 99)
+                {
+                    Repeater1.DataSource = ((IRepo)Application["database"]).GetApartments();
+                    Repeater1.DataBind();
+                    return;
+                }
 
-            Repeater1.DataSource = ((IRepo)Application["database"]).GetApartmentsFilteredByStatusCity(statusId, cityId);
-            Repeater1.DataBind();
+                Repeater1.DataSource = ((IRepo)Application["database"]).GetApartmentsFilteredByStatusCity(statusId, cityId);
+                Repeater1.DataBind();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Open")
             {
-                Apartment selectedApartment = ((IRepo)Application["database"]).GetApartmentById(int.Parse(e.CommandArgument.ToString()));
-                if (selectedApartment != null)
+                try
                 {
-                    Session["selectedApartmentId"] = selectedApartment.Id;
-                    FillEditForm(selectedApartment);
+                    Apartment selectedApartment = ((IRepo)Application["database"]).GetApartmentById(int.Parse(e.CommandArgument.ToString()));
+                    if (selectedApartment != null)
+                    {
+                        Session["selectedApartmentId"] = selectedApartment.Id;
+                        FillEditForm(selectedApartment);
+                    }
+                }
+                catch (Exception)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                    Response.Redirect("Default.aspx");
                 }
             }
         }
@@ -140,59 +186,108 @@ namespace rwa_project
 
         private void DisplayPictures(int apartId)
         {
-            imgRepeater.DataSource = ((IRepo)Application["database"]).GetAllApartmentPictures(apartId);
-            imgRepeater.DataBind();
+            try
+            {
+                imgRepeater.DataSource = ((IRepo)Application["database"]).GetAllApartmentPictures(apartId);
+                imgRepeater.DataBind();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         private void FillDropDownListsWithTags(int selectedApartmentId)
         {
-            ddlApartmentTags.Items.Clear();
-            ddlAllOtherTags.Items.Clear();
-            ((IRepo)Application["database"]).GetApartmentTags(selectedApartmentId)
-               .ToList().ForEach(element => ddlApartmentTags.Items.Add(new ListItem { Text = element.Name, Value = element.Id.ToString() }));
-            FilterTagsForApartment(selectedApartmentId).ForEach(x => ddlAllOtherTags.Items.Add(new ListItem { Text = x.Name, Value = x.Id.ToString() }));
+            try
+            {
+                ddlApartmentTags.Items.Clear();
+                ddlAllOtherTags.Items.Clear();
+                ((IRepo)Application["database"]).GetApartmentTags(selectedApartmentId)
+                   .ToList().ForEach(element => ddlApartmentTags.Items.Add(new ListItem { Text = element.Name, Value = element.Id.ToString() }));
+                FilterTagsForApartment(selectedApartmentId).ForEach(x => ddlAllOtherTags.Items.Add(new ListItem { Text = x.Name, Value = x.Id.ToString() }));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         private List<Tag> FilterTagsForApartment(int id)
         {
-            List<Tag> allTags = ((IRepo)Application["database"]).GetTags().ToList();
-            List<Tag> existinTags = ((IRepo)Application["database"]).GetApartmentTags(id).ToList();            
-
-            List<Tag> filteredTags = new List<Tag>();
-
-            foreach (Tag item in allTags)
+            try
             {
-                if (!existinTags.Exists(x => x.Id == item.Id))
-                {     
-                    filteredTags.Add(item);
+                List<Tag> allTags = ((IRepo)Application["database"]).GetTags().ToList();
+                List<Tag> existinTags = ((IRepo)Application["database"]).GetApartmentTags(id).ToList();
+
+                List<Tag> filteredTags = new List<Tag>();
+
+                foreach (Tag item in allTags)
+                {
+                    if (!existinTags.Exists(x => x.Id == item.Id))
+                    {
+                        filteredTags.Add(item);
+                    }
                 }
+                return filteredTags;
             }
-            return filteredTags;
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+                return null;
+            }
         }
 
         protected void addOtherTagToApartment_Click(object sender, EventArgs e)
-        {            
-            ((IRepo)Application["database"]).InsertTagToApartment(int.Parse(ApartmentId.Text), int.Parse(ddlAllOtherTags.SelectedValue));
-            FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+        {
+            try
+            {
+                ((IRepo)Application["database"]).InsertTagToApartment(int.Parse(ApartmentId.Text), int.Parse(ddlAllOtherTags.SelectedValue));
+                FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void imgRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Delete")
+            try
             {
-                ((IRepo)Application["database"]).SoftDeleteApartmentPicture(int.Parse(e.CommandArgument.ToString()));
-                DisplayPictures(int.Parse(Session["selectedApartmentId"].ToString()));
+                if (e.CommandName == "Delete")
+                {
+                    ((IRepo)Application["database"]).SoftDeleteApartmentPicture(int.Parse(e.CommandArgument.ToString()));
+                    DisplayPictures(int.Parse(Session["selectedApartmentId"].ToString()));
+                }
+                if (e.CommandName == "SetMain")
+                {
+                    ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()), int.Parse(Session["selectedApartmentId"].ToString()));
+                }
             }
-            if (e.CommandName == "SetMain")
+            catch (Exception)
             {
-                ((IRepo)Application["database"]).UpdateApartmentMainPicture(int.Parse(e.CommandArgument.ToString()), int.Parse(Session["selectedApartmentId"].ToString()));
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
             }
         }
 
         protected void removeTagFromApartmentButton_Click(object sender, EventArgs e)
         {
-            ((IRepo)Application["database"]).DeleteTagFromApartment(int.Parse(ApartmentId.Text), int.Parse(ddlApartmentTags.SelectedValue));
-            FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+            try
+            {
+                ((IRepo)Application["database"]).DeleteTagFromApartment(int.Parse(ApartmentId.Text), int.Parse(ddlApartmentTags.SelectedValue));
+                FillDropDownListsWithTags(int.Parse(ApartmentId.Text));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
     }
 }

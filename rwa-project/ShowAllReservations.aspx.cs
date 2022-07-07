@@ -33,19 +33,21 @@ namespace rwa_project
 
         protected void AddReservationButton_Click(object sender, EventArgs e)
         {
-            if (!cbIsNotRegisteredUser.Checked)
+            try
             {
-                ((IRepo)Application["database"]).CreateApartmentReservationRegisteredUser(new ApartmentReservation
+                if (!cbIsNotRegisteredUser.Checked)
                 {
-                    Guid = Guid.NewGuid(),
-                    CreatedAt = DateTime.Now,
-                    ApartmentId = int.Parse(ddlApartments.SelectedValue),
-                    Details = tbDetails.Text,
-                    UserId = ddlRegisteredUsers.SelectedValue,
-                });
-                GridView1.DataBind();
-                return;
-            }
+                    ((IRepo)Application["database"]).CreateApartmentReservationRegisteredUser(new ApartmentReservation
+                    {
+                        Guid = Guid.NewGuid(),
+                        CreatedAt = DateTime.Now,
+                        ApartmentId = int.Parse(ddlApartments.SelectedValue),
+                        Details = tbDetails.Text,
+                        UserId = ddlRegisteredUsers.SelectedValue,
+                    });
+                    GridView1.DataBind();
+                    return;
+                }
             ((IRepo)Application["database"]).CreateApartmentReservationNonRegisteredUser(new ApartmentReservation
             {
                 Guid = Guid.NewGuid(),
@@ -57,8 +59,14 @@ namespace rwa_project
                 UserPhone = tbUserPhone.Text,
                 UserAddress = tbUserAddress.Text,
             });
-            GridView1.DataBind();
-            CleanForm();
+                GridView1.DataBind();
+                CleanForm();
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
 
         }
 

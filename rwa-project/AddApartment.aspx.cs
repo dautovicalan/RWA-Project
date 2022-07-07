@@ -23,42 +23,58 @@ namespace rwa_project
 
         private void LoadDataToControls()
         {
-            ((IRepo)Application["database"]).GetApartmentOwners()
-                .ToList()
-                .ForEach(owner => OwnersDropDown.Items
-                        .Add(new ListItem { Text = owner.Name, Value = owner.Id.ToString() }));
+            try
+            {
+                ((IRepo)Application["database"]).GetApartmentOwners()
+                       .ToList()
+                       .ForEach(owner => OwnersDropDown.Items
+                               .Add(new ListItem { Text = owner.Name, Value = owner.Id.ToString() }));
 
-            ((IRepo)Application["database"]).GetApartmentStatuses()
-                .ToList()
-                .ForEach(c => StatusDropDown.Items
-                       .Add(new ListItem { Text = c.NameEng, Value = c.Id.ToString() }));
-            ((IRepo)Application["database"]).GetCitys()
-                .ToList()
-                .ForEach(city => CityDropDown.Items
-                        .Add(new ListItem { Text = city.Name, Value = city.Id.ToString() }));
+                ((IRepo)Application["database"]).GetApartmentStatuses()
+                    .ToList()
+                    .ForEach(c => StatusDropDown.Items
+                           .Add(new ListItem { Text = c.NameEng, Value = c.Id.ToString() }));
+                ((IRepo)Application["database"]).GetCitys()
+                    .ToList()
+                    .ForEach(city => CityDropDown.Items
+                            .Add(new ListItem { Text = city.Name, Value = city.Id.ToString() }));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            int createdApartment = RepoFactory.GetRepo().CreateApartment(new Apartment
+            try
             {
-                Guid = Guid.NewGuid(),
-                CreatedAt = DateTime.Now,
-                OwnerId = int.Parse(OwnersDropDown.SelectedValue),
-                TypeId = 999,
-                StatusId = int.Parse(StatusDropDown.SelectedValue),
-                CityId = int.Parse(CityDropDown.SelectedValue),
-                Address = AddressTextBox.Text,
-                Name = NameTextBox.Text,
-                NameEng = NameEngTextBox.Text,
-                Price = double.Parse(PriceTextBox.Text),
-                MaxAdults = int.Parse(maxAdultsSpinner.Text),
-                MaxChildren = int.Parse(maxChildrenSpinner.Text),
-                TotalRooms = int.Parse(totalRoomsSpinner.Text),
-                BeachDistance = int.Parse(beachDistanceSpinner.Text),
-            });
-            SaveImages(createdApartment);
-            Response.Redirect("ShowAllApartments.aspx");
+                int createdApartment = ((IRepo)Application["database"]).CreateApartment(new Apartment
+                {
+                    Guid = Guid.NewGuid(),
+                    CreatedAt = DateTime.Now,
+                    OwnerId = int.Parse(OwnersDropDown.SelectedValue),
+                    TypeId = 999,
+                    StatusId = int.Parse(StatusDropDown.SelectedValue),
+                    CityId = int.Parse(CityDropDown.SelectedValue),
+                    Address = AddressTextBox.Text,
+                    Name = NameTextBox.Text,
+                    NameEng = NameEngTextBox.Text,
+                    Price = double.Parse(PriceTextBox.Text),
+                    MaxAdults = int.Parse(maxAdultsSpinner.Text),
+                    MaxChildren = int.Parse(maxChildrenSpinner.Text),
+                    TotalRooms = int.Parse(totalRoomsSpinner.Text),
+                    BeachDistance = int.Parse(beachDistanceSpinner.Text),
+                });
+                SaveImages(createdApartment);
+                Response.Redirect("ShowAllApartments.aspx");
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Something went wrong')", true);
+                Response.Redirect("Default.aspx");
+            }
             
         }
         private void SaveImages(int createdApartment)

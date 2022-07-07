@@ -151,7 +151,7 @@ namespace PublicSite.Controllers
 
                 return View(PrepareApartmetnReservatioViewModel(selectedApartment));
             }
-            catch (Exception e)
+            catch (Exception)
             {                
                 return View("ApartmentNotFound", id.Value);                
             }
@@ -159,7 +159,7 @@ namespace PublicSite.Controllers
 
         private ApartmentReservationViewModel PrepareApartmetnReservatioViewModel(DataAccessLayer.Model.Apartment selectedApartment)
         {
-            Reservation reska = (Reservation)(Session["reservation"] != null ? Session["reservation"] : new Reservation());
+            Reservation reska = (Reservation)(Session["reservation"] ?? new Reservation());
             Apartment apartko = new Apartment
             {
                 Id = selectedApartment.Id,
